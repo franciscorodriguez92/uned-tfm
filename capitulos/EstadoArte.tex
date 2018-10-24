@@ -6,7 +6,35 @@
 \fancyhead[RE]{\textsc{CAP\'ITULO} \thechapter. Estado del arte}
 \label{ch:EstadoArte}
 
-\noindent Este capítulo describe en mayor detalle la disciplina que nos ocupa, presentando su origen y su historia hasta el presente. Se muestran las técnicas actuales más utilizadas para resolver las tareas más relevantes del tema abordado, así como sus debilidades. La estructura de este capítulo depende mucho del tema del trabajo.
+\noindent El presente capítulo tiene como objetivo presentar al lector la detección del lenguaje machista en redes sociales. Para ello, se realizará una revisión de los trabajos más relevantes en la tarea de detección de lenguaje abusivo y machista, en los que se analizarán los orígenes de esta tarea, las soluciones técnicas y las aportaciones más relevantes.
+
+\section{Detección de lenguaje o discurso del odio (\textbf{\textit{hate speech detection}}) }
+\label{sec:Ejemplo_seccion}
+La detección del lenguaje machista o sexista está muy relacionada con la detección del lenguaje o discurso del odio en redes sociales. Existen numerosos trabajos donde se intenta detectar distintos tipos de lenguaje del odio, entre ellos el sexismo \cite{WATANABE2018,WaseemHovy2016,Georgios2018,Badjatiya2017,Zimmerman2018,Park2017,Waseem2016}. El lenguaje del odio se refiere al uso de lenguaje agresivo, violento u ofensivo hacia un grupo específico de personas que comparten una propiedad en común, sea esta propiedad su género, su raza, sus creencias o su religión \cite{Davidson2017}. Atendiendo a esta definición, se puede considerar la detección del machismo como un caso particular del discurso del odio. Por ello, es muy interesante realizar una evaluación de los trabajos realizados en esta línea de investigación.
+
+La detección del lenguaje del odio es una linea de investigación muy actual, el primer estudio evaluado data del año 2012 \cite{Xiang2012}. En este articulo se emplea un modelo de detección de temas o categorías (\textit{topic modelling}) que explota la concurrencia de palabras para la creación de atributos o \textit{features} que alimentarán un algoritmo de clasificación de aprendizaje de máquina o \textit{machine learning}. En la mayoría de trabajos previos se empleaban soluciones basadas en patrones para la clasificación de tweets. De este modo, este artículo supone un paso muy importante hacia la automatización y a los sistemas basados en algoritmos de \textit{machine learning}. Además, durante la etapa anterior a este artículo, el uso de expresiones coloquiales y soeces en redes sociales hace difícil establecer las fronteras entre el uso de lenguaje ofensivo que no tiene como objetivo despreciar a ningún grupo de personas y el lenguaje del odio \cite{Davidson2017} utilizando patrones extraídos de la utilización del lenguaje.
+
+Durante los últimos tres años, se han sucedido los artículos en la temática y ha aumentado considerablemente la producción científica en este campo. En \cite{WaseemHovy2016} se aporta el primer corpus de referencia anotados que se utilizará posteriormente en \cite{Waseem2016,Georgios2018,Badjatiya2017,Zimmerman2018,Park2017}. Está compuesto por 16.000 \textit{tweets} etiquetados para mensajes sexistas, racistas o sin contenido ofensivo. En este primer trabajo, se sientan las bases de las soluciones aplicadas en el resto de artículos, se utilizan atributos como los \textit{unigramas, bigramas, trigramas} y \textit{cuatri-gramas} y un algoritmo de regresión logística para la clasificación.
+
+En el artículo desarrollado por el mismo autor \cite{Waseem2016} se propone una solución similar pero se amplía el corpus en 4033 \textit{tweets} y se utiliza una plataforma de \textit{crowdsourcing} para anotar los mensajes. Achacan el empeoramiento de los resultados al posible sesgo que se produce en \cite{WaseemHovy2016} ya que los \textit{tweets} solo fueron etiquetados por los autores únicamente.
+
+En el resto de artículos que evalúan su propuesta utilizando el corpus desarrollado por \cite{Waseem2016}, se utilizan redes neuronales para la tarea de clasificación y, en algunos, en la etapa de preprocesamiento. En la solución propuesta por \cite{Zimmerman2018} se aplican redes neuronales convolucionales (\textit{CNN, Convolutional Neural Network}) para codificar el texto y extraer los atributos que se utilizarán para el clasificador final, basado también en CNNs. Esta técnica permite tener en cuenta la posición de la palabra (su contexto) para extraer los atributos de cada \textit{tweet}. Esta misma idea junto con el uso de redes neuronales recurrentes (\textit{RNN, Recurrent Neural Network}) se utiliza en \cite{Badjatiya2017} para obtener los atributos en la etapa de procesamiento. En ambos artículos se consiguen mejorar los resultados alcanzados por \cite{Waseem2016}.
+
+En \cite{Georgios2018} se propone un modelo basado en RNNs para abordar el problema. Además se explora la idea de utilizar atributos como la tendencia al racismo o sexismo utilizando el historial de los usuarios. Se demuestra como el uso de este tipo de atributos mejora notablemente los resultados. Esta misma idea se utiliza en \cite{Chatzakouy2017} donde se detectan cuentas agresivas estudiando al usuario y su red de seguidores.
+
+En todos los artículos revisados anteriormente, se trata el problema como una clasificación múltiple donde el texto se puede clasificar según las etiquetas racismo, sexismo o ninguno. Sin embargo, se podría resolver el problema con un doble clasificador, el primero clasifica si el texto contiene lenguaje abusivo o no y el segundo realizaría la tarea de clasificar en contenido sexista o racista \cite{Park2017}.
+
+Un desafío importante en la detección del lenguaje del odio en redes sociales es la separación entre lenguaje ofensivo y el lenguaje que incita o promueve el odio. Davidson \cite{Davidson2017} aporta un corpus etiquetado de 25.000 \textit{tweets} para diferenciar entre estos 2 tipos de lenguaje. En su trabajo, se propone un modelo similar a \cite{Waseem2016} donde se ponen de manifiesto las dificultades de esta solución para tener en cuenta el contexto de las palabras. De este modo, si se utilizan palabras que pueden expresar odio (por ejemplo, "\textit{gay}") en un contexto positivo, hay muchas probabilidades de que el sistema detecte odio en el texto. Los resultados serán mejorados posteriormente en \cite{WATANABE2018} donde se ampliará el número de\textit{features} y se utilizará un algoritmo basado en árboles de decisión para la tarea de clasificación.
+
+
+
+
+
+
+
+
+
+
 
 \section{Ejemplo sección}
 \label{sec:Ejemplo_seccion}
