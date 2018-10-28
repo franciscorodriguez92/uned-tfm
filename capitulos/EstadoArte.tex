@@ -27,17 +27,23 @@ En todos los artículos revisados anteriormente, se trata el problema como una cl
 Un desafío importante en la detección del lenguaje del odio en redes sociales es la separación entre lenguaje ofensivo y el lenguaje que incita o promueve el odio. Davidson \cite{Davidson2017} aporta un corpus etiquetado de 25.000 \textit{tweets} para diferenciar entre estos 2 tipos de lenguaje. En su trabajo, se propone un modelo similar a \cite{Waseem2016} donde se ponen de manifiesto las dificultades de esta solución para tener en cuenta el contexto de las palabras. De este modo, si se utilizan palabras que pueden expresar odio (por ejemplo, "\textit{gay}") en un contexto positivo, hay muchas probabilidades de que el sistema detecte odio en el texto. Los resultados serán mejorados posteriormente en \cite{WATANABE2018} donde se ampliará el número de\textit{features} y se utilizará un algoritmo basado en árboles de decisión para la tarea de clasificación.
 
 
-
-
-
-
-
-
-
-
-
-\section{Ejemplo sección}
+\section{Detección de la misoginia}
 \label{sec:Ejemplo_seccion}
+La misoginia se define según la RAE como \textit{``Aversión a las mujeres''} \cite{MisoginiaRAE}. El machismo, por contra, se refiere a ``Actitud de prepotencia de los varones respecto de las mujeres'' o ``forma de sexismo caracterizada por la prevalencia del varón'' \cite{MachismoRAE}. Si bien estos dos términos tienen matices distintos, tienen como denominador común la discriminación de las mujeres debido a su sexo. De hecho existen trabajos donde se manifiesta que la misoginia se manifiesta lingüísticamente mediante la exclusión, discriminación, hostilidad, trato de violencia objetificación o cosificación sexual \cite{Anzovino2018,Fersini2018}. Muchas de estas señales textuales de misoginia serían aplicables del mismo modo al machismo \cite{Garazi2014,Giraldo1972}. 
+
+Durante este último año, se ha llevado a cabo la competición IberEval 2018 donde una de las tareas era la detección automática de la misoginia \cite{AMI2018} (AMI, \textit{``Automatic Misogyny Identification''}). En esta tarea se pronone la tarea de identificar la misoginia en \textit{tweets} en español e inglés. En total, participaron 11 equipos distintos de 5 países para la detección en inglés mientras que para la detección en castellano participaron un total de 8 equipos \cite{AMIOverview2018}. Los artículos publicados para esta tarea en castellano resultan de gran interés pues guarda una relación importante con el presente trabajo.
+
+Para la tarea de clasificación, la mayoría de los equipos utilizaron Máquinas de Vectores de Soporte (SVM, \textit{Suppor Vector Machines}) y métodos combinados de aprendizaje (EoC, \textit{Ensemble of Classifiers}). Las técnicas basadas en SVMs fueron utilizadas por \cite{Canos2018,Wahyu2018,Victor2018}. Los equipos \cite{Ahluwalia2018,Shushkevich2018,Frenda2018,Liu2018} aplicaron técnicas EoC mientras que en \cite{Goenaga2018} se exploraron soluciones basadas en redes neuronales.
+
+Las soluciones aportadas por \cite{Canos2018,Wahyu2018} obtuvieron la mejor tasa de aciertos para la detección de la misoginia en castellano. El modelo propuesto por \cite{Canos2018} utiliza \textit{features} basadas en la vectorización de cada tweet utilizando la medida tf-idf (\textit{term frequency - Inverse document frequency}) y, posteriormente, se utiliza un modelo SVM con nucleo lineal para la tarea de clasificación. Esta solución tan sencilla alcanza los mejores resultados para \textit{tweets} en castellano pero empeora considerablemente para el inglés.
+
+Una idea interesante explorada en \cite{Wahyu2018} es el uso de un léxico auxiliar que contenga palabras que se encuentran con frecuencia en textos sexistas. Este léxico fue desarrollado en un trabajo italiano \cite{Mauro2016}. En este modelo se utiliza como clasificador, un modelo basado en SVM con núcleo lineal para el castellano y núcleo radial para el inglés. En este caso, se alcanza la máxima tasa de aciertos en inglés y en español.
+ 
+
+
+
+
+
 
 \subsection{Ejemplo subsección}
 \label{sec:Ejemplo_subSeccion} 
