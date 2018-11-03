@@ -40,10 +40,123 @@ Las soluciones aportadas por \cite{Canos2018,Wahyu2018} obtuvieron la mejor tasa
 Una idea interesante explorada en \cite{Wahyu2018} es el uso de un léxico auxiliar que contenga palabras que se encuentran con frecuencia en textos sexistas. Este léxico fue desarrollado en un trabajo italiano \cite{Mauro2016}. En este modelo se utiliza como clasificador, un modelo basado en SVM con núcleo lineal para el castellano y núcleo radial para el inglés. En este caso, se alcanza la máxima tasa de aciertos en inglés y en español.
  
 
+\section{Clasificación de textos}
+\label{sec:Ejemplo_seccion}
+
+\noindent El procesamiento del lenguaje natural (NPL) tiene como objetivo fundamental el desarrollo de métodos que permitan a los computadores realizar tareas relacionadas con el lenguaje humano, como la comunicación o el procesamiento de textos.
+
+La principal diferencia del PLN con el resto de líneas de investigación relacionadas con el análisis de datos o la inteligencia artificial es la necesidad de un conocimiento del lenguaje en todas sus aplicaciones. Elementos clave del lenguaje como la fonética, fonología, morfología, sintaxis, semántica, pragmática y discursiva son esenciales en cualquier técnica de procesamiento del lenguaje.
+
+Una de las áreas más importantes de investigación relacionadas con el NLP es la clasificación de textos o documentos. De un modo general, se conoce como clasificación automática a la tarea de asignar una o varias categorías predefinidas sobre una colección de instancias a clasificar. Del mismo modo, la clasificación de textos se puede entender como aquella tarea en la que a un documento o texto es etiquetado como perteneciente a un determinado conjunto. Este tipo de técnicas se utilizan para un gran número de aplicaciones:
+ \begin{itemize}
+ 	\itemsep0em 
+	\item Indexación para sistemas de recuperación de información
+	\item Detección de \textit{spam}
+	\item Identificación de lenguaje
+	\item Análisis de sentimientos
+	\item Organización de documentos
+	\item Desambigüación del sentido de las palabras
+	\item Filtrado de textos
+\end{itemize}
+
+Formalmente, el problema se define como un texto o documento $d$ que puede pertenecer a un conjunto fijo de clases $C=\{c_1,c_2,...,c_i\}$. La salida del sistema como predicción la clase $c \in C$.
+
+Para resolver el problema de la clasificación de textos existen dos enfoques principales: basado en reglas y mediante algoritmo de clasificación supervisado.
+
+Los sistemas basados en reglas utilizan patrones predefinidos por un experto para crear un conjunto de pautas mediante la combinación de palabras u otros atributos. En este tipo de arquitecturas la precisión puede ser alta siempre que estas reglas estén cuidadosamente seleccionadas por un experto. Sin embargo, resultan muy costosos de construir y mantener.
+
+El aprendizaje supervisado se construye sobre un conocimiento a priori. Se debe disponer de un conjunto de documentos de ejemplo para cada una de las categorías consideradas. Después de una etapa de entrenamiento, el sistema queda ajustado de modo que, ante nuevos ejemplos, el algoritmo es capaz de clasificarlos en alguna de las clases existentes. Para este tipo de sistemas se utilizan distintos tipos de clasificadores: \textit{Naive Bayes}, \textit{Regresión logística}, \textit{SVM}, \textit{redes neuronales}, etc.
+
+Para construir cualquier clasificador de textos o documentos es necesario seguir los siguientes pasos:
+
+ \begin{itemize}
+	\itemsep0em 
+	\item Extraer los atributos o \textit{features} necesarias para realizar una representación fiel del texto y que permita la utilización de un algoritmo de clasificación
+	\item Desarrollar procedimientos por los cuales los documentos puedan ser clasificados automáticamente dentro de
+	categorías.
+	\item Evaluar la calidad de la clasificación en relación a algún criterio.
+\end{itemize}
 
 
+\subsection{Representación textual}
+\label{sec:Ejemplo_subSeccion} 
+
+\noindent La representación del texto es un paso fundamental para el procesamiento automático de textos. Una representación fiel al contenido del documento que incluya la información necesaria para extraer conocimiento útil será clave para el desarrollo de una arquitectura con un rendimiento adecuado. En este proceso se ha de tener en cuenta las especificaciones de los algoritmos que se empleen a continuación.
+
+En esta fase, se definen todos los atributos utilizados en el paso posterior por el algoritmo de clasificación. Los atributos seleccionados o generados a partir de los originales será lo que marque el éxito de la arquitectura completa. La elección del algoritmo de clasificación para los pasos posteriores influirá de un modo mucho menos significativo. Por ejemplo, en \cite{Victor2018} y \cite{Wahyu2018} se utiliza el mismo algoritmo de clasificación pero los resultados son muy diferentes debido a los atributos utilizados. 
+
+Un modelo de representación muy utilizado se conoce como modelo de representación vectorial. Mediante esta representación, los documentos se modelan como vectores dentro de un espacio euclídeo. De este modo, se pueden aplicar operaciones de distancia entre vectores como indicador de su cercanía según el contenido textual. En la siguiente imagen se muestra un ejemplo en dos dimensiones:
+
+\begin{center}
+	\includegraphics[width=0.4\textwidth]{imagenes/modelo_vectorial.png} %[width=4cm,,keepaspectratio]
+\end{center}
+
+En este caso se tendría un vocabulario con únicamente dos rasgos $w_1$ y $w_2$ que conforman el espacio en el que se encuentran los documentos o textos $d_1$ y $d_2$. De este modo, se pueden emplear medidas de distancia como la distancia euclídea o la distancia coseno para comparar ambos documentos.
+
+Utilizando este modelo, un texto quedará representado como una combinación lineal de vectores donde cada coeficiente representa la relevancia de cada rasgo en el contenido del texto, calculado con una función de pesado. Para un texto $d$, un vocabulario de tamaño $n$: $\vec{d}=t_1j \vec{t_1} + ... + t_nj \vec{t_n} $. Para el cálculo de la relevancia de cada rasgo $t_nj$ se utilizará una función de pesado, una de las más utilizadas se conoce como TF-IDF (frecuencia del termino x frecuencia inversa del documento) y se calcularía del siguiente modo: \[TF-IDF(\vec{t_i},\vec{d_j})=f_{ij}\log(\frac{N}{d_f(\vec{t_i})})\] donde $N$ es la dimensión del corpus (en este caso número de tweets), $f_{ij}$ la frecuencia del término en el documento y $d_f(\vec{t_i})$ el número de documentos (en este caso el tweet) en los que aparece el término.
+
+\subsection{Clasificación}
+\label{sec:Ejemplo_subSeccion} 
+\noindent Como ya se introdujo en apartados anteriores, la clasificación automática de documentos se puede entender como aquella tarea en la que un documento, o una parte del mismo, es etiquetado como perteneciente a un determinado conjunto, grupo o categoría predeterminada.
+
+Los métodos de clasificación supervisados utilizan un conjunto de documentos de ejemplo para cada una de las categorías que presenta la variable objetivo (a clasificar). Estos algoritmos, realizan una etapa de entrenamiento donde se presentan los patrones de ejemplo de modo que ante futuros patrones, el algoritmo será capaz de clasificar en alguna de las clases contenidas en el conjunto de ejemplo. Dentro de este proceso, existen muchas variables que influirán en los resultados del sistema como el tamaño del conjunto de ejemplo, la elección del algoritmo de clasificación o los parámetros de inicialización del mismo.
+
+Existen numerosos tipos de algoritmos de clasificación, a continuación se indican los más importantes para clasificación textual:\todo{Se puede ampliar explicación de cada método}
+ \begin{itemize}
+	\itemsep0em 
+	\item Naive Bayes: Está basado en la teoría de la decisión de Bayes: la teoría de las probabilidades condicionadas. Por tanto, el problema de la clasificación se reduce al cálculo de las probabilidades a posteriori de una clase dado un documento.
+	\item Arboles de decisión: Se trata de un método que a través de un proceso recursivo de las los atributos de entrada, realiza una representación para clasificar el conjunto de datos presentado.
+	\item Máquinas de vectores de soporte: Estos algoritmos pretenden encontrar una hipersuperficie de separación entre clases dentro del espacio de representación.
+	\item Redes Neuronales: Son un modelo computacional compuesto por elementos ("neuronas") interconectados entre sí que aplican una transformación a los datos para producir una salida. Es posible entrenar una red neuronal para que dada una entrada determinada (un vector de representación) produzca una salida deseada (la categoría a la que corresponde ese documento).
+	\item KNN (K-Nearest Neighbour): Este algoritmo se basa en la aplicación de una métrica que establezca la similitud entre un documento que se quiere clasificar y cada uno de los documentos de entrenamiento. La clase o categoría que se asigna al documento sería la categoría del documento más cercano según la métrica establecida.
+\end{itemize}
 
 
+\subsection{Métodos de evaluación}
+\label{sec:Ejemplo_subSeccion} 
+
+\noindent En la última fase de un sistema de clasificación textual, el modelo se evalúa con un conjunto de datos de prueba en el que se conocen las clases a las que pertenecen sus documentos.
+
+Para la evaluación de los resultados se utiliza comúnmente la matriz de confusión. Se trata de una una herramienta que representa en cada columna el número de predicciones de cada clase, mientras que cada fila representa a las instancias en la clase real. En la siguiente imagen se presenta un esquema de la matriz de confusión:
+
+\begin{center}
+	\includegraphics[width=0.9\textwidth]{imagenes/confusion_matrix_1.png} %[width=4cm,,keepaspectratio]
+\end{center}
+
+Esta tabla está formada por verdaderos positivos, verdaderos negativos, falsos positivos y falsos negativos. Utilizando estos cuatro componentes se calculas las medidas principales para evaluar los resultados:
+
+ \begin{itemize}
+	\itemsep0em 
+	\item Precisión: representa la fracción de asignaciones correctas frente al total de asignaciones positivas realizadas para esa clase.
+	\[Precision=\frac{TP}{TP+FP}\]
+	\item Cobertura: representa la fracción de asignaciones positivas respecto al conjunto real de elementos pertenecientes a la clase.
+	\[Precision=\frac{TP}{TP+FN}\]
+	\item Medida-F: combina las dos medidas anteriores.
+	\[Medida-F=\frac{2xprecisionxcobertura}{precision+cobertura}\]
+\end{itemize}
+
+
+\subsection{Corpus disponibles}
+\label{sec:Ejemplo_subSeccion} 
+A continuación se citan algunos corpus que pueden ser utilizados para la detección de lenguaje del odio en textos:
+ \begin{itemize}
+	\itemsep0em 
+	\item IberEval 2018 Automatic Misogyny Identification \cite{AMI2018}: Se trata de un corpus etiquetado que contiene campos que denotan si el texto contenido en un tweet tiene un componente sexista. Fue recogido entre el 20-07-2018 y 30-11-2017 donde se recogieron 83 millones de tweets en inglés y 72 millones en castellano. Para el proceso de etiquetado se utilizadon dos pasos: en el primero dos anotadores etiquetaban el conjunto y en el segundo se utilizó una plataforma de crowdsourcing. Finalmente, se etiquetaron 3521 tweets en inglés y 3307 en español para la fase de entrenamiento. En cuanto al conjunto de test, se compartieron 831 tweets en español y 726 en inglés.
+	\item Corpus etiquetado \cite{WaseemHovy2016}: Está compuesto por 16.000 \textit{tweets} etiquetados para mensajes sexistas, racistas o sin contenido ofensivo. 
+\end{itemize}
+
+
+\section{NLTK: Natural Language Toolkit}
+\label{sec:Ejemplo_seccion}
+\noindent NLTK es una librería que define una infraestructura en la que crear programas para el procesado del lenguaje natural (NLP, ``Natural language processing'') en ``Python''. Provee la estructura básica para representar datos relevantes para el procesado del lenguaje natural, interfaces para realizar tareas como el etiquetado del discurso (POS, ``part-of-speech tagging''), etiquetado sintáctico y clasificación de texto \cite{NLTKweb}.
+
+Esta librería fue desarrollada originalmente en el año 2001 como parte de un curso de lingüística computacional en la universidad de Pennsylvania. Desde entonces, ha sido desarrollado y mejorado por distintos contribuidores al tratarse de un proyecto libre. Actualmente, NLTK es utilizado en gran cantidad de investigaciones y supone un estándar muy importante para realizar tareas relacionadas con NLP. Está compuesto por una cantidad importante de módulos que pueden ser invocados desde un programa escrito en Python. En la siguiente figura se recogen los más importantes \todo{Explicar con más detalle los módulos que utilice en el trabajo} \cite{Bird2009}:
+
+(LA IMAGEN PROVOCA QUE SE DESCUADRE EL DOCUMENTO)
+
+\begin{center}
+	\includegraphics[width=0.9\textwidth]{imagenes/NLTK_modules-1.jpg} %[width=4cm,,keepaspectratio]
+\end{center}
 
 \subsection{Ejemplo subsección}
 \label{sec:Ejemplo_subSeccion} 
