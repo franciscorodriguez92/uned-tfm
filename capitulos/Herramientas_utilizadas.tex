@@ -1,92 +1,29 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Sistema de clasificación automático
+%%% Herramientas utilizadas
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Sistema}
-\fancyhead[RE]{\textsc{CAPÍTULO} \thechapter. Sistema}
-\label{ch:Sistema_Metodo_Caso_de_Estudio}
+\chapter{Herramientas utilizadas}
+\fancyhead[RE]{\textsc{CAPÍTULO} \thechapter. Herramientas utilizadas}
+\label{ch:Herramientas}
 
-\noindent En el presente capítulo se describe el sistema automático de detección del machismo en redes sociales. El sistema está basado en aprendizaje supervisado y emplea distintos atributos unificados para, posteriormente, hacer uso de un algoritmo de aprendizaje de máquina que clasificará los registros de entrada en 3 categorías. De este modo, las expresiones textuales de entrada se clasificarán según el grado de machismo que presenten.
+\noindent En este capítulo se describen en profundidad las distintas herramientas evaluadas para la creación del sistema propuesto. Además, se exponen los motivos por los que se han elegido frente a otras alternativas disponibles.
 
-El sistema ha sido desarrollado teniendo en cuenta la naturaleza del problema tratado. En este caso, como ya se introdujo, se trata de texto en español por lo que método de clasificación estará preparado para trabajar con este idioma. No obstante, la arquitectura del sistema y las técnicas aplicadas pueden ser adaptadas perfectamente para otros idiomas.
+\section{Crawler}
+\label{sec:Ejemplo_seccion}
+\subsection{Amazon Web Services}{}
+\label{sec:Ejemplo_seccion}
+\noindent AWS es una creciente unidad dentro la compañía Amazon.com que ofrece una importante variedad de soluciones de Cloud Computing a empresas tanto PYMES como grandes organizaciones a través de su infraestructura interna siendo la marca más utilizada actualmente en el mercado de la nube con casi un 40\% de cuota de mercado \cite{AWScuota}. Amazon ofrece unos servicios en la nube pública mediante una tarificación de precios en función del tiempo de uso, anchos de banda consumidos, etc. Por lo tanto, su gran ventaja competitiva es ofrecer unos recursos de infraestructura y plataforma poco asumibles a la mayoría de empresas para el periodo que se requiera. 
 
-El sistema propuesto se divide en 3 fases principales, tal y como se puede observar en la siguiente figura.
+Los clientes de AWS tan sólo deben pagar lo que usen del servicio, de esta manera, obtener unos potentes servidores con una plataforma determinada, un espacio de almacenamiento o una gran base de datos supone la adquisición de un hardware que no se aproveche todo el tiempo, que tan sólo interese para un periodo determinado y satisfacer una necesidad puntual, prescindiendo de importantes inversiones en infraestructura. Orientado a empresas, se adapta con total flexibilidad y escalabilidad a las necesidades de Cloud que tenga el cliente, mediante un acuerdo de nivel de servicio, se especifica el nivel de compromiso del servicio, disponibilidad y ofrece un punto de confianza que otros proveedores de nube pública no proporcionan, dato que le da ventaja frente a sus competidores.
+
+Dado que ha sido pionero en el sector y posee una gran cantidad de desarrolladores que trabajan para mejorar el servicio, desde su publicación en 2006, ha sido líder en el sector por delante de Google App Engine, Azure de Microsoft, Alibaba, etc \cite{AWScuota}. Siempre ha ido un paso por delante y le ha permitido innovar en el sector y ofrecer unos precios muy competitivos, soluciones para todos los gustos e importantes acuerdos con Microsoft, IBM y HP como estrategias de marketing para ofrecer software y plataformas propietarias (además de software libre que fue lo primero que se ofrecía con plataformas Linux) en sus imágenes de máquinas virtuales. En la siguiente figura se puede ver un resumen de los servicios de AWS:
 
 \begin{center}
-	\includegraphics[scale=0.4,keepaspectratio]{imagenes/Pipeline_diagrama.jpg} %[width=4cm,,keepaspectratio]
-    \captionof{figure}{Arquitectura clasificador}
-	
+	\includegraphics[width=0.9\textwidth]{imagenes/aws_services.jpg} %[width=4cm,,keepaspectratio]
 \end{center}
 
-En la primera etapa, se realiza un preprocesado diferenciado según el tipo de atributo. En este sistema, se consideran 3 tipos de atributos distintos: variables categóricas, numéricas y texto. Para cada atributo, se aplican diferentes métodos como la tokenización, el escalado o la sustitución de emoticonos. Tras esto, se unifican los distintos tipos de atributos procesados en un conjunto de datos común que será la entrada de la última fase. En la última etapa, se emplean algoritmos de clasificación supervisada con la intención de obtener un modelo predictivo capaz de detectar textos machistas. Se emplean 3 métodos distintos de aprendizaje automático en este último paso: Regresión logística, Random Forest y SVM. Para evaluar los resultados obtenidos con estos algoritmos, se realiza una búsqueda de parámetros de entrada (GridSearchCV) y, posteriormente, se utilizan estos parámetros para realizar una validación cruzada en el conjunto de testeo.
 
-\todo{METER EJEMPLOS}
-\section{Preprocesado}
-\label{sec:Ejemplo_seccion}
-\noindent La primera fase del sistema de clasificación lleva a cabo diferentes acciones relacionadas con el preprocesado. Se realizan tareas tan importantes como la división del texto en tokens que permitirá que la información lingüística sea tratada por las sucesivas etapas del sistema de clasificación. Como se introdujo, el tipo de preprocesado depende del tipo de atributo considerado. 
-
-\subsection{Texto}{}
-\label{sec:Ejemplo_seccion}
-\noindent La variable que contiene el texto contenido en el tweet es la más importante para la realización del sistema de detección del machismo. Idealmente, se debería de encontrar en este atributo todas las señales textuales que indican si el mensaje es machista o no. Para este atributo, se aplican 3 métodos distintos: Preprocesado, tokenizador y creación de atributos tf-idf.
-
-En el preprocesado de texto se llevan a cabo las siguientes acciones:
-
-\begin{itemize}
-	\itemsep0em 
-	\item Filtrado de usuarios:
-	\item Filtrado de hastags:
-	\item Filtrado de URLs:
-	\item Convertidor de hastags:
-	\item Convertidor a minúsculas:
-	\item Reemplazo de exclamaciones:
-	\item Reemplazo de interrogaciones:
-	\item Reemplazo de acentos:
-	\item Reemplazo de signos de puntuación:
-	\item Reemplazo de emojis: 
-
-	
-\end{itemize}
-
-
-
-
-Preprocesador
-Tokenizador
-Atributos tf-idf
-
-
-
-\subsection{Atributos numéricos}{}
-\label{sec:Ejemplo_seccion}
-\noindent La variable que contiene el texto contenido en el tweet es la más importante para la realización del sistema de detección del machismo. Idealmente, se debería de encontrar en este atributo todas las señales textuales que indican si el mensaje es machista.
-
-display\_text\_width
-favorite\_count
-retweet\_count
-followers\_count
-friends\_count
-listed\_count
-statuses\_count
-favourites\_count
-
-
-\subsection{Atributos categóricos}{}
-\label{sec:Ejemplo_seccion}
-\noindent La variable que contiene el texto contenido en el tweet es la más importante para la realización del sistema de detección del machismo. Idealmente, se debería de encontrar en este atributo todas las señales textuales que indican si el mensaje es machista.
-
-source
-respuesta
-respuesta\_screen\_name
-hastag\_presence
-url\_presence
-media\_type
-mentions\_presence
-verified
-
-
-
-
-
+Los diferentes servicios de AWS se incrementan con el paso del tiempo, siendo EC2, S3 y Lambda los que más peso tienen en el presente proyecto:
 
 \begin{itemize}
 	\itemsep0em 
@@ -144,6 +81,9 @@ Esta librería fue desarrollada originalmente en el año 2001 como parte de un cur
 
 (LA IMAGEN PROVOCA QUE SE DESCUADRE EL DOCUMENTO)
 
+\begin{center}
+	\includegraphics[width=0.9\textwidth]{imagenes/NLTK_modules-1.jpg} %[width=4cm,,keepaspectratio]
+\end{center}
 
 \section{Clasificación}
 \label{sec:Ejemplo_seccion}
