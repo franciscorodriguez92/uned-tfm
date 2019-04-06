@@ -20,7 +20,7 @@ El sistema propuesto se divide en 3 fases principales, tal y como se puede obser
 
 En la primera etapa, se realiza un preprocesado diferenciado según el tipo de atributo. En este sistema, se consideran 3 tipos de atributos distintos: variables categóricas, numéricas y texto. Para cada atributo, se aplican diferentes métodos como la tokenización, el escalado o la sustitución de emoticonos. Tras esto, se unifican los distintos tipos de atributos procesados en un conjunto de datos común que será la entrada de la última fase. En la última etapa, se emplean algoritmos de clasificación supervisada con la intención de obtener un modelo predictivo capaz de detectar textos machistas. Se emplean 3 métodos distintos de aprendizaje automático en este último paso: Regresión logística, Random Forest y SVM. Para evaluar los resultados obtenidos con estos algoritmos, se realiza una búsqueda de parámetros de entrada (GridSearchCV) y, posteriormente, se utilizan estos parámetros para realizar una validación cruzada en el conjunto de testeo.
 
-\todo{METER EJEMPLOS}
+
 \section{Preprocesado}
 \label{sec:Ejemplo_seccion}
 \noindent La primera fase del sistema de clasificación lleva a cabo diferentes acciones relacionadas con el preprocesado. Se realizan tareas tan importantes como la división del texto en tokens que permitirá que la información lingüística sea tratada por las sucesivas etapas del sistema de clasificación. Como se introdujo, el tipo de preprocesado depende del tipo de atributo considerado. 
@@ -33,26 +33,38 @@ En el preprocesado de texto se llevan a cabo las siguientes acciones:
 
 \begin{itemize}
 	\itemsep0em 
-	\item Filtrado de usuarios:
-	\item Filtrado de hastags:
-	\item Filtrado de URLs:
-	\item Convertidor de hastags:
-	\item Convertidor a minúsculas:
-	\item Reemplazo de exclamaciones:
-	\item Reemplazo de interrogaciones:
-	\item Reemplazo de acentos:
-	\item Reemplazo de signos de puntuación:
-	\item Reemplazo de emojis: 
+	\item Reemplazo de emojis: Se reemplazan los emojis por una descripción de lo que representa el dibujo. En este caso, resulta útil poder identificar el emoji que se está utilizando ya que puede modificar el significado de la frase. Por ejemplo, en la frase de la siguiente imagen (\todo{Incluir emojis en latex}) se puede observar como el emoji permite identificar como machista la expresión:
+\begin{center}
+	\includegraphics[scale=0.4,keepaspectratio]{imagenes/emoji_machista.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Uso de emoji en contexto machista}	
+\end{center}	
+	\item Filtrado de URLs:Se reemplazan las URLs por la palabra ``\textit{twurl}".
+	\item Reemplazo de acentos: Se eliminan los acentos propios del castellano.
+	\item Filtrado de usuarios: Se reemplazan las menciones de los usuarios (las palabras que comienzan por "@") por la palabra ``\textit{twuser}". De este modo, se identifica cuando se utilizan las menciones omitiendo el usuario concreto.
+	\item Convertidor de hastags: Se realiza una conversión para los \textit{hastags} que utilizan las mayúsculas como separador. Por ejemplo, la frase ``\textit{\#FelizDía}" se convertiría a ``\textit{Feliz Día}".
+	\item Filtrado de hastags: Se reemplazan los \textit{hastags} (las palabras que comienzan por ``\#") por la palabra ``\textit{twhastag}".
+	\item Convertidor a minúsculas: Se convierten todos los caracteres a minúscula.
+	\item Reemplazo de exclamaciones: Se reemplazan los signos de exclamación por la palabra ``\textit{twexclamation}".
+	\item Reemplazo de interrogaciones: Se reemplazan los signos de interrogación por la palabra ``\textit{twinterrogation}".
+	\item Reemplazo de signos de puntuación: Se eliminan los signos de puntuación.
 
-	
 \end{itemize}
 
+Para ilustrar el funcionamiento de la etapa de preprocesado, supongamos el siguiente mensaje:
+\begin{center}
+	\includegraphics[scale=0.4,keepaspectratio]{imagenes/ejemplo_preprocesado.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Ejemplo de preprocesado}	
+\end{center}
+
+Utilizando el preprocesado se obtendría la siguiente oración transformada: ``\textit{esta es la reina de las feministas de verdad o no twinterrogation twuser thumbs\_up twurl}". Como se puede observar, se han convertido los caracteres a minúscula, se ha reemplazado el caracter de interrogación, se ha sustituido la mención del usuario, se reemplaza el emoji por una descripción y se reemplaza la URL.
+
+A partir del texto preprocesado, se realiza la tokenización de cada mensaje. Para llevar a cabo este proceso se utiliza la clase ``TweetTokenizer'' disponible en la librería ``NLTK''. Se trata de un tokenizador desarrollado especificamente para Twitter por lo que resulta muy adecuado para este trabajo.
+
+Durante la tokenización, se realizan 3 tareas: reemplazo abreviaturas, stemming y filtrado de stopwords.
 
 
 
-Preprocesador
-Tokenizador
-Atributos tf-idf
+Atributos tf-idf -> Realizado con los unigramas.
 
 
 
