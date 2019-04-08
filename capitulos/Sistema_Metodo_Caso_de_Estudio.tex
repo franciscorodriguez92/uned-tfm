@@ -27,7 +27,7 @@ En la primera etapa, se realiza un preprocesado diferenciado según el tipo de at
 
 \subsection{Texto}{}
 \label{sec:Ejemplo_seccion}
-\noindent La variable que contiene el texto contenido en el tweet es la más importante para la realización del sistema de detección del machismo. Idealmente, se debería de encontrar en este atributo todas las señales textuales que indican si el mensaje es machista o no. Para este atributo, se aplican 3 métodos distintos: Preprocesado, tokenizador y creación de atributos tf-idf.
+\noindent La variable que contiene el texto contenido en el tweet es la más importante para la realización del sistema de detección del machismo. Idealmente, se debería de encontrar en este atributo todas las señales textuales que indican si el mensaje es machista o no. Para este atributo, se aplican 3 métodos distintos: preprocesado, tokenizador y creación de atributos tf-idf.
 
 En el preprocesado de texto se llevan a cabo las siguientes acciones:
 
@@ -58,13 +58,17 @@ Para ilustrar el funcionamiento de la etapa de preprocesado, supongamos el sigui
 
 Utilizando el preprocesado se obtendría la siguiente oración transformada: ``\textit{esta es la reina de las feministas de verdad o no twinterrogation twuser thumbs\_up twurl}". Como se puede observar, se han convertido los caracteres a minúscula, se ha reemplazado el caracter de interrogación, se ha sustituido la mención del usuario, se reemplaza el emoji por una descripción y se reemplaza la URL.
 
-A partir del texto preprocesado, se realiza la tokenización de cada mensaje. Para llevar a cabo este proceso se utiliza la clase ``TweetTokenizer'' disponible en la librería ``NLTK''. Se trata de un tokenizador desarrollado especificamente para Twitter por lo que resulta muy adecuado para este trabajo.
+A partir del texto preprocesado, se realiza la tokenización de cada mensaje. Para llevar a cabo este proceso se utiliza la clase ``TweetTokenizer'' disponible en la librería ``NLTK''. Se trata de un tokenizador desarrollado específicamente para el texto generado en Twitter. Tras la tokenización, se obtiene para cada mensaje una lista de unidades independientes que, mayoritariamente, representarán palabras, emoticonos y signos de puntuación.
 
-Durante la tokenización, se realizan 3 tareas: reemplazo abreviaturas, stemming y filtrado de stopwords.
+Una vez realizada la tokenización del mensaje, se llevan a cabo tres procesos: filtrado de stopwords, reemplazo de abreviaturas y stemming. Las palabras vacías o stopwords constituyen el grupo de palabras si un significado concreto, por ejemplo, artículos, preposiciones o conjunciones. Este tipo de elementos no aportan información adicional al contexto del mensaje y, por tanto, se eliminan antes del proceso de clasificación.
 
+La tarea llevada a cabo en este trabajo presenta una dificultad añadida por el entorno en el que se utiliza el lenguaje. En las redes sociales, y en Twitter en concreto, se publican mensajes cortos y, frecuentemente, no siguen las reglas convencionales del idioma, de este modo, el uso de abreviaturas o emoticones está muy extendido en este tipo de plataformas. Es por ello, que realizar diccionarios específicos para cada idioma que permitan normalizar este tipo de contenido es muy importante previo a la tarea de clasificación. En este trabajo se utiliza el diccionario en castellano realizado en \cite{Helena2016} que compila diccionarios de palabras ``slang'', abreviaturas, contracciones y emoticones que ayudan al preprocesamiento de textos publicados en redes sociales. Un ejemplo del tipo de expresiones que se reemplazan en este proceso se podría ilustrar del siguiente modo: "\textit{Esta es aki la reuna de las feministas de verdad o no?}". En el ejemplo anterior, se encuentra la palabra coloquial "aki" que normalizada al español sería ``aquí''.
 
+Por último, se aplica un método de stemming para reducir las palabras a su raíz. En este caso, se utiliza el algoritmo de Porter \cite{Porter1980} desarrollado en la década de los ochenta por Martin Porter y basado en un conjunto de reglas aplicadas en cascada para obtener la raíz de las palabras.
 
-Atributos tf-idf -> Realizado con los unigramas.
+Para ilustrar el proceso anterior, se supone el ejemplo de la figura 4.3. Aplicando el proceso de tokenización se obtendría la siguiente lista de tokens: ['reina', 'feminista', 'verdad', 'twinterrog', 'twuser', 'thumbs\_up', 'twurl']. Como se puede observar, se obtiene una lista de palabras, emoticonos y signos de interrogación entre los cuales no se encuentran las palabras vacías.
+
+A partir del texto tokenizado, es necesario representar la información contenida en el texto de un modo interpretable por las etapas posteriores del sistema de clasificación. Para el presente trabajo, se realiza esta representación utilizando vectores de términos \textit{tf-idf} mediante los unigramas de los tokens obtenidos del proceso anterior.
 
 
 
@@ -95,71 +99,3 @@ media\_type
 mentions\_presence
 verified
 
-
-
-
-
-
-\begin{itemize}
-	\itemsep0em 
-	\item Amazon Elastic Compute Cloud (EC2): proporciona servidores virtuales escalables. Proporciona las capacidades de Cloud Computing a sus clientes de manera que permite una configuración y administración de las capacidades de máquinas virtuales que se solicitan a la nube, pudiendo pagar tan sólo el tiempo de computación. Actualmente existen numerosos tipos de instancias con características hardware distintas según los requisitos del usuario.
-	\item Amazon Simple Storage Service (S3): proporciona un Web Service basado en el almacenamiento online para aplicaciones. Este almacenamiento en Internet proporciona una simple interfaz web, como su nombre indica, que puede ser usada para almacenar grandes cantidades de datos en cualquier momento desde cualquier sitio, dando acceso confiable y seguro con SLA, altamente escalable, rápido y barato en la infraestructura de Amazon. Físicamente, los datos están distribuidos por los Data Center de Amazon, pero es algo que permanece ajeno al cliente y de lo que no debe preocuparse (escalabilidad). Su integración con EC2 es esencial para que las imágenes de máquinas virtuales puedan trabajar con datos y objetos almacenados en S3 y tener un espacio donde los desarrolladores puedan trabajar cómodamente incluso poder solicitar más espacio temporal para las máquinas o disponer de varios ?buckets? donde compartir datos entre instancias.
-	\item AWS Lambda: se trata de un servicio de computación sin servidor. Este servicio permite ejecutar código sin aprovisionar ni administrar servidores, pagando únicamente por el tiempo de cómputo que se consuma. De este modo, este servicio permite que se AWS quien se encargue de la administración de las máquinas y el usuario únicamente trabaje en el código que se ejecuta.
-\end{itemize}
-
-La segunda plataforma de cloud computing más importante a nivel mundial es Azure, propiedad de la empresa Microsoft. En este caso, no se ha elegido Microsoft Azure porque ya se contaba con un conocimiento previo en el uso de los servicios de AWS. Además, AWS cuenta con servicios de computación serverless, como AWS Lambda, muy útiles para la realización del crawler. 
-
-\subsection{Twitter API y rtweet}{}
-\label{sec:Ejemplo_seccion}
-\noindent Twitter proporciona múltiples APIs para facilitar el acceso a los datos de su plataforma. De todas ellas, la necesaria para crear el corpus objetivo sería el API REST de Twitter. En concreto, es necesario utilizar la funcionalidad Tweet Search que permite realizar búsquedas de los tweets generados en la plataforma según distintos parámetros de búsqueda.
-
-Dentro del API existen 3 tipos de cuenta según la cantidad de información disponible para consulta: Standard Search, Premium Search y Enterprise Search. De todas ellas, solamente la primera es gratuita por lo que será la utilizada durante el proceso de generación del corpus. Es importante señalar que este tipo de búsqueda presenta algunas limitaciones. Las dos más importantes serían la existencia de una ventana temporal de consulta limitada a 7 días anteriores y, por otra parte, la limitación de descarga de tweets a 18.000 cada 15 minutos.
-
-Para recopilar la información de Twitter, se ha utilizado la herramienta rtweet \cite{rtweet-package}. Se trata de un cliente del lenguaje de programación R para acceder al API de Twitter. Este paquete facilita mucho las tareas habituales como la búsqueda de tweets.
-
-Existen varias alternativas a rtweet como tweetpy para el lenguaje de programación Python o twitteR. Se ha optado por rtweet porque ambas alternativas están más desactualizadas y son proyectos mucho más inactivos
-
-
-\section{Preprocesado y tokenización}
-\label{sec:Ejemplo_seccion}
-
-\noindent En la etapa inicial para la clasificación de textos, se aplican distintas técnicas que permitan Extraer los atributos o \textit{features} necesarias para realizar una representación fiel del texto y que permita la utilización de un algoritmo de clasificación. Existen multitud de procedimientos aplicables en esta etapa como la tokenización, el reconocimiento de entidades nombradas, el etiquetado sintáctico y morfológico:
-
-\begin{itemize}
-	\itemsep0em 
-	\item Tokenización: Permite separar cada palabra o símbolo del corpus en unidades independientes (como palabras) que pueden ser almacenadas para su posterior procesado.
-	\item Reconocimiento de entidades nombradas: Tarea que permite clasificar en categorías predefinidas, como personas, organizaciones, lugares, expresiones de tiempo y cantidades.
-	\item Etiquetado sintáctico: Proceso en el que se busca sobre el espacio de todas las posibles combinaciones de las reglas gramaticales definidas para encontrar la estructura de una oración.
-	\item Etiquetado morfológico: En este proceso se le asigna a cada palabra su función dentro del corpus utilizado. Normalmente, se utilizan 8 etiquetas distintas en la mayoría de los idiomas utilizados en Europa: nombre, verbo, pronombre, preposición, adverbio, conjunción, partícula y articulo.
-\end{itemize}
-
-Para aplicar este tipo de técnicas, existen gran cantidad de proyectos o librerías de computación disponibles. Algunas de las más utilizadas son las siguientes:
-
-\begin{itemize}
-	\itemsep0em 
-	\item Freeling: Es una librería que soporta el lenguaje español y se utiliza en \cite{Frenda2018}. Pese a que tiene mucha de las características que se necesitan, tiene una menor comunidad y está menos extendido que algunas del resto de las herramientas.
-	\item Stanford Parser: Se trata de una librería desarrollada por el grupo de trabajo de NLP de la universidad de Stanford.
-	\item TweetNLP: Librería desarrollada específicamente para le procesado de tweets. Su uso no está muy extendido.
-	\item Spacy: Se utiliza en \cite{Waseem2016} y permite aplicar las técnicas de procesado de un modo eficiente.
-	\item NLTK: Se trata de la librería más extendida para el preprocesamiento, se utiliza en \cite{Zimmerman2018,Davidson2017,Frenda2018}.
-\end{itemize}
-
-De todas las herramientas listadas, se ha optado por la librería NLTK. Se trata de una librería muy extendida que cuenta con una gran comunidad y permite un desarrollo muy ágil. Algunas librerías como Freeling o Stanford Parser requieren varias dependencias para poder ser utilizadas.
-
-La mejor alternativa a NLTK considerada sería Spacy. Su uso está aumentando y su funcionamiento es muy similar ya que ambas están desarrolladas en Python. Se ha optado por NLTK porque aún sigue siendo más utilizada.
-
-\subsection{NLTK: Natural Language Toolkit}{}
-\label{sec:Ejemplo_seccion}
-\noindent NLTK es una librería que define una infraestructura en la que crear programas para el procesado del lenguaje natural (NLP, ``Natural language processing'') en ``Python''. Provee la estructura básica para representar datos relevantes para el procesado del lenguaje natural, interfaces para realizar tareas como el etiquetado del discurso (POS, ``part-of-speech tagging''), etiquetado sintáctico y clasificación de texto \cite{NLTKweb}.
-
-Esta librería fue desarrollada originalmente en el año 2001 como parte de un curso de lingüística computacional en la universidad de Pennsylvania. Desde entonces, ha sido desarrollado y mejorado por distintos contribuidores al tratarse de un proyecto libre. Actualmente, NLTK es utilizado en gran cantidad de investigaciones y supone un estándar muy importante para realizar tareas relacionadas con NLP. Está compuesto por una cantidad importante de módulos que pueden ser invocados desde un programa escrito en Python. En la siguiente figura se recogen los más importantes \todo{Explicar con más detalle los módulos que utilice en el trabajo} \cite{Bird2009}:
-
-(LA IMAGEN PROVOCA QUE SE DESCUADRE EL DOCUMENTO)
-
-
-\section{Clasificación}
-\label{sec:Ejemplo_seccion}
-
-
-\subsection{Ejemplo subsección}
-\label{sec:Ejemplo_subSeccion} 

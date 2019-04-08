@@ -31,11 +31,11 @@
   year      = {2017},
 }
 
-@InProceedings{Zimmerman2018,
-  author    = {Steven Zimmerman, Chris Fox, Udo Kruschwitz},
-  title     = {Improving Hate Speech Detection with Deep Learning Ensembles},
-  booktitle = {Proceedings of the Eleventh International Conference on Language Resources and Evaluation (LREC 2018)},
-  year      = {2018},
+@InProceedings{Porter1980,
+  author    = {Porter, M.},
+  title     = {An algorithm for suffix stripping},
+  booktitle = {Program 14.3},
+  year      = {1980},
 }
 
 @InProceedings{Park2017,
@@ -260,6 +260,20 @@
   year   = {2018},
   note   = {R package version 0.6.7},
   url    = {https://cran.r-project.org/package=rtweet},
+}
+
+@InProceedings{Helena2016,
+  author    = {Helena Gómez-Adorno, Ilia Markov, Grigori Sidorov},
+  title     = {Compilación de un lexicón de redes sociales para la identificación de perfiles de autor},
+  booktitle = {Centro de Investigación en Computación, México},
+  year      = {2016},
+}
+
+@InProceedings{Zimmerman2018,
+  author    = {Steven Zimmerman, Chris Fox, Udo Kruschwitz},
+  title     = {Improving Hate Speech Detection with Deep Learning Ensembles},
+  booktitle = {Proceedings of the Eleventh International Conference on Language Resources and Evaluation (LREC 2018)},
+  year      = {2018},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
