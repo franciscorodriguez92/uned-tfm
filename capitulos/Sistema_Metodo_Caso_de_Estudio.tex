@@ -18,7 +18,7 @@ El sistema propuesto se divide en 3 fases principales, tal y como se puede obser
 	
 \end{center}
 
-En la primera etapa, se realiza un preprocesado diferenciado según el tipo de atributo. En este sistema, se consideran 3 tipos de atributos distintos: variables categóricas, numéricas y texto. Para cada atributo, se aplican diferentes métodos como la tokenización, el escalado o la sustitución de emoticonos. Tras esto, se unifican los distintos tipos de atributos procesados en un conjunto de datos común que será la entrada de la última fase. En la última etapa, se emplean algoritmos de clasificación supervisada con la intención de obtener un modelo predictivo capaz de detectar textos machistas. Se emplean 3 métodos distintos de aprendizaje automático en este último paso: Regresión logística, Random Forest y SVM. Para evaluar los resultados obtenidos con estos algoritmos, se realiza una búsqueda de parámetros de entrada (GridSearchCV) y, posteriormente, se utilizan estos parámetros para realizar una validación cruzada en el conjunto de testeo.
+En la primera etapa, se realiza un preprocesado diferenciado según el tipo de atributo. En este sistema, se consideran 3 tipos de atributos distintos: variables categóricas, numéricas y texto. Para cada atributo, se aplican diferentes métodos como la tokenización, el escalado o la sustitución de emoticonos. Tras esto, se unifican los distintos tipos de atributos procesados en un conjunto de datos común que será la entrada de la última fase. En la última etapa, se emplean algoritmos de clasificación supervisada con la intención de obtener un modelo predictivo capaz de detectar textos machistas. Se emplean 3 métodos distintos de aprendizaje automático en este último paso: Regresión logística, Random Forest y Máquinas de vectores de soporter (SVM, ``Support Vector Machine''). Para evaluar los resultados obtenidos con estos algoritmos, se realiza una búsqueda de parámetros de entrada (GridSearchCV) y, posteriormente, se utilizan estos parámetros para realizar una validación cruzada en el conjunto de testeo.
 
 
 \section{Preprocesado}
@@ -74,28 +74,43 @@ A partir del texto tokenizado, es necesario representar la información contenida
 
 \subsection{Atributos numéricos}{}
 \label{sec:Ejemplo_seccion}
-\noindent La variable que contiene el texto contenido en el tweet es la más importante para la realización del sistema de detección del machismo. Idealmente, se debería de encontrar en este atributo todas las señales textuales que indican si el mensaje es machista.
+\noindent Otro tipo de atributo que se utiliza en el presente sistemas son los numéricos. En este caso particular se consideran los siguientes atributos numéricos:
 
-display\_text\_width
-favorite\_count
-retweet\_count
-followers\_count
-friends\_count
-listed\_count
-statuses\_count
-favourites\_count
+\begin{itemize}
+	\itemsep0em 
+	\item display\_text\_width: número de caracteres del tweet. 
+	\item favorite\_count: número de veces que el tweet ha sido marcado como favorito.
+	\item retweet\_count: número de veces que el tweet ha sido retwiteado.
+	\item followers\_count: número de seguidores del usuario que publica el tweet.
+	\item friends\_count: número de personas seguidas por el usuario que publica el tweet.
+	\item listed\_count: número de listas en las que está inscrito el usuario que publica el tweet.
+	\item statuses\_count: número de tweets publicados por el usuario que publicó el tweet.
+	\item favourites\_count: número de tweets que el usuario que publicó el tweet marcó como favorito.
+\end{itemize}
+
+El uso de este tipo de atributos permite tener en cuenta distintos aspectos del contexto en el que se genera el tweet. Por ejemplo, existe un grupo de atributos como favorite\_count o retweet\_count que mide la popularidad del tweet. Por otra parte, existen campos como followers\_count que miden la popularidad del usuario que publica el tweet. Además, otros campos como display\_text\_width demuestran tener una relevancia especial para los tweets etiquetados con categoria ``DUDOSO''.
+
+En los atributos numéricos se realizan únicamente 2 procesos: imputación de valores nulos y escalado. En este caso, se imputan los valores nulos sustituyéndolos por 0. Para el escalado, se realiza una estandarización para que en los valores numéricos se consiga una media nula y una desviación estándar de uno.
 
 
 \subsection{Atributos categóricos}{}
 \label{sec:Ejemplo_seccion}
-\noindent La variable que contiene el texto contenido en el tweet es la más importante para la realización del sistema de detección del machismo. Idealmente, se debería de encontrar en este atributo todas las señales textuales que indican si el mensaje es machista.
 
-source
-respuesta
-respuesta\_screen\_name
-hastag\_presence
-url\_presence
-media\_type
-mentions\_presence
-verified
+\noindent El último tipo de atributo que se emplea son los atributos categóricos. Para este sistema se consideran los siguientes atributos categóricos:
+
+\begin{itemize}
+	\itemsep0em 
+	\item source: tipo de dispositivo con el que se publica el tweet. 
+	\item respuesta: indica si el tweet es una respuesta a otro.
+	\item respuesta\_screen\_name: nombre del usuario al que se responde.
+	\item hastag\_presence: indica la presencia de ``hastags'' en el tweet.
+	\item url\_presence: indica la presencia de URLs en el tweet.
+	\item media\_type: indica si el tweet contiene imagenes o videos.
+	\item mentions\_presence: indica la presencia de la mención a algún usuario en el tweet.
+	\item verified: indica si el usuario que publica el tweet es verificado por Twitter.
+\end{itemize}
+
+Al igual que en el caso de los atributos numéricos, el uso de algunos de estos atributos categóricos intentan recoger el contexto en el que se publica el mensaje, por ejemplo, el campo ``verified'' mide la influencia del usuario y los atributos ``url\_presence'' o ``media\_type'' indica si el mensaje comparte otro contenido distinto a su texto.
+
+En los atributos categóricos únicamente se aplica una transformación para convertir esta información a tipo numérico. En este caso se emplea la codificación ``one-hot'' que crea un nuevo atributo por cada valor del atributo categórico asignando 1 ó 0 según la existencia o no de ese valor para cada registro.
 
