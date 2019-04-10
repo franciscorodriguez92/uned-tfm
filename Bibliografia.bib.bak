@@ -32,10 +32,9 @@
 }
 
 @InProceedings{Porter1980,
-  author    = {Porter, M.},
-  title     = {An algorithm for suffix stripping},
-  booktitle = {Program 14.3},
-  year      = {1980},
+  author = {Porter, M.},
+  title  = {An algorithm for suffix stripping},
+  year   = {1980},
 }
 
 @InProceedings{Park2017,

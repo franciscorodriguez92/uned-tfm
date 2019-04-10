@@ -85,9 +85,78 @@ Esta librería fue desarrollada originalmente en el año 2001 como parte de un cur
 	\includegraphics[width=0.9\textwidth]{imagenes/NLTK_modules-1.jpg} %[width=4cm,,keepaspectratio]
 \end{center}
 
-\section{Clasificación}
+\section{Scikit-learn}
 \label{sec:Ejemplo_seccion}
 
+\noindent Tal y como se ha ido introduciendo, el objetivo final del presente trabajo es la detección del lenguaje machista en las redes sociales. Este problema se puede modelar como una clasificación de documentos en los que en este caso se asignará una categoría a cada uno de los mensajes que conforman el corpus. 
 
-\subsection{Ejemplo subsección}
-\label{sec:Ejemplo_subSeccion} 
+En la actualidad, la mayoría de trabajos llevan a cabo esta tarea mediante algoritmos o ténicas de aprendizaje supervisado \cite{Zimmerman2018,Davidson2017,AMIOverview2018}. Para el desarrollo de este tipo de métodos se utilizará la librería ``scikit-learn'' muy utilizada en proyectos de clasificación de documentos \cite{Ahluwalia2018}.
+
+Scikit-learn \cite{Pedregosa2011}  es un proyecto que provee una librería de aprendizaje de máquina para el entorno de programación ``Python''. El objetivo principal del proyecto es establecer un conjunto de herramientas dentro de un entorno de programación que sea accesible a usuarios no expertos. Esta librería incluye algoritmos clásicos de aprendizaje de máquina, herramientas para la selección, evaluación de modelos y preprocesado.
+
+Todo los modelos de aprendizaje supervisados o funciones auxiliares relacionadas con el procesado de datos utilizados en el presente trabajo están implementados o han sido desarrollados con ayuda de funciones disponibles en la librería scikit-learn.
+
+Todos los objetos dentro de la librería comparten un API básica compuesta por 3 interfaces complementarias: ``estimators'' que permiten construir y ajustar modelos, ``predictors'' para realizar predicciones y ``transformers'' que permiten realizar conversiones a los datos.
+
+\subsection{``Estimators''}
+\label{sec:Ejemplo_subSeccion}
+
+\noindent La interfaz ``estimator'' define objetos y provee de un método ``fit'' para ajustar un modelo a los datos de entrenamiento. Todos los algoritmos supervisados y no supervisados implementados en la librería son tratados como objetos implementando esta interfaz. Otro tipo de tareas relacionadas con el aprendizaje de máquina como la selección de atributos o métodos para la reducción de la dimensionalidad también utilizan el interfaz ``estimator''.
+
+La inicialización de un ``estimator'' y el ajuste de un modelo a los datos de entrenamiento están diferenciados en la librería. Un ``estimator'' se puede inicializar un con conjunto de parámetros de entrada (por ejemplo, el parámetro C para SVM) y, posteriormente, se utiliza el método ``fit'' para realizar el proceso de ajuste a los datos de entrenamiento. En el siguiente código se ilustra esta funcionalidad:
+
+\begin{lstlisting}[language=Python]
+from sklearn.ensemble import RandomForestClassifier
+rf = RandomForestClassifier(n_estimators=250)
+rf.fit(X_train, y_train)
+\end{lstlisting}
+
+En el código anterior, primero se inicializa un ``estimator'' estableciendo el argumento ``n\_estimator''. Tras esto, se realiza una llamada al método ``fit'' para realizar el ajuste utilizando los datos de entrenamiento.
+
+
+\subsection{``Predictors''}
+\label{sec:Ejemplo_subSeccion}
+
+\noindent La interfaz ``predictor'' extiende la funcionalidad del ``estimator'' añadiendo el método ``predict''. Este método devuelve un vector de predicciones tomando como entrada una matriz con los datos de testeo. Ampliando el ejemplo anterior:
+
+\begin{lstlisting}[language=Python]
+y_pred = rf.predict(X_test)
+\end{lstlisting}
+
+
+\subsection{``Transformers''}
+\label{sec:Ejemplo_subSeccion}
+
+\noindent Antes de aplicar un método de clasificación supervisada, suele ser habitual realizar filtrados o modificaciones en los datos, para ello, ``scikit-learn'' implementa la interfaz ``transformer'' para llevar a cabo este tipo de tareas.
+
+Esta interfaz define el método ``transform'' que toma como entrada una matriz de datos y devuelve como salida una versión transformada de estos datos. Algunas de las transformaciones más comunes pueden ser la selección de atributos, preprocesado o métodos de reducción de dimensionalidad. Un ejemplo de preprocesado podría ser el estandarizado de un conjunto de datos:
+
+\begin{lstlisting}[language=Python]
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+scaler.fit(X_train)
+X_train = scaler.transform(X_train)
+\end{lstlisting}
+
+
+\subsection{``Pipelines y selección de modelos''}
+\label{sec:Ejemplo_subSeccion}
+
+\noindent ``Scikit-learn'' permite componer nuevos ``estimators'' utilizando otros lo que permite crear flujos de trabajo en un único objeto. Este tipo de tarea se puede realizar de dos modos: mediante ``Pipeline'' utilizando un modelo secuencial o mediante ``FeatureUnion''.
+
+Los objetos ``Pipeline'' encadenan ``estimators'' en un único objeto. Esto permite crear flujos de trabajo siguiendo un número fijo de pasos, por ejemplo: extracción de atributos, reducción de dimensionalidad, ajuste de un modelo y realización de de predicciones.
+
+Los objetos ``FeatureUnion'' combinan multiples ``transformers'' en uno único y concatena los resultados. De este modo, este tipo de objeto es capaz de realizar transformaciones distintas sobre el mismo conjunto de datos o sobre una parte del mismo.
+
+Ambos objetos pueden ser combinados para crear flujos de trabajo más complejos. Por ejemplo, en el siguiente código se combinan dos ``Pipeline'' utilizando ``FeatureUnion'' y se añade un último paso ``clf'' que añade un clasificador.
+\begin{lstlisting}[language=Python]
+Pipeline([('feature-union', 
+	FeatureUnion([('text-features', text_pipeline), 
+	('other-features', preprocess_pipeline)])),
+	('clf', LogisticRegression(penalty = ``L2'')])
+
+\end{lstlisting}
+
+
+En ``scikit-learn'' es posible realizar selección de modelos mediante el meta-estimador ``GridSearchCV''. Este método toma como entrada un ``estimator'' cuyos parámetros de entrada deben de ser optimizados. Para ello, se definen todos los valores que se deben de tener en cuenta en el proceso para cada parámetro de entrada.
+
