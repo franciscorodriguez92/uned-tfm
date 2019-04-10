@@ -116,10 +116,33 @@ En los atributos categóricos únicamente se aplica una transformación para conver
 
 \section{Unión de atributos}
 \label{sec:Ejemplo_seccion}
-\noindent La primera fase del sistema de clasificación lleva a cabo diferentes acciones relacionadas con el preprocesado. Se realizan tareas tan importantes como la división del texto en tokens que permitirá que la información lingüística sea tratada por las sucesivas etapas del sistema de clasificación. Como se introdujo, el tipo de preprocesado depende del tipo de atributo considerado. 
+\noindent En la segunda fase del sistema, se combinan todos los atributos que han sido preprocesados en la etapa anterior. Para cada tipo de atributo se ha realizado un procesamiento distinto con la idea de adecuar el acondicionar el conjunto de datos que se utilizará para ajustar un modelo de aprendizaje supervisado.
+
+En esta etapa se combinan los 3 tipos distintos de atributos que se consideran:
+
+\begin{itemize}
+	\itemsep0em 
+	\item texto: contiene los atributos tf-idf extraídos del texto preprocesado.
+	\item numéricos: se incorporan todos los atributos numéricos considerados habiendo realizado previamente un proceso de estandarización.
+	\item categóricos: se incorporan todos los atributos categóricos considerados habiendo realizado una transformación de sus valores a atributos numéricos.
+\end{itemize}
+
+La salida de esta etapa será un conjunto de datos que contendrán los 3 tipos de atributos descritos que serán la entrada de la última fase del sistema.
 
 \section{Clasificación}
 \label{sec:Ejemplo_seccion}
-\noindent La primera fase del sistema de clasificación lleva a cabo diferentes acciones relacionadas con el preprocesado. Se realizan tareas tan importantes como la división del texto en tokens que permitirá que la información lingüística sea tratada por las sucesivas etapas del sistema de clasificación. Como se introdujo, el tipo de preprocesado depende del tipo de atributo considerado. 
+\noindent La última etapa del sistema realiza el ajuste de un algoritmo de aprendizaje de máquina a los datos obtenidos en las fases anteriores.
 
-GridSearch para 3 métodos de clasificación + baseline
+Para la tarea de clasificación se emplean 3 algoritmos distintos disponibles en ``scikit-learn'': Regresión logística, Random Forest y SVM. Para todos ellos, se realiza una búsqueda de parámetros óptimos para distintas configuraciones teniendo en cuenta el tiempo de computación de esta búsqueda:
+
+\begin{itemize}
+	\itemsep0em 
+	\item Línea base 1: Se clasifican todos los registros del testeo con la categoria mayoritaria.
+	\item Línea base 2 (atributos de texto): Se aplica regresión logística con la siguiente búsqueda de parámetros C = [1, 10], class\_weight' = [None, 'balanced'].
+	\item Regresión logística (atributos numéricos, categóricos y texto): Se aplica una regresión logística a todos los atributos disponibles con la siguiente búsqueda de parametros: C = [1, 10], class\_weight' = [None, 'balanced'].
+	\item Random Forest (atributos numéricos, categóricos y texto): Se utiliza el algoritmo Random Forest con todos los atributos disponibles y los siguientes parámetros: n\_estimators" = [250, 450], bootstrap' = (True, False), max\_depth'= [None, 30].
+	\item SVM (atributos numéricos, categóricos y texto):Se utiliza el algoritmo SVM con todos los atributos disponibles y los siguientes parámetros: C = [1, 10, 100, 10000], gamma = [0.001, 0.1, 0.6, 'auto'], kernel = 'rbf'.
+\end{itemize}
+
+Se ha seleccionado un subconjunto muy reducido para cada configuración debido a las limitaciones computacionales.
+
