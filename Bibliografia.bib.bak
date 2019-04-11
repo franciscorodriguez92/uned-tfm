@@ -275,4 +275,37 @@
   year      = {2018},
 }
 
+@InProceedings{Pedregosa2011,
+  author    = {F. Pedregosa, G. Varoquaux, A. Gramfort},
+  title     = {Scikit-learn: Machine learning in Python},
+  booktitle = {JMLR},
+  year      = {2011},
+}
+
+@Misc{TwitterHilo,
+  title = {https://psicologiaymente.net/reflexiones/frases-machistas},
+  year  = {2017},
+  url   = {https://help.twitter.com/en/rules-and-policies/hateful-conduct-policy},
+}
+
+@Misc{Pais,
+  author = {El País},
+  title  = {https://verne.elpais.com/verne/2017/04/17/articulo/1492412360_237040.html},
+  year   = {2017},
+  url    = {https://help.twitter.com/en/rules-and-policies/hateful-conduct-policy},
+}
+
+@Misc{ElPais,
+  author = {Ana Isabel Bernal},
+  title  = {https://verne.elpais.com/verne/2017/11/25/articulo/1511634518_358211.html},
+  year   = {2017},
+  url    = {https://help.twitter.com/en/rules-and-policies/hateful-conduct-policy},
+}
+
+@Misc{TwitterSexism,
+  title = {https://verne.elpais.com/verne/2017/04/17/articulo/1492412360-237040.html},
+  year  = {2017},
+  url   = {https://help.twitter.com/en/rules-and-policies/hateful-conduct-policy},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}
