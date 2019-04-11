@@ -20,15 +20,19 @@ Descartadas las expresiones siguientes por tener menos de 100 tweets.
 "pareces una fulana"	5
 "no ha probado un hombre"	1
 
-3 - Etiquetado del corpus (las definiciones de la guía de anotación)
-3.1-Ejemplos de la guía de anotación
-3.2-Problemas encontrados: ambiguedad, citaciones de expresiones machistas, tweets en los que tuvimos desacuerdo total
-3.3 - Herramienta utilizada para el etiquetado (google drive)
-3-4 - Cruce entre el resultado de los anotadores y el resto de campos
-3.4 - Kappa alcanzado, acuerdo entre anotadores (meter métricas de Excel).
+
+
 5- Resultados:
 5.0- Campos disponibles en el API de Twitter (En el trabajo de MW)
 5.1-Análisis preliminar del corpus: Número de tweets
+
+
+3 - Etiquetado del corpus (las definiciones de la guía de anotación)
+3.1-Ejemplos de la guía de anotación
+3.2-Problemas encontrados: ambiguedad (tweets en los que tuvimos desacuerdo total), citaciones de expresiones machistas, redefinición de las reglas de etiquetado por fallo del kappa en el 20%
+3.3 - Herramienta utilizada para el etiquetado (google drive)
+3-4 - Cruce entre el resultado de los anotadores y el resto de campos
+3.4 - Kappa alcanzado, acuerdo entre anotadores (meter métricas de Excel).
 5.2-Análisis de la exploración del corpus de spyder
 
 6 - Adjuntar como anexo la guía de anotación
@@ -211,10 +215,9 @@ La expresión ``loca del'' se utiliza de forma despectiva hacia las mujeres:
 La frase ``obsesionada con el machismo'' se utiliza para restar importancia a la denuncia del machismo que realizan las mujeres:
 
 
-``\textit{YA no me gusta tanto como antes, lo siento, es una engreida, y le gusta buscar broncas, por la cara, de broma dice, y está obsesionada con el machismo. Desde que defiende en \#Supervivientes a Sofia, se califica sola. Me encantó su amistad con @LauraM\_SV ,hasta ahí!}''
+``\textit{Típica obsesionada con el machismo, el patriarcado y franco. De ahí no la sacas. No evoluciona}''
 
-``\textit{En mi opinión estás un poco obsesionada con el machismo. Lo digo porque hasta citas mi tuit para que vean "mi machismo". Y como te digo, Jorge Mc, de seguro tu comenzaste a agredirlo. Supongo que estás en contra de los ambulantes también
-	Saludos }''
+``\textit{Feliz día de la gente tontaca obsesionada con el machismo}''
 
 Otra expresión que minusvalora las habilidades de la mujer sería ``para ser mujer'':
 
@@ -248,11 +251,13 @@ Otra expresión machista utilizada en Twitter es ``hombre que te aguante'':
 Otra expresión machista utilizada en Twitter es ``acabaras sola'':
 
 
-``\textit{En fín, tu sigue así nena, que acabarás sola}''
+``\textit{\#SomosLaAudiencia21F  SOFIA:   ¡ eres patética, no, lo siguiente ¡  Deja a ALEJANDRO en paz de una vez. 
+	ERES TAN PREPOTENTE que quieres ver a todos los hombres arrastrándose por ti.
+	ACABARÁS SOLA......... TIEMPO AL TIEMPO....}''
 
-``\textit{Acabarás sola, vieja, con gatos y escuchando techno}''
+``\textit{Nunca encontrarás un hombre que te sorpote. Acabarás sola, vieja, con gatos y escuchando techno}''
 
-Otro insulto muy recurrente es ?mojigata?:
+Otro insulto muy recurrente es ``mojigata'':
 
 
 ``\textit{?\#EnLaPedaNuncaFalta la mojigata persinada que con 3 tequilas encima es más fácil que la tabla del 1. }''
@@ -309,11 +314,345 @@ Por último, el insulto ``lagartona'' se utiliza de forma despectiva hacia las mu
 ``\textit{No quiero depender de nadie. No soy una lagartona ni la zorrita de nadie, si no un hombre}''
 
 
-\section{Métricas de evaluación}
+\section{Generación del corpus, ``\textit{Crawler}''}
 \label{sec:Metric_Eval}
 
-\section{Colecciones de evaluación}
+\noindent En este apartado, se especifica el proceso utilizado para extraer la información deseada de Twitter. En la fase de creación del corpus se ha utilizado el API de Twitter a través del paquete \textit{rtweet} disponible para el lenguaje de programación R. 
+
+Se ha desarrollado un \textit{Crawler} que recopila 100 tweets de cada término del la tabla 4.1, idealmente, serían 2900 tweets. De este modo, no se superaría el límite diario del API de Twitter y se recopilaría bastante información diaria. Al llegar a 15000 tweets para un término, se considera que hay suficiente información y se dejará de buscar los tweets que lo contengan.
+
+Al recolectar todos los tweets, se eligirán aleatoriamente 150 tweets para cada término. Por tanto, será un requisito obtener, al menos, 150 tweets para cada término para poder ser considerado.
+
+Para esta tarea, se ha estado recopilando información con el \textit{Crawler} durante las fechas 1/07/2018-31/12/2018, haciendo un total de 6 meses de información. Durante este periodo, el \textit{Crawler} recolectó un total de 181792 tweets para todos los términos. Para cada \textit{tweet}, el API de Twitter permite acceder a 42 atributos distintos:
+
+\begin{itemize}
+\itemsep0em 
+\item status\_id: identificador único del tweet.             
+\item created\_at: fecha de creación del tweet.      
+\item user\_id: identificador único de usuario.              
+\item screen\_name: alias que el usuario utiliza para identificarse.
+\item text: mensaje del tweet.                  
+\item source: dispositivo/cliente utilizado para publicar el mensaje.                
+\item reply\_to\_status\_id: si es una respuesta, indica el id del tweet original.    
+\item reply\_to\_user\_id: si es una respuesta, indica el id del usuario original.      
+\item reply\_to\_screen\_name: si es una respuesta, indica el alias del usuario original.
+\item is\_quote: indica si el tweet es citado.              
+\item is\_retweet: indica si el tweet es un retweet.
+\item favorite\_count: conteo aproximado del número de favoritos.        
+\item retweet\_count: conteo aproximado del número de tweets.         
+\item hashtags: hastags utilizados en el tweet.              
+\item symbols: símbolos contenidos en el mensaje.               
+\item urls\_url: URLs contenidas en el texto del tweet.              
+\item urls\_t.co: URLs en formato acortado.             
+\item urls\_expanded\_url: URLs en formato expandido.     
+\item media\_url: URLs de los elementos subidos con el tweet.             
+\item media\_t.co: URLs acortadas de los elementos subidos con el tweet.           
+\item media\_expanded\_url: URLs expandidas de los elementos subidos con el tweet.  
+\item media\_type: tipo de elemento subido junto al tweet (por ejemplo, foto).            
+\item ext\_media\_url: URLs del elemento externo adjunto al tweet.         
+\item ext\_media\_t.co: URLs acortada del elemento externo adjunto al tweet.                
+\item ext\_media\_expanded\_url: URLs expandidas del elemento externo adjunto al tweet.         
+\item ext\_media\_type: tipo del elemento externo adjunto al tweet.        
+\item mentions\_user\_id: identificadores de otros usuarios nombrados en el tweet.      
+\item mentions\_screen\_name: alias de otros usuarios nombrados en el tweet.  
+\item lang: idioma del tweet.                  
+\item quoted\_status\_id: identificador del tweet citado.       
+\item quoted\_text: texto del tweet citado.           
+\item retweet\_status\_id: si es un retweet, indica el identificador del tweet original.     
+\item retweet\_text: texto del retweet original.
+\item place\_url: URL que representa la localidad y aporta información adicional.            
+\item place\_name: nombre de la localidad.            
+\item place\_full\_name: nombre de la localidad con información añadida (por ejemplo, provincia).       
+\item place\_type: tipo de localidad (por ejemplo, ciudad).            
+\item country: país.               
+\item country\_code: abreviatura del país.          
+\item geo\_coords: longitud y latitud del tweet.            
+\item coords\_coords: longitud y latitud del tweet en distinto formato.         
+\item bbox\_coords: un cuadro delimitador de coordenadas que encierra este lugar          
+\item latitud: latitud del tweet.               
+\item longitud: longitud del tweet.             
+  
+\end{itemize}
+
+
+\subsection{Resultados de la creación del corpus}
+\label{sec:Resultados} 
+\noindent A continuación, se presentan las características y estructura principal del corpus generado. 
+
+La tabla 4.2 representa el número de tweets recopilado por término. Como se puede observar, se ha recopilado información para todos los términos pero existen 4 de ellos para los que se han recopilado menos de 150 mensajes y que serán descartados por no disponer de suficiente información. Además, es importante remarcar que la cantidad de información varía notablemente según los términos, a partir del término 11 la cantidad de información por término se reduce en más de la mitad.
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{ll}
+		Término & N \\
+		como una mujer & 15094 \\
+		feminazi & 15093 \\
+		a la cocina & 15087 \\
+		zorra & 15086 \\
+		loca del & 15084 \\
+		como una nina & 15080 \\
+		las feministas & 15076 \\
+		ninata & 15032 \\
+		en tus dias & 14190 \\
+		a fregar & 14013 \\
+		mojigata & 6008 \\
+		marimacho & 5770 \\
+		para ser mujer & 4693 \\
+		nenaza & 4358 \\
+		odio a las mujeres & 2749 \\
+		lagartona & 2006 \\
+		A las mujeres hay que & 1845 \\
+		las mujeres no deberian & 1285 \\
+		las mujeres de hoy en dia & 991 \\
+		mujer al volante & 962 \\
+		mucho feminismo pero & 852 \\
+		mujer tenias que ser & 683 \\
+		pareces una puta & 474 \\
+		para ser chica & 180 \\
+		acabaras sola & 50 \\
+		hombre que te aguante & 37 \\
+		obsesionada con el machismo & 8 \\
+		pareces una fulana & 5 \\
+		no ha probado un hombre & 1
+	\end{tabular}
+	\caption{Número de tweets por término}
+	\label{my-label}
+\end{table}
+
+Como se ha comentado, el \textit{crawler} recolectó información desde el 01/07/2018 hasta 31/12/2018. En la figura 4.1 se puede observar el número de tweets recopilados por día. 
+\begin{center}
+	\includegraphics[scale=0.8,keepaspectratio]{imagenes/tweets_dia.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Tweets recopilados diariamente}	
+\end{center}
+Como se puede observar, el número de tweets recopilados diariamente dista mucho de los 2400 que podrían generarse si se encontraran los 100 tweets objetivo para cada término. Además, a partir del día 29/11/2018 se reducen los tweets recopilados al encontrar los 15000 tweets objetivo para alguno de los términos. De todos estos tweets, se puede observar en la figura 4.2 como España es el país que más genera.
+
+\begin{center}
+	\includegraphics[scale=0.8,keepaspectratio]{imagenes/tweets_pais.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Tweets recopilados diariamente}	
+\end{center}
+
+Otra característica interesante es el uso de \textit{hastags} en los tweets, en total, se han recopilado 15218 hastags. En la figura 4.3 se pueden observar los términos más utilizados. El \textit{hastags} más utilizado coincide con uno de los términos utilizados para la recopilación de los datos por el \textit{crawler}. El resto parecen estar relacionados con el programa televisivo ``Gran Hermano''. En la figura 4.4 se puede observar como España es el país que más \textit{hastags} utiliza.
+
+\begin{center}
+	\includegraphics[scale=0.8,keepaspectratio]{imagenes/hastags.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Tweets recopilados diariamente}	
+\end{center}
+
+\begin{center}
+	\includegraphics[scale=0.8,keepaspectratio]{imagenes/hastags_tweet_pais.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Tweets recopilados diariamente}	
+\end{center}
+
+
+Para identificar si los tweets utilizan una gramática adecuada, se ha observado las palabras OOV (\textit{out of vocabulary}) utilizando un diccionario español. En la figura 4.5 se muestra como los Estados Unidos es el país con más OOV por tweet.
+
+\begin{center}
+	\includegraphics[scale=0.8,keepaspectratio]{imagenes/oov.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Tweets recopilados diariamente}	
+\end{center}
+
+Por último, se han estudiado los enlaces por tweets. En total, se han recopilado 25539 enlaces para todos los mensajes. En la figura 4.6 se observa como España es el país que más enlaces por tweet utiliza.
+
+\begin{center}
+	\includegraphics[scale=0.8,keepaspectratio]{imagenes/enlaces_tweet_pais.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Tweets recopilados diariamente}	
+\end{center}
+
+\section{Etiquetado del corpus}
 \label{sec:Col_Eval}
 
-\section{Resultados}
-\label{sec:Resultados} 
+\noindent Tras la ejecución del \textit{crawler}, es necesario componer el corpus a etiquetar para poder aplicar un algoritmo de aprendizaje supervisado.
+
+Para realizar el corpus, se han utilizado las 24 etiquetas con más de 150 tweets que se puede observar en la tabla 4.2. Para cada término, se realiza un muestreo aleatorio de 150 tweets haciendo un total de 3600 tweets para ser etiquetados. Para todos los términos, se ha comprobado que la separación temporal entre sus tweets es más de un día, de este modo, se evitan mensajes que puedan ser conversaciones dentro del mismo día.
+
+El objetivo principal del presente trabajo la detección del lenguaje machista en español en la red de microblogging Twitter. Para ello, se propone la clasificación del contenido procedente de esta red social en tres categorías distintas: machista, no machista y dudoso. A continuación, se definen las etiquetas propuestas:
+
+\begin{itemize}
+	\itemsep0em 
+	\item MACHISTA: tweets que contienen connotaciones machistas/ofensivas hacia las mujeres. Los tweets que pertenecen a esta categoría deben de contener actitudes discriminatorias o hacia las mujeres por su sexo. Ejemplo:
+	``\textit{@EmanuelGPA Lo irónico es que lo dice una mujer, que ``naturalmente'' debería callarse y dedicarse a la cocina, limpiar y criar hijos}''
+	En este ejemplo, se infravalora a la mujer de un modo expreso.
+	             
+	\item NO\_MACHISTA: tweets que no contienen connotaciones machistas. Ejemplo:
+	``\textit{¿Por qué cuando ven a una chica con pelo corto piensan que es bi, torta o marimacho? ...Capaz es solo un look o que el pelo largo le da mucho calor... Y si es...¿Cual es el problema?}''
+	Dentro de esta categoría se clasifican también mensajes xenófobos y ofensivos en general pero que no discriminan a las mujeres por su sexo. Ejemplo: 
+	``\textit{@kenia773 @LuisCarlos POR CIERTO, EN TU FOTO DE PERFIL SE PUEDE OBSERVAR QUE ERES BASTANTE VARONIL, ASÍ QUE SI NO ERES MARIMACHO, EMPIEZA A SERLO}''
+	\item DUDOSO: tweets que, dependiendo del contexto, no presente en el tweet, podrían ser machistas (si el fragmento ofensivo se refiriese a mujeres). Ejemplo:        
+	``\textit{@hazteoir @PSOE Más vale que se marche a fregar!}''
+	Para poder considerar el tweet machista es necesario una referencia expresa a las mujeres, pese a que en el texto se pueda realizar una comparación con una mujer mediante una expresión machista.                  
+	
+\end{itemize}
+
+El proceso de etiquetado ha sido llevado a cabo por 3 anotadores que han analizado los 3600 tweets que conforman el corpus para asignar una de las 3 etiquetas propuestas. Para ello, se ha desarrollado una guía de etiquetado en la que se explican las etiquetas, se proponen ejemplos de cada una de ellas y se establecen las normas de entrega. \todo{Añadir la guía como ANEXO}. El etiquetado se llevó a cabo entre los meses de Enero y Marzo de 2019 mediante la herramienta ``Google Sheets'' un entorno de trabajo colaborativo online que permite la creación de hojas de cálculo.
+
+Durante el anotado del corpus, cada uno de los 3 etiquetadores propone una clase de las 3 disponibles para cada tweets. Al término del etiquetado, se decidirá por votación de los 3 anotadores la etiqueta final. En caso de desacuerdo total entre los 3, un cuarto etiquetador decidirá la clase final para el tweet.
+
+
+\subsection{Dificultades encontradas en el etiquetado del corpus}
+\label{sec:Col_Eval}
+3.2-Problemas encontrados: ambiguedad (tweets en los que tuvimos desacuerdo total), citaciones de expresiones machistas, redefinición de las reglas de etiquetado por fallo del kappa en el 20%
+
+403: @mccallsoul\_ ya me jodería si pareces una puta reina con todo lo que te pones ??
+573: @tonifreixa La zorra guardando las gallinas. ¡¡ Que se encargue Rosell ¡¡ Bueno..., cuando salga de la cárcel. Cinismo en grado máximo.
+770: @StopHembristas Como si las feministas no hicieran lo mismo con personas que no comportan su opinión
+820: Hermano, la regla no le baja solo a las feministas xd https://t.co/OYNcUjO9ql
+853: Ella aguantaa como una mujer ....Pero llora como una niña...?????? https://t.co/pxbE2CaZ5D
+878: pareces una puta vieja no mames wey
+951: @rhm1947 Pareces una puta chavista
+958: @marijopellicer @radchiaru @\_lxuli Jajajaja si no sabes cuanto odio a las mujeres tengo ?????? por favor no veas enemigos donde no los hay.
+1014: @CesarRM22 Por qué saben que las mujeres de hoy en día son más de lo que merecen ???
+1018: @\_ohara\_ Zorra pero no tuya mi amor :,*
+1033: Cuando subes a tu amiga la lagartona al Uber porque ya andaba malacopeando https://t.co/DcnK5ZGuL4
+1397: ?Bueno, para ser chica y tan joven tiene buena estatura.?
+1400: Sin querer me chuté como un importante del work le hablaba super sucio a la más - LA MAS - mojigata de aquí no cabe duda que las apariencias engañan y la más calladita es la más ?? ??
+1539: @todonoticias TN pareces una puta barata SOS el único canal q habla de esas idioteces a y canal trece que son la misma miarda junto con Clarín porque no hablas de la realidad de este gobierno de miarda que cada vez Unde más al país
+2141: Pareces una puta despechada @peladoalmeyda
+2190: Mucho feminismo pero a la primera de cambio..... https://t.co/y2McecsgcT
+2865: @danielbroxlr Donde vas zorra asquerosa
+2876: @silvia0907 Tu eres Tonta, ponte a fregar anda
+3124: ?Mujer tenías que ser?... cuántas veces habremos escuchado esta frase? Compartimos una de nuestras experiencias, léela y no dudes en compartir la tuya.. https://t.co/2xhBHfcpRo https://t.co/7Dsl4AZq6V
+3236: Mi abuela esta mandando a yesla a fregar,a guardarlos a todo juju.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Hola,
+
+Os escribo porque estamos teniendo una duda en el etiquetado para un tipo de tweets.
+
+En concreto, tenemos dudas en aquellos tweets en los que la persona que escribe el mensaje cita un contenido machista (en ocasiones con el que está en desacuerdo). Por ejemplo, un tweet que me indicasteis que era machista:
+
+?Pareces una puta con ese pantalón? - Mi hermano de 13 cuando me vio con un pantalón de cuero
+
+Jhoni pone esto como no machista, cuando para nosotros es claramente machista.
+
+
+En este caso creo que sí que es machista porque, aunque se tenga contexto suficiente para afirmar que la frase machista es citada por la persona que escribe el tweet, no se comenta nada sobre su contenido. Por ejemplo, tenemos otros casos que me han estado consultando los etiquetadores:
+
+Cada vez más a menudo (todos lo días) mi padre me dice que las mujeres no deberían recibir premios, trabajar en puestos superiores, que son putas, y que deben quedarse en casa y servir al hombre y criar hijos.
+
+@localgothgirI Me pasa todo el tiempo, incluso, cuando me va mal, siempre recibo insultos y comentarios como tenía que ser mujer las mujeres no deberían jugar este juego\". A veces se me quitan las ganas de seguir jugando
+
+@mariarodd17 Tía ella diciendo cosas tipo: es que las mujeres de hoy en día son muy sueltas y son unas acosadoras, estás ahora van preparadas con to y van a los hombres diciéndoles vamos a pasar un rato que ni te cobro y ellos los pobres si tienen pareja tienen que ir preparados para no caer
+
+En los anteriores, yo creo que hay contexto suficiente para entender que se cita un contenido machista como ejemplo para apoyar su desacuerdo con ese tipo de lenguaje. Por esta razón, creo que se trataría de tweets no machistas.
+
+
+
+
+
+
+
+
+
+Buenas Francisco,
+
+Hemos estado hablando sobre este tema Laura y yo pensamos que hay que incluir todo, tanto citas, como chistes, como incluso críticas al machismo con cita (en plan, ??Mujer tenías que ser?, odio este tipo de respuestas en los hombres?). El objetivo que tenemos en mente con este trabajo es identificar todo tipo de expresión machista, e incluso por, así decirlo, determinar mediante eso la cantidad de machismo existente en las redes sociales.
+
+Si nos centramos solo en las expresiones machistas realizadas para ofender, excluimos, por ejemplo, todas las vivencias machistas que una mujer puede relatar y que ha vivido. Incluso, los chistes machistas, aunque hechos en ciertos casos para no ofender, son machistas, por lo que deben ser considerados.
+
+Quizá, una vez realizado esto, y en estudios posteriores independientemente del TFM, estaría bien discriminar a posteriori lo que es machista y está escrito para ofender, de lo que es machista y no es para ofender, si no para describir una vivencia, etc.
+
+Como lo ves?
+
+Un saludo.
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+porque la herramienta que me pasaste me estaba dando un problema porque solo podían ser ficheros con 3 columnas. La media del coeficiente para los 3 pares me sale de 0.51. Según esta referencia  es un acuerdo moderado entre los 3 (por lo que parece vamos en buen camino).
+
+
+
+
+
+
+
+Utilizando esta tabla, he estado viendo los patrones y desacuerdos más llamativos. He sacado las siguientes conclusiones:
+
+
+
+El etiquetador 3 ha utilizado mucho más la etiqueta MACHISTA. He estado revisando y hay bastantes en los que los criterios no están del todo bien aplicados. Se confunde muchas veces xenofobia con machismo.
+El etiquetador 1 confunde DUDOSO con MACHISTA. He estado viendo las etiquetas para este caso y se utiliza dudoso en casos en los que hay un contexto claro para etiquetar como MACHISTA.
+
+
+
+
+
+
+
+
+a me han pasado los etiquetadores sus nuevas etiquetas para los 720 tweets. En este caso los resultados del acuerdo son mucho mejores:
+
+Kappa Etiquetadores 1 - 2: 0.7617779499346342
+Tasa de coincidencia etiquetadores 1 - 2 (%): 88.6111111111
+Kappa Etiquetadores 1 - 3: 0.7780535422117186
+Tasa de coincidencia etiquetadores 1 - 3 (%): 89.1666666667
+Kappa Etiquetadores 2 - 3: 0.7391428980937366
+Tasa de coincidencia etiquetadores 2 - 3 (%): 87.3611111111
+Tasa de coincidencia etiquetadores 1 - 2 - 3 (%): 82.7777777778
+Media Kappa Etiquetadores 1 - 2 - 3: 0.7596581300800298
+
+A la vista de estos resultados y habiendo aclarado las dudas, vamos a continuar con el etiquetado durante 2 semanas. El día 23 volveré a comprobar que tal va el acuerdo para monitorizar un poco el proceso. 
+
+
+
+
+\subsection{Resultados del etiquetado del corpus}
+\label{sec:Col_Eval}
+
+3.4 - Kappa alcanzado, acuerdo entre anotadores (meter métricas de Excel).
+
+Ya hemos terminado el etiquetado los 3 anotadores. El kappa final es de 0.75 aproximadamente (media por parejas), por lo que parece que hay un buen acuerdo. Al correo, os adjunto los tweets en los que hemos tenido desacuerdo entre los 3 y es necesario que nos deis una etiqueta. Cuando lo tenga, probaré el clasificador con las etiquetas definitivas.
+
+\begin{center}
+	\includegraphics[scale=0.8,keepaspectratio]{imagenes/etiquetadores_final.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Tweets recopilados diariamente}	
+\end{center}
+
+
+\begin{center}
+	\includegraphics[scale=0.8,keepaspectratio]{imagenes/porcentaje_acuerdo.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Tweets recopilados diariamente}	
+\end{center}
+
+
+5.2-Análisis de la exploración del corpus de spyder
+
+
+
+         index  categoria
+0  NO\_MACHISTA  61.361111
+1     MACHISTA  31.083333
+2       DUDOSO   7.555556
+
+NO\_MACHISTA    2209
+MACHISTA       1119
+DUDOSO          272
+
+
+\begin{center}
+	\includegraphics[scale=0.8,keepaspectratio]{imagenes/clase_distribucion.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Tweets recopilados diariamente}	
+\end{center}
+
+
+
+
+\begin{center}
+	\includegraphics[scale=0.8,keepaspectratio]{imagenes/numericas_relevantes_pairplot.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Tweets recopilados diariamente}	
+\end{center}
+
+
+
+\begin{center}
+	\includegraphics[scale=0.3,keepaspectratio]{imagenes/categoricas_pairplot.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Tweets recopilados diariamente}	
+\end{center}
+
