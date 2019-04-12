@@ -490,137 +490,124 @@ Durante el anotado del corpus, cada uno de los 3 etiquetadores propone una clase
 
 \subsection{Dificultades encontradas en el etiquetado del corpus}
 \label{sec:Col_Eval}
-3.2-Problemas encontrados: ambiguedad (tweets en los que tuvimos desacuerdo total), citaciones de expresiones machistas, redefinición de las reglas de etiquetado por fallo del kappa en el 20%
 
-403: @mccallsoul\_ ya me jodería si pareces una puta reina con todo lo que te pones ??
-573: @tonifreixa La zorra guardando las gallinas. ¡¡ Que se encargue Rosell ¡¡ Bueno..., cuando salga de la cárcel. Cinismo en grado máximo.
-770: @StopHembristas Como si las feministas no hicieran lo mismo con personas que no comportan su opinión
-820: Hermano, la regla no le baja solo a las feministas xd https://t.co/OYNcUjO9ql
-853: Ella aguantaa como una mujer ....Pero llora como una niña...?????? https://t.co/pxbE2CaZ5D
-878: pareces una puta vieja no mames wey
-951: @rhm1947 Pareces una puta chavista
-958: @marijopellicer @radchiaru @\_lxuli Jajajaja si no sabes cuanto odio a las mujeres tengo ?????? por favor no veas enemigos donde no los hay.
-1014: @CesarRM22 Por qué saben que las mujeres de hoy en día son más de lo que merecen ???
-1018: @\_ohara\_ Zorra pero no tuya mi amor :,*
-1033: Cuando subes a tu amiga la lagartona al Uber porque ya andaba malacopeando https://t.co/DcnK5ZGuL4
-1397: ?Bueno, para ser chica y tan joven tiene buena estatura.?
-1400: Sin querer me chuté como un importante del work le hablaba super sucio a la más - LA MAS - mojigata de aquí no cabe duda que las apariencias engañan y la más calladita es la más ?? ??
-1539: @todonoticias TN pareces una puta barata SOS el único canal q habla de esas idioteces a y canal trece que son la misma miarda junto con Clarín porque no hablas de la realidad de este gobierno de miarda que cada vez Unde más al país
-2141: Pareces una puta despechada @peladoalmeyda
-2190: Mucho feminismo pero a la primera de cambio..... https://t.co/y2McecsgcT
-2865: @danielbroxlr Donde vas zorra asquerosa
-2876: @silvia0907 Tu eres Tonta, ponte a fregar anda
-3124: ?Mujer tenías que ser?... cuántas veces habremos escuchado esta frase? Compartimos una de nuestras experiencias, léela y no dudes en compartir la tuya.. https://t.co/2xhBHfcpRo https://t.co/7Dsl4AZq6V
-3236: Mi abuela esta mandando a yesla a fregar,a guardarlos a todo juju.
+\noindent Uno de los problemas más importantes del procesado del lenguaje natural es la ambigüedad léxica, este fenómeno provoca que una misma expresión actúe con un significado distinto dependiendo del contexto en el que se encuentre. Además, la complejidad inherente al uso del lenguaje, el uso incorrecto de la gramática del idioma y fenómenos como la ironía o el sarcasmo dificultan la tarea de detección de actitudes machistas.
+
+En la tarea de etiquetado, una de las dificultades más importantes ha sido detectar señales textuales que indiquen comportamientos machistas debido a los efectos descritos. Para ilustrar este efecto, se pueden considerar los siguientes ejemplos:
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Hola,
+	``\textit{@tonifreixa La zorra guardando las gallinas. ¡¡ Que se encargue Rosell ¡¡ Bueno..., cuando salga de la cárcel. Cinismo en grado máximo.}''
 
-Os escribo porque estamos teniendo una duda en el etiquetado para un tipo de tweets.
+	``\textit{@marijopellicer @radchiaru @\_lxuli Jajajaja si no sabes cuanto odio a las mujeres tengo por favor no veas enemigos donde no los hay.}''
 
-En concreto, tenemos dudas en aquellos tweets en los que la persona que escribe el mensaje cita un contenido machista (en ocasiones con el que está en desacuerdo). Por ejemplo, un tweet que me indicasteis que era machista:
+	``\textit{Cuando subes a tu amiga la lagartona al Uber porque ya andaba malacopeando https://t.co/DcnK5ZGuL4}''
 
-?Pareces una puta con ese pantalón? - Mi hermano de 13 cuando me vio con un pantalón de cuero
-
-Jhoni pone esto como no machista, cuando para nosotros es claramente machista.
-
-
-En este caso creo que sí que es machista porque, aunque se tenga contexto suficiente para afirmar que la frase machista es citada por la persona que escribe el tweet, no se comenta nada sobre su contenido. Por ejemplo, tenemos otros casos que me han estado consultando los etiquetadores:
-
-Cada vez más a menudo (todos lo días) mi padre me dice que las mujeres no deberían recibir premios, trabajar en puestos superiores, que son putas, y que deben quedarse en casa y servir al hombre y criar hijos.
-
-@localgothgirI Me pasa todo el tiempo, incluso, cuando me va mal, siempre recibo insultos y comentarios como tenía que ser mujer las mujeres no deberían jugar este juego\". A veces se me quitan las ganas de seguir jugando
-
-@mariarodd17 Tía ella diciendo cosas tipo: es que las mujeres de hoy en día son muy sueltas y son unas acosadoras, estás ahora van preparadas con to y van a los hombres diciéndoles vamos a pasar un rato que ni te cobro y ellos los pobres si tienen pareja tienen que ir preparados para no caer
-
-En los anteriores, yo creo que hay contexto suficiente para entender que se cita un contenido machista como ejemplo para apoyar su desacuerdo con ese tipo de lenguaje. Por esta razón, creo que se trataría de tweets no machistas.
+	``\textit{Mucho feminismo pero a la primera de cambio..... https://t.co/y2McecsgcT}''
 
 
 
+En los ejemplos anteriores, los efectos del uso de la lengua dificultan la clasificación en alguna de las etiquetas propuestas. En el primer ejemplo, el término ``zorra'' no es evidente si se utiliza como referencia a un animal o como un sinónimo de prostituta.
+
+El segundo ejemplo, se utiliza un tono irónico que dificulta su clasificación. El usuario utiliza la expresión ``cuanto odio a las mujeres'' con sarcasmo por lo que no es posible afirmar que conlleve una actitud machista. En el tercer ejemplo, se podría entender que el término ``lagartona'' se refiere a un animal, de hecho, el tweet enlaza una imagen de un lagarto en el interior de un coche, sin embargo, en este caso el término hace referencia a prostituta. Por último, se presenta un tweet en el que se nombra al feminismo sin posicionarse en contra o a favor, en este caso sin poder detectar una actitud machista expresa.
 
 
+Otra de las dificultades encontradas durante el proceso de etiquetado ha sido la clasificación de tweets en los que el usuario que escribe el mensaje cita un contenido machista, en ocasiones con el que está en desacuerdo. Este hecho se puede observar en los siguientes ejemplos:
 
 
+	``\textit{Pareces una puta con ese pantalón. - Mi hermano de 13 cuando me vio con un pantalón de cuero}''
+
+	``\textit{Cada vez más a menudo (todos lo días) mi padre me dice que las mujeres no deberían recibir premios, trabajar en puestos superiores, que son putas, y que deben quedarse en casa y servir al hombre y criar hijos.}''
+
+	``\textit{@localgothgirI Me pasa todo el tiempo, incluso, cuando me va mal, siempre recibo insultos y comentarios como tenía que ser mujer las mujeres no deberían jugar este juego". A veces se me quitan las ganas de seguir jugando}''
+
+	``\textit{@mariarodd17 Tía ella diciendo cosas tipo: es que las mujeres de hoy en día son muy sueltas y son unas acosadoras, estás ahora van preparadas con to y van a los hombres diciéndoles vamos a pasar un rato que ni te cobro y ellos los pobres si tienen pareja tienen que ir preparados para no caer}''
 
 
-Buenas Francisco,
-
-Hemos estado hablando sobre este tema Laura y yo pensamos que hay que incluir todo, tanto citas, como chistes, como incluso críticas al machismo con cita (en plan, ??Mujer tenías que ser?, odio este tipo de respuestas en los hombres?). El objetivo que tenemos en mente con este trabajo es identificar todo tipo de expresión machista, e incluso por, así decirlo, determinar mediante eso la cantidad de machismo existente en las redes sociales.
-
-Si nos centramos solo en las expresiones machistas realizadas para ofender, excluimos, por ejemplo, todas las vivencias machistas que una mujer puede relatar y que ha vivido. Incluso, los chistes machistas, aunque hechos en ciertos casos para no ofender, son machistas, por lo que deben ser considerados.
-
-Quizá, una vez realizado esto, y en estudios posteriores independientemente del TFM, estaría bien discriminar a posteriori lo que es machista y está escrito para ofender, de lo que es machista y no es para ofender, si no para describir una vivencia, etc.
-
-Como lo ves?
-
-Un saludo.
-
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-porque la herramienta que me pasaste me estaba dando un problema porque solo podían ser ficheros con 3 columnas. La media del coeficiente para los 3 pares me sale de 0.51. Según esta referencia  es un acuerdo moderado entre los 3 (por lo que parece vamos en buen camino).
-
-
-
-
-
-
-
-Utilizando esta tabla, he estado viendo los patrones y desacuerdos más llamativos. He sacado las siguientes conclusiones:
-
-
-
-El etiquetador 3 ha utilizado mucho más la etiqueta MACHISTA. He estado revisando y hay bastantes en los que los criterios no están del todo bien aplicados. Se confunde muchas veces xenofobia con machismo.
-El etiquetador 1 confunde DUDOSO con MACHISTA. He estado viendo las etiquetas para este caso y se utiliza dudoso en casos en los que hay un contexto claro para etiquetar como MACHISTA.
-
-
-
-
-
-
-
-
-a me han pasado los etiquetadores sus nuevas etiquetas para los 720 tweets. En este caso los resultados del acuerdo son mucho mejores:
-
-Kappa Etiquetadores 1 - 2: 0.7617779499346342
-Tasa de coincidencia etiquetadores 1 - 2 (%): 88.6111111111
-Kappa Etiquetadores 1 - 3: 0.7780535422117186
-Tasa de coincidencia etiquetadores 1 - 3 (%): 89.1666666667
-Kappa Etiquetadores 2 - 3: 0.7391428980937366
-Tasa de coincidencia etiquetadores 2 - 3 (%): 87.3611111111
-Tasa de coincidencia etiquetadores 1 - 2 - 3 (%): 82.7777777778
-Media Kappa Etiquetadores 1 - 2 - 3: 0.7596581300800298
-
-A la vista de estos resultados y habiendo aclarado las dudas, vamos a continuar con el etiquetado durante 2 semanas. El día 23 volveré a comprobar que tal va el acuerdo para monitorizar un poco el proceso. 
-
-
+En los anteriores, hay contexto suficiente para comprender que se cita un contenido machista como ejemplo para apoyar su desacuerdo con ese tipo de lenguaje. Sin embargo, se ha decidido incluir tanto citas, chistes o incluso críticas al machismo como mensajes machistas. El objetivo principal ha sido para identificar todo tipo de expresión machista y, de un modo, determinar eso la cantidad de machismo existente en las redes sociales.
 
 
 \subsection{Resultados del etiquetado del corpus}
 \label{sec:Col_Eval}
 
-3.4 - Kappa alcanzado, acuerdo entre anotadores (meter métricas de Excel).
+\subsubsection{Acuerdo etiquetadores}
+\label{sec:Col_Eval}
 
-Ya hemos terminado el etiquetado los 3 anotadores. El kappa final es de 0.75 aproximadamente (media por parejas), por lo que parece que hay un buen acuerdo. Al correo, os adjunto los tweets en los que hemos tenido desacuerdo entre los 3 y es necesario que nos deis una etiqueta. Cuando lo tenga, probaré el clasificador con las etiquetas definitivas.
+\noindent Para valorar el acuerdo alcanzado por los etiquetadores en su labor se ha optado por la evaluación del coeficiente kappa de Cohen \todo{Añadir definición teórica en la evaluación}. 
+
+Se realizó una evaluación de la medida kappa en 2 puntos: al haber etiquetado el 20\% de todo el corpus y al etiquetar el corpus completo. En la primera evaluación, se obtuvieron los resultados de la tabla 4.3. En este caso, se valoró que para el número de clases distintas este valor del coeficiente kappa era insuficiente y se revisaron los patrones de etiquetas propuestos por cada uno de los etiquetadores. De este modo, se detectaron los siguientes problemas:
+
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[]
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{lll}
+			& Kappa &  \\
+			\begin{tabular}[c]{@{}l@{}}Etiquetador\\   1-2\end{tabular} & 0,5 &  \\
+			\begin{tabular}[c]{@{}l@{}}Etiquetador\\   1-3\end{tabular} & 0,44 &  \\
+			\begin{tabular}[c]{@{}l@{}}Etiquetador\\   2-3\end{tabular} & 0,58 &  \\
+			\textbf{Media Etiquetadores} & \textbf{0,51} & 
+		\end{tabular}%
+	}
+	\caption{My caption}
+	\label{my-label}
+\end{table}
+
+
+\begin{itemize}
+	\itemsep0em 
+	\item El etiquetador 3 utilizó más que el resto la etiqueta MACHISTA. Se concluyó que confundía tweets con actitudes xenofobas por tweets con actitudes machistas. 
+	\item El etiquetador 1 utilizó más que el resto la etiqueta DUDOSO. Se revisaron sus criterios de valoración de acuerdo con la guía de anotación.    
+	
+\end{itemize}
+
+
+Tras revisar los criterios de cada uno de los dos etiquetadores se obtuvieron los resultados de la tabla 4.4. En este caso, el coeficiente kappa alcanzado supera el valor 0.6 indicado como un resultado adecuado para este tipo de tarea.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[]
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{lll}
+			& Kappa &  \\
+			\begin{tabular}[c]{@{}l@{}}Etiquetador\\   1-2\end{tabular} & 0,76 &  \\
+			\begin{tabular}[c]{@{}l@{}}Etiquetador\\   1-3\end{tabular} & 0,78 &  \\
+			\begin{tabular}[c]{@{}l@{}}Etiquetador\\   2-3\end{tabular} & 0,74 &  \\
+			\textbf{Media Etiquetadores} & \textbf{0,76} & 
+		\end{tabular}%
+	}
+	\caption{My caption}
+	\label{my-label}
+\end{table}
+
+Por último, se volvió a valorar la métrica kappa al término del etiquetado, alcanzando los resultados de la tabla 4.5. La distribución de etiquetas elegida por cada anotador se observa en la figura 4.7.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[]
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{lll}
+			& Kappa &  \\
+			\begin{tabular}[c]{@{}l@{}}Etiquetador\\   1-2\end{tabular} & 0,68 &  \\
+			\begin{tabular}[c]{@{}l@{}}Etiquetador\\   1-3\end{tabular} & 0,68 &  \\
+			\begin{tabular}[c]{@{}l@{}}Etiquetador\\   2-3\end{tabular} & 0,88 &  \\
+			\textbf{Media Etiquetadores} & \textbf{0,75} & 
+		\end{tabular}%
+	}
+	\caption{My caption}
+	\label{my-label}
+\end{table}
+
 
 \begin{center}
-	\includegraphics[scale=0.8,keepaspectratio]{imagenes/etiquetadores_final.png} %[width=4cm,,keepaspectratio]
+	\includegraphics[scale=0.4,keepaspectratio]{imagenes/etiquetadores_final.png} %[width=4cm,,keepaspectratio]
 	\captionof{figure}{Tweets recopilados diariamente}	
 \end{center}
 
 
-\begin{center}
-	\includegraphics[scale=0.8,keepaspectratio]{imagenes/porcentaje_acuerdo.png} %[width=4cm,,keepaspectratio]
-	\captionof{figure}{Tweets recopilados diariamente}	
-\end{center}
 
+\subsubsection{Exploración de la clase}
+\label{sec:Col_Eval}
 
 5.2-Análisis de la exploración del corpus de spyder
 
@@ -642,6 +629,10 @@ DUDOSO          272
 \end{center}
 
 
+\begin{center}
+	\includegraphics[scale=0.25,keepaspectratio]{imagenes/numericas_pairplot.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Tweets recopilados diariamente}	
+\end{center}
 
 
 \begin{center}
