@@ -54,48 +54,48 @@ Existen refranes, dichos populares y tópicos que se utilizan diariamente refuerz
 
 Pese a que, como se ha presentado, existen gran cantidad de expresiones que conllevan actitudes machistas generalmente, ha sido necesario recoger ciertos términos más generales que permitan establecer una buena relación entre tweets con contenido machista y aquellos que no presentan este tipo de lenguaje. En este caso, se han seleccionado las siguientes expresiones: ``feminazi'', '``a la cocina'', '``a fregar'', ``marimacho'', ``ninata'', '``mujer tenias que ser'', '``las feministas'',``en tus dias'', ``zorra'','``como una mujer'', '``como una nina'', '``pareces una fulana'', '``pareces una puta'','``no ha probado un hombre'','``loca del'', '``obsesionada con el machismo'', '``para ser mujer'','``para ser chica'','``hombre que te aguante'','``acabaras sola'', ``mojigata'', '``mucho feminismo pero'','``mujer al volante'', '``las mujeres no deberian'', '``A las mujeres hay que'', '``odio a las mujeres'','``las mujeres de hoy en dia'', ``nenaza'', ``lagartona''.
 
-% https://www.tablesgenerator.com/
+
 % Please add the following required packages to your document preamble:
-% \usepackage{graphicx}
+% \usepackage{booktabs}
 \begin{table}[]
 	\centering
-	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{lll}
-			Número de término & Texto                         &  \\
-			1                 & ``feminazi"                    &  \\
-			2                 & ``a la cocina"                 &  \\
-			3                 & ``a fregar"                    &  \\
-			4                 & ``marimacho"                   &  \\
-			5                 & ``ninata"                      &  \\
-			6                 & ``mujer tenias que ser"        &  \\
-			7                 & ``las feministas"              &  \\
-			8                 & ``en tus dias"                 &  \\
-			9                 & ``zorra"                       &  \\
-			10                & ``como una mujer"              &  \\
-			11                & ``como una nina"               &  \\
-			12                & ``pareces una fulana"          &  \\
-			13                & ``pareces una puta"            &  \\
-			14                & ``no ha probado un hombre"     &  \\
-			15                & ``loca del"                    &  \\
-			16                & ``obsesionada con el machismo" &  \\
-			17                & ``para ser mujer"              &  \\
-			18                & ``para ser chica"              &  \\
-			19                & ``hombre que te aguante"       &  \\
-			20                & ``acabaras sola"               &  \\
-			21                & ``mojigata"                    &  \\
-			22                & ``mucho feminismo pero"        &  \\
-			23                & ``mujer al volante"            &  \\
-			24                & ``las mujeres no deberian"     &  \\
-			25                & ``A las mujeres hay que"       &  \\
-			26                & ``odio a las mujeres"          &  \\
-			27                & ``las mujeres de hoy en dia"   &  \\
-			28                & ``nenaza"                      &  \\
-			29                & ``lagartona"                   & 
-		\end{tabular}%
-	}
-	\caption{Términos elegidos para corpus machista}
+	\begin{tabular}{@{}lll@{}}
+		\toprule
+		\textbf{Número de término} & \textbf{Texto} &  \\ \midrule
+		1 & ``feminazi" &  \\
+		2 & ``a la cocina" &  \\
+		3 & ``a fregar" &  \\
+		4 & ``marimacho" &  \\
+		5 & ``ninata" &  \\
+		6 & ``mujer tenias que ser" &  \\
+		7 & ``las feministas" &  \\
+		8 & ``en tus dias" &  \\
+		9 & ``zorra" &  \\
+		10 & ``como una mujer" &  \\
+		11 & ``como una nina" &  \\
+		12 & ``pareces una fulana" &  \\
+		13 & ``pareces una puta" &  \\
+		14 & ``no ha probado un hombre" &  \\
+		15 & ``loca del" &  \\
+		16 & ``obsesionada con el machismo" &  \\
+		17 & ``para ser mujer" &  \\
+		18 & ``para ser chica" &  \\
+		19 & ``hombre que te aguante" &  \\
+		20 & ``acabaras sola" &  \\
+		21 & ``mojigata" &  \\
+		22 & ``mucho feminismo pero" &  \\
+		23 & ``mujer al volante" &  \\
+		24 & ``las mujeres no deberian" &  \\
+		25 & ``A las mujeres hay que" &  \\
+		26 & ``odio a las mujeres" &  \\
+		27 & ``las mujeres de hoy en dia" &  \\
+		28 & ``nenaza" &  \\
+		29 & ``lagartona" &  \\ \bottomrule
+	\end{tabular}
+	\caption{My caption}
 	\label{my-label}
 \end{table}
+
 
 El término ?feminazi? es una forma de relacionar, de forma claramente despectiva, al feminismo con el nazismo. De este modo, es una palabra utilizada ampliamente en redes sociales y foros de toda España que conllevan actitudes machistas. En Twitter se encuentran mensajes como:
 
@@ -380,11 +380,13 @@ Para esta tarea, se ha estado recopilando información con el \textit{Crawler} du
 \noindent A continuación, se presentan las características y estructura principal del corpus generado. 
 
 La tabla 4.2 representa el número de tweets recopilado por término. Como se puede observar, se ha recopilado información para todos los términos pero existen 4 de ellos para los que se han recopilado menos de 150 mensajes y que serán descartados por no disponer de suficiente información. Además, es importante remarcar que la cantidad de información varía notablemente según los términos, a partir del término 11 la cantidad de información por término se reduce en más de la mitad.
-
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
 \begin{table}[]
 	\centering
-	\begin{tabular}{ll}
-		Término & N \\
+	\begin{tabular}{@{}ll@{}}
+		\toprule
+		\textbf{Término} & \textbf{N} \\ \midrule
 		como una mujer & 15094 \\
 		feminazi & 15093 \\
 		a la cocina & 15087 \\
@@ -413,12 +415,11 @@ La tabla 4.2 representa el número de tweets recopilado por término. Como se pued
 		hombre que te aguante & 37 \\
 		obsesionada con el machismo & 8 \\
 		pareces una fulana & 5 \\
-		no ha probado un hombre & 1
+		no ha probado un hombre & 1 \\ \bottomrule
 	\end{tabular}
-	\caption{Número de tweets por término}
+	\caption{My caption}
 	\label{my-label}
 \end{table}
-
 Como se ha comentado, el \textit{crawler} recolectó información desde el 01/07/2018 hasta 31/12/2018. En la figura 4.1 se puede observar el número de tweets recopilados por día. 
 \begin{center}
 	\includegraphics[scale=0.8,keepaspectratio]{imagenes/tweets_dia.png} %[width=4cm,,keepaspectratio]
@@ -538,17 +539,17 @@ Se realizó una evaluación de la medida kappa en 2 puntos: al haber etiquetado el
 
 
 % Please add the following required packages to your document preamble:
-% \usepackage{graphicx}
+% \usepackage{booktabs}
 \begin{table}[]
-	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{lll}
-			& Kappa &  \\
-			\begin{tabular}[c]{@{}l@{}}Etiquetador\\   1-2\end{tabular} & 0,5 &  \\
-			\begin{tabular}[c]{@{}l@{}}Etiquetador\\   1-3\end{tabular} & 0,44 &  \\
-			\begin{tabular}[c]{@{}l@{}}Etiquetador\\   2-3\end{tabular} & 0,58 &  \\
-			\textbf{Media Etiquetadores} & \textbf{0,51} & 
-		\end{tabular}%
-	}
+	\centering
+	\begin{tabular}{@{}ll@{}}
+		\toprule
+		\textbf{} & \textbf{Kappa} \\ \midrule
+		Etiquetador 1-2 & 0,5 \\
+		Etiquetador 1-3 & 0,44 \\
+		Etiquetador 2-3 & 0,58 \\
+		\textbf{Media Etiquetadores} & \textbf{0,51} \\ \bottomrule
+	\end{tabular}
 	\caption{My caption}
 	\label{my-label}
 \end{table}
@@ -565,17 +566,17 @@ Se realizó una evaluación de la medida kappa en 2 puntos: al haber etiquetado el
 Tras revisar los criterios de cada uno de los dos etiquetadores se obtuvieron los resultados de la tabla 4.4. En este caso, el coeficiente kappa alcanzado supera el valor 0.6 indicado como un resultado adecuado para este tipo de tarea.
 
 % Please add the following required packages to your document preamble:
-% \usepackage{graphicx}
+% \usepackage{booktabs}
 \begin{table}[]
-	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{lll}
-			& Kappa &  \\
-			\begin{tabular}[c]{@{}l@{}}Etiquetador\\   1-2\end{tabular} & 0,76 &  \\
-			\begin{tabular}[c]{@{}l@{}}Etiquetador\\   1-3\end{tabular} & 0,78 &  \\
-			\begin{tabular}[c]{@{}l@{}}Etiquetador\\   2-3\end{tabular} & 0,74 &  \\
-			\textbf{Media Etiquetadores} & \textbf{0,76} & 
-		\end{tabular}%
-	}
+	\centering
+	\begin{tabular}{@{}ll@{}}
+		\toprule
+		\textbf{} & \textbf{Kappa} \\ \midrule
+		Etiquetador 1-2 & 0,76 \\
+		Etiquetador 1-3 & 0,78 \\
+		Etiquetador 2-3 & 0,74 \\
+		\textbf{Media Etiquetadores} & \textbf{0,76} \\ \bottomrule
+	\end{tabular}
 	\caption{My caption}
 	\label{my-label}
 \end{table}
@@ -583,21 +584,20 @@ Tras revisar los criterios de cada uno de los dos etiquetadores se obtuvieron lo
 Por último, se volvió a valorar la métrica kappa al término del etiquetado, alcanzando los resultados de la tabla 4.5. La distribución de etiquetas elegida por cada anotador se observa en la figura 4.7.
 
 % Please add the following required packages to your document preamble:
-% \usepackage{graphicx}
+% \usepackage{booktabs}
 \begin{table}[]
-	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{lll}
-			& Kappa &  \\
-			\begin{tabular}[c]{@{}l@{}}Etiquetador\\   1-2\end{tabular} & 0,68 &  \\
-			\begin{tabular}[c]{@{}l@{}}Etiquetador\\   1-3\end{tabular} & 0,68 &  \\
-			\begin{tabular}[c]{@{}l@{}}Etiquetador\\   2-3\end{tabular} & 0,88 &  \\
-			\textbf{Media Etiquetadores} & \textbf{0,75} & 
-		\end{tabular}%
-	}
+	\centering
+	\begin{tabular}{@{}ll@{}}
+		\toprule
+		\textbf{} & \textbf{Kappa} \\ \midrule
+		Etiquetador 1-2 & 0,68 \\
+		Etiquetador 1-3 & 0,68 \\
+		Etiquetador 2-3 & 0,88 \\
+		\textbf{Media Etiquetadores} & \textbf{0,75} \\ \bottomrule
+	\end{tabular}
 	\caption{My caption}
 	\label{my-label}
 \end{table}
-
 
 \begin{center}
 	\includegraphics[scale=0.4,keepaspectratio]{imagenes/etiquetadores_final.png} %[width=4cm,,keepaspectratio]
@@ -609,25 +609,27 @@ Por último, se volvió a valorar la métrica kappa al término del etiquetado, alca
 \subsubsection{Exploración de la clase}
 \label{sec:Col_Eval}
 
-5.2-Análisis de la exploración del corpus de spyder
+\noindent En el presente capítulo se presentan los resultados derivados del proceso de etiquetado. En concreto, se va a estudiar la relación de la clase asignada por los etiquetadores con dos de los atributos disponibles en el corpus: atributos numéricos y categóricos.
+
+Para el corpus final, se han asignado los valores de clase reflejados en la tabla 4.6. Como se puede observar, debido a la naturaleza del problema, los valores de la clase están muy desbalanceados para el valor ``NO\_MACHISTA'', contando este con más del 60\% de los tweets del corpus.
 
 
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+	\centering
+	\begin{tabular}{@{}lll@{}}
+		\toprule
+		\textbf{Etiqueta} & \textbf{Veces asignada} &  \\ \midrule
+		NO\_MACHISTA & 2209 (61.36\%) &  \\
+		MACHISTA & 1119 (31.08\%) &  \\
+		DUDOSO & 272 (7.5\%) &  \\ \bottomrule
+	\end{tabular}
+	\caption{My caption}
+	\label{my-label}
+\end{table}
 
-         index  categoria
-0  NO\_MACHISTA  61.361111
-1     MACHISTA  31.083333
-2       DUDOSO   7.555556
-
-NO\_MACHISTA    2209
-MACHISTA       1119
-DUDOSO          272
-
-
-\begin{center}
-	\includegraphics[scale=0.8,keepaspectratio]{imagenes/clase_distribucion.png} %[width=4cm,,keepaspectratio]
-	\captionof{figure}{Tweets recopilados diariamente}	
-\end{center}
-
+Utilizando los valores de la clase etiquetada, se han representado las variables numéricas de las que se disponen en el corpus (figura 4.8). Dos de las más destacadas se pueden observar en la figura 4.9, donde se representan el tamaño de los tweets en número de caracteres y de \textit{retweets}. Un aspecto a destacar es que los tweets DUDOSOS son, en media, mucho más cortos que el resto de valores de la clase, sin embargo, los tweets MACHISTAS Y NO\_MACHISTAS siguen una distribución muy similar en cuanto al número de caracteres.
 
 \begin{center}
 	\includegraphics[scale=0.25,keepaspectratio]{imagenes/numericas_pairplot.png} %[width=4cm,,keepaspectratio]
@@ -640,7 +642,7 @@ DUDOSO          272
 	\captionof{figure}{Tweets recopilados diariamente}	
 \end{center}
 
-
+En cuanto a las variables categoricas, en la figura 4.10 se representan los valores para cada atributo respecto de los valores de la clase.
 
 \begin{center}
 	\includegraphics[scale=0.3,keepaspectratio]{imagenes/categoricas_pairplot.png} %[width=4cm,,keepaspectratio]
