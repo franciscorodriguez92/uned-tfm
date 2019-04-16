@@ -308,4 +308,11 @@
   url   = {https://help.twitter.com/en/rules-and-policies/hateful-conduct-policy},
 }
 
+@InProceedings{George1986,
+  author    = {George H. Rosenfield},
+  title     = {A Coefficient of Agreement as a Measure of Thematic Classification Accuracy},
+  booktitle = {U.S. Geological Survey},
+  year      = {1986},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}

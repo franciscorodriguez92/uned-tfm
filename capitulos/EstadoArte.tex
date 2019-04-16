@@ -93,17 +93,51 @@ Para la evaluación de los resultados se utiliza comúnmente la matriz de confusió
 	\includegraphics[width=0.5\textwidth]{imagenes/confusion_matrix_1.png} %[width=4cm,,keepaspectratio]
 \end{center}
 
-Esta tabla está formada por verdaderos positivos, verdaderos negativos, falsos positivos y falsos negativos. Utilizando estos cuatro componentes se calculas las medidas principales para evaluar los resultados:
+Esta tabla está formada por verdaderos positivos, verdaderos negativos, falsos positivos y falsos negativos. De este modo, si un documento es clasificado por el sistema automático en la misma categoría que la clasificación manual, se considerará como un verdadero positivo o negativo (\textit{True Positive}, TP o \textit{True Negative}, TN), mientras que si el documento es clasificado por el sistema con una categoría diferente, se estará ante un falso negativo o falso positivo (\textit{False Positive}, FP o \textit{False Negative}, FN).Utilizando estos cuatro componentes se calculas las medidas principales para evaluar los resultados:
 
 \begin{itemize}
 	\itemsep0em 
-	\item Precisión: representa la fracción de asignaciones correctas frente al total de asignaciones positivas realizadas para esa clase.
+	\item Tasa de acierto o exactitud (\textit{accuracy}): representa el porcentaje de aciertos en relación a todos los documentos clasificados.
+	\[\textit{Accuracy}=\frac{TP+TN}{TP+FP+TN+FN}\]
+	\item Precisión: representa la fracción de asignaciones correctas frente al total de asignaciones positivas realizadas para esa clase. Es decir, realiza una medida de la tasa de acierto para un valor de la clase.
 	\[Precision=\frac{TP}{TP+FP}\]
-	\item Cobertura: representa la fracción de asignaciones positivas respecto al conjunto real de elementos pertenecientes a la clase.
+	\item Cobertura (\textit{recall}): representa la fracción de asignaciones positivas respecto al conjunto real de elementos pertenecientes a la clase. Es decir, realiza una medida de la capacidad que tiene el clasificador de detectar elementos de esa clase.
 	\[Cobertura=\frac{TP}{TP+FN}\]
-	\item Medida-F: combina las dos medidas anteriores.
+	\item Medida-F: combina las medidas de precision y cobertura.
 	\[Medida-F=\frac{2xprecisionxcobertura}{precision+cobertura}\]
 \end{itemize}
+
+
+Además de las medidas anteriores utilizadas para evaluar la bondad del sistema de clasificación, es necesario medir el acuerdo entre anotadores en el proceso de clasificación manual del corpus. Se necesita realizar una estimación de la concordancia entre los etiquetadores de modo que se evalúen los resultados derivados del etiquetado manual. Una concordancia muy pobre podría indicar varios problemas en el proceso. Por una parte, podría ser que la naturaleza del problema dificulta la tarea de clasificación incluso para un humano, por lo tanto, se debería de replantear el problema. Por otro lado, los etiquetadores podrían no haber entendido la tarea y sus criterios para realizar la tarea no fueran homogéneos.
+
+Para evaluar el acuerdo entre los etiquetadores, se ha utilizado la medida \textit{kappa de Cohen} \cite{Cohen1960}. Este coeficiente mide la concordancia entre dos examinadores en sus clasificaciones de un conjunto de documentos en distintas categorías. La expresión se calcula del siguiente modo:
+
+	\[k=\frac{p_0 - p_c}{1-p_c}\]
+
+donde $p_0$ representa el acuerdo observado relativo entre los etiquetadores o proporción de acierto, y $p_c$ es la probabilidad hipotética de acuerdo por azar. Considerando $p$ clases distintas y N el número de elementos de la matriz de confusión:
+% http://www.pacea.u-bordeaux1.fr/IMG/pdf/Kappa_Cohen.pdf
+
+	\[p_0=\frac{1}{n}\sum_{i=1}^{p}n_{ii}\]
+	
+	\[p_c=\frac{1}{n^2}\sum_{i=1}^{p}n_{i\cdot}n_{\cdot i}\]
+
+Un valor de $k = 0$ indica que la proporción de acuerdo es igual a la probabilidad de acuerdo por azar. Para evaluar el nivel de acuerdo según el valor de este medida se suele utilizar como convención la tabla 2.1.
+
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{@{}ll@{}}
+		\toprule
+		\textbf{kappa} & \textbf{Tipo de acuerdo} \\ \midrule
+		0.00 - 0.20 & Acuerdo muy débil \\
+		0.21 - 0.40 & Acuerdo débil \\
+		0.41 - 0.60 & Acuerdo medio \\
+		0.61 - 0.80 & Acuerdo satisfactorio \\
+		0.81 - 1.00 & Acuerdo excelente \\ \bottomrule
+	\end{tabular}
+	\caption{My caption}
+	\label{my-label}
+\end{table}
 
 
 
