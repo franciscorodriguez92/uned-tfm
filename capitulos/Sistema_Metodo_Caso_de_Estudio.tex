@@ -6,11 +6,11 @@
 \fancyhead[RE]{\textsc{CAPÍTULO} \thechapter. Sistema}
 \label{ch:Sistema_Metodo_Caso_de_Estudio}
 
-\noindent En el presente capítulo se describe el sistema automático de detección del machismo en redes sociales. El sistema está basado en aprendizaje supervisado y emplea distintos atributos unificados para, posteriormente, hacer uso de un algoritmo de aprendizaje de máquina que clasificará los registros de entrada en 3 categorías. De este modo, las expresiones textuales de entrada se clasificarán según el grado de machismo que presenten.
+\noindent En el presente capítulo se describe el sistema automático de detección del machismo en redes sociales. El sistema está basado en aprendizaje supervisado y emplea distintos atributos unificados para, posteriormente, hacer uso de un algoritmo de aprendizaje de máquina que clasificará los registros de entrada en 3 categorías: MACHISTA, NO\_MACHISTA Y DUDOSO. De este modo, los mensajes de texto o tweets de entrada se clasificarán según el grado de machismo que presenten.
 
 El sistema ha sido desarrollado teniendo en cuenta la naturaleza del problema tratado. En este caso, como ya se introdujo, se trata de texto en español por lo que método de clasificación estará preparado para trabajar con este idioma. No obstante, la arquitectura del sistema y las técnicas aplicadas pueden ser adaptadas perfectamente para otros idiomas.
 
-El sistema propuesto se divide en 3 fases principales, tal y como se puede observar en la siguiente figura.
+El sistema propuesto se divide en 3 fases principales, tal y como se puede observar en la figura 5.1.
 
 \begin{center}
 	\includegraphics[scale=0.4,keepaspectratio]{imagenes/Pipeline_diagrama.jpg} %[width=4cm,,keepaspectratio]
@@ -18,7 +18,7 @@ El sistema propuesto se divide en 3 fases principales, tal y como se puede obser
 	
 \end{center}
 
-En la primera etapa, se realiza un preprocesado diferenciado según el tipo de atributo. En este sistema, se consideran 3 tipos de atributos distintos: variables categóricas, numéricas y texto. Para cada atributo, se aplican diferentes métodos como la tokenización, el escalado o la sustitución de emoticonos. Tras esto, se unifican los distintos tipos de atributos procesados en un conjunto de datos común que será la entrada de la última fase. En la última etapa, se emplean algoritmos de clasificación supervisada con la intención de obtener un modelo predictivo capaz de detectar textos machistas. Se emplean 3 métodos distintos de aprendizaje automático en este último paso: Regresión logística, Random Forest y Máquinas de vectores de soporter (SVM, ``Support Vector Machine''). Para evaluar los resultados obtenidos con estos algoritmos, se realiza una búsqueda de parámetros de entrada (GridSearchCV) y, posteriormente, se utilizan estos parámetros para realizar una validación cruzada en el conjunto de testeo.
+En la primera etapa, se realiza un preprocesado diferenciado según el tipo de atributo. En este sistema, se consideran 3 tipos de atributos distintos: variables categóricas, numéricas y texto. Para cada atributo, se aplican diferentes métodos como la tokenización, el escalado o la sustitución de emoticonos. Tras esto, se unifican los distintos tipos de atributos procesados en un conjunto de datos común que será la entrada de la última fase. En la última etapa, se emplean algoritmos de clasificación supervisada con la intención de obtener un modelo predictivo capaz de detectar textos machistas. Se emplean 3 métodos distintos de aprendizaje automático en este último paso: Regresión logística, Random Forest y Máquinas de vectores de soporte (SVM, ``Support Vector Machine''). Para evaluar los resultados obtenidos con estos algoritmos, se realiza una búsqueda de parámetros de entrada (GridSearchCV) y, posteriormente, se utilizan estos parámetros para realizar una validación cruzada en el conjunto de testeo.
 
 
 \section{Preprocesado}
@@ -27,18 +27,16 @@ En la primera etapa, se realiza un preprocesado diferenciado según el tipo de at
 
 \subsection{Texto}{}
 \label{sec:Ejemplo_seccion}
-\noindent La variable que contiene el texto contenido en el tweet es la más importante para la realización del sistema de detección del machismo. Idealmente, se debería de encontrar en este atributo todas las señales textuales que indican si el mensaje es machista o no. Para este atributo, se aplican 3 métodos distintos: preprocesado, tokenizador y creación de atributos tf-idf.
-
-En el preprocesado de texto se llevan a cabo las siguientes acciones:
+\noindent El atributo que contiene el texto del tweet, es el más importante para la realización del sistema automático de detección del machismo. Idealmente, se debería de encontrar en este atributo todas las señales necesarias que indican si el mensaje es machista o no. Para este atributo, se aplican 3 métodos distintos: preprocesado, tokenizador y creación de atributos tf-idf. En el método de preprocesado, se llevan a cabo las siguientes acciones:
 
 \begin{itemize}
 	\itemsep0em 
-	\item Reemplazo de emojis: Se reemplazan los emojis por una descripción de lo que representa el dibujo. En este caso, resulta útil poder identificar el emoji que se está utilizando ya que puede modificar el significado de la frase. Por ejemplo, en la frase de la siguiente imagen (\todo{Incluir emojis en latex}) se puede observar como el emoji permite identificar como machista la expresión:
+	\item Reemplazo de emojis: Se reemplazan los emojis por una descripción de lo que representa el dibujo. En este caso, resulta útil poder identificar el emoji que se está utilizando ya que puede modificar el significado de la frase. Por ejemplo, en la frase de la imagen 5.2 se puede observar como el emoji permite identificar como machista la expresión:
 \begin{center}
 	\includegraphics[scale=0.4,keepaspectratio]{imagenes/emoji_machista.png} %[width=4cm,,keepaspectratio]
 	\captionof{figure}{Uso de emoji en contexto machista}	
 \end{center}	
-	\item Filtrado de URLs:Se reemplazan las URLs por la palabra ``\textit{twurl}".
+	\item Filtrado de URLs: Se reemplazan las URLs por la palabra ``\textit{twurl}".
 	\item Reemplazo de acentos: Se eliminan los acentos propios del castellano.
 	\item Filtrado de usuarios: Se reemplazan las menciones de los usuarios (las palabras que comienzan por "@") por la palabra ``\textit{twuser}". De este modo, se identifica cuando se utilizan las menciones omitiendo el usuario concreto.
 	\item Convertidor de hastags: Se realiza una conversión para los \textit{hastags} que utilizan las mayúsculas como separador. Por ejemplo, la frase ``\textit{\#FelizDía}" se convertiría a ``\textit{Feliz Día}".
@@ -50,7 +48,7 @@ En el preprocesado de texto se llevan a cabo las siguientes acciones:
 
 \end{itemize}
 
-Para ilustrar el funcionamiento de la etapa de preprocesado, supongamos el siguiente mensaje:
+Para ilustrar el funcionamiento de la etapa de preprocesado, se supone el siguiente mensaje:
 \begin{center}
 	\includegraphics[scale=0.4,keepaspectratio]{imagenes/ejemplo_preprocesado.png} %[width=4cm,,keepaspectratio]
 	\captionof{figure}{Ejemplo de preprocesado}	
@@ -58,11 +56,11 @@ Para ilustrar el funcionamiento de la etapa de preprocesado, supongamos el sigui
 
 Utilizando el preprocesado se obtendría la siguiente oración transformada: ``\textit{esta es la reina de las feministas de verdad o no twinterrogation twuser thumbs\_up twurl}". Como se puede observar, se han convertido los caracteres a minúscula, se ha reemplazado el caracter de interrogación, se ha sustituido la mención del usuario, se reemplaza el emoji por una descripción y se reemplaza la URL.
 
-A partir del texto preprocesado, se realiza la tokenización de cada mensaje. Para llevar a cabo este proceso se utiliza la clase ``TweetTokenizer'' disponible en la librería ``NLTK''. Se trata de un tokenizador desarrollado específicamente para el texto generado en Twitter. Tras la tokenización, se obtiene para cada mensaje una lista de unidades independientes que, mayoritariamente, representarán palabras, emoticonos y signos de puntuación.
+A partir del texto preprocesado, se realiza la tokenización de cada mensaje. Para llevar a cabo este proceso se utiliza la clase ``\textit{TweetTokenizer}'' disponible en la librería ``NLTK''. Se trata de un tokenizador desarrollado específicamente para el texto generado en Twitter. Tras la tokenización, se obtiene para cada mensaje una lista de unidades independientes que, mayoritariamente, representarán palabras, emoticonos y signos de puntuación.
 
-Una vez realizada la tokenización del mensaje, se llevan a cabo tres procesos: filtrado de stopwords, reemplazo de abreviaturas y stemming. Las palabras vacías o stopwords constituyen el grupo de palabras si un significado concreto, por ejemplo, artículos, preposiciones o conjunciones. Este tipo de elementos no aportan información adicional al contexto del mensaje y, por tanto, se eliminan antes del proceso de clasificación.
+Una vez realizada la tokenización del mensaje, se llevan a cabo tres procesos: filtrado de stopwords, reemplazo de abreviaturas y \textit{stemming}. Las palabras vacías o stopwords constituyen el grupo de palabras si un significado concreto, por ejemplo, artículos, preposiciones o conjunciones. Este tipo de elementos no aportan información adicional al contexto del mensaje y, por tanto, se eliminan antes del proceso de clasificación.
 
-La tarea llevada a cabo en este trabajo presenta una dificultad añadida por el entorno en el que se utiliza el lenguaje. En las redes sociales, y en Twitter en concreto, se publican mensajes cortos y, frecuentemente, no siguen las reglas convencionales del idioma, de este modo, el uso de abreviaturas o emoticones está muy extendido en este tipo de plataformas. Es por ello, que realizar diccionarios específicos para cada idioma que permitan normalizar este tipo de contenido es muy importante previo a la tarea de clasificación. En este trabajo se utiliza el diccionario en castellano realizado en \cite{Helena2016} que compila diccionarios de palabras ``slang'', abreviaturas, contracciones y emoticones que ayudan al preprocesamiento de textos publicados en redes sociales. Un ejemplo del tipo de expresiones que se reemplazan en este proceso se podría ilustrar del siguiente modo: "\textit{Esta es aki la reuna de las feministas de verdad o no?}". En el ejemplo anterior, se encuentra la palabra coloquial "aki" que normalizada al español sería ``aquí''.
+La tarea llevada a cabo en este trabajo presenta una dificultad añadida por el entorno en el que se utiliza el lenguaje. En las redes sociales, y en Twitter en concreto, se publican mensajes cortos y, frecuentemente, no siguen las reglas convencionales del idioma, de este modo, el uso de abreviaturas o emoticones está muy extendido en este tipo de plataformas. Es por ello, que realizar diccionarios específicos para cada idioma que permitan normalizar este tipo de contenido es muy importante previo a la tarea de clasificación. En este trabajo, se utiliza el diccionario en castellano realizado en \cite{Helena2016} que compila diccionarios de palabras ``slang'', abreviaturas, contracciones y emoticones que ayudan al preprocesamiento de textos publicados en redes sociales. Un ejemplo del tipo de expresiones que se reemplazan en este proceso se podría ilustrar del siguiente modo: "\textit{Esta es aki la reuna de las feministas de verdad o no?}". En el ejemplo anterior, se encuentra la palabra coloquial "aki" que normalizada al español sería ``aquí''.
 
 Por último, se aplica un método de stemming para reducir las palabras a su raíz. En este caso, se utiliza el algoritmo de Porter \cite{Porter1980} desarrollado en la década de los ochenta por Martin Porter y basado en un conjunto de reglas aplicadas en cascada para obtener la raíz de las palabras.
 
@@ -88,15 +86,15 @@ A partir del texto tokenizado, es necesario representar la información contenida
 	\item favourites\_count: número de tweets que el usuario que publicó el tweet marcó como favorito.
 \end{itemize}
 
-El uso de este tipo de atributos permite tener en cuenta distintos aspectos del contexto en el que se genera el tweet. Por ejemplo, existe un grupo de atributos como favorite\_count o retweet\_count que mide la popularidad del tweet. Por otra parte, existen campos como followers\_count que miden la popularidad del usuario que publica el tweet. Además, otros campos como display\_text\_width demuestran tener una relevancia especial para los tweets etiquetados con categoria ``DUDOSO''.
+El uso de este tipo de atributos permite tener en cuenta distintos aspectos del contexto en el que se genera el tweet. Por ejemplo, existe un grupo de atributos como favorite\_count o retweet\_count que mide la popularidad del tweet. Por otra parte, existen campos como followers\_count que miden la popularidad del usuario que publica el tweet. Además, otros campos como display\_text\_width demuestran tener una relevancia especial para los tweets etiquetados con categoria ``DUDOSO'' (figura 4.9).
 
-En los atributos numéricos se realizan únicamente 2 procesos: imputación de valores nulos y escalado. En este caso, se imputan los valores nulos sustituyéndolos por 0. Para el escalado, se realiza una estandarización para que en los valores numéricos se consiga una media nula y una desviación estándar de uno.
+En los atributos numéricos se realizan únicamente 2 procesos: imputación de valores nulos y escalado. En este caso, se imputan los valores nulos sustituyéndolos por 0 y, para el escalado, se realiza una estandarización para que en los valores numéricos se consiga una media nula y una desviación estándar de uno.
 
 
 \subsection{Atributos categóricos}{}
 \label{sec:Ejemplo_seccion}
 
-\noindent El último tipo de atributo que se emplea son los atributos categóricos. Para este sistema se consideran los siguientes atributos categóricos:
+\noindent El último tipo de atributo que se emplea son los atributos categóricos. Para este sistema, se consideran los siguientes atributos categóricos:
 
 \begin{itemize}
 	\itemsep0em 
@@ -112,11 +110,11 @@ En los atributos numéricos se realizan únicamente 2 procesos: imputación de valo
 
 Al igual que en el caso de los atributos numéricos, el uso de algunos de estos atributos categóricos intentan recoger el contexto en el que se publica el mensaje, por ejemplo, el campo ``verified'' mide la influencia del usuario y los atributos ``url\_presence'' o ``media\_type'' indica si el mensaje comparte otro contenido distinto a su texto.
 
-En los atributos categóricos únicamente se aplica una transformación para convertir esta información a tipo numérico. En este caso se emplea la codificación ``one-hot'' que crea un nuevo atributo por cada valor del atributo categórico asignando 1 ó 0 según la existencia o no de ese valor para cada registro.
+En los atributos categóricos únicamente se aplica una transformación para convertir esta información a tipo numérico y que sea posible utilizarlo en el posterior algoritmo de clasificación. En este caso se emplea la codificación ``one-hot'' que crea un nuevo atributo por cada valor del atributo categórico asignando 1 ó 0 según la existencia o no de ese valor para cada registro.
 
 \section{Unión de atributos}
 \label{sec:Ejemplo_seccion}
-\noindent En la segunda fase del sistema, se combinan todos los atributos que han sido preprocesados en la etapa anterior. Para cada tipo de atributo se ha realizado un procesamiento distinto con la idea de adecuar el acondicionar el conjunto de datos que se utilizará para ajustar un modelo de aprendizaje supervisado.
+\noindent En la segunda fase del sistema, se combinan todos los atributos que han sido preprocesados en la etapa anterior. Para cada tipo de atributo, se ha descrito el procesamiento realizado con la idea de adecuar el acondicionar el conjunto de datos que se utilizará para ajustar un modelo de aprendizaje supervisado.
 
 En esta etapa se combinan los 3 tipos distintos de atributos que se consideran:
 
@@ -133,7 +131,9 @@ La salida de esta etapa será un conjunto de datos que contendrán los 3 tipos de 
 \label{sec:Ejemplo_seccion}
 \noindent La última etapa del sistema realiza el ajuste de un algoritmo de aprendizaje de máquina a los datos obtenidos en las fases anteriores.
 
-Para la tarea de clasificación se emplean 3 algoritmos distintos disponibles en ``scikit-learn'': Regresión logística, Random Forest y SVM. Para todos ellos, se realiza una búsqueda de parámetros óptimos para distintas configuraciones teniendo en cuenta el tiempo de computación de esta búsqueda:
+El objetivo final del presente trabajo es la detección del lenguaje machista en las redes sociales. Este problema se puede modelar como una clasificación de documentos en los que en este caso se asignará una categoría a cada uno de los mensajes que conforman el corpus. 
+
+En la actualidad, la mayoría de trabajos llevan a cabo esta tarea mediante algoritmos o ténicas de aprendizaje supervisado \cite{Zimmerman2018,Davidson2017,AMIOverview2018}. Para la tarea de clasificación se emplean 3 algoritmos distintos disponibles en ``scikit-learn'': Regresión logística, Random Forest y SVM. Para todos ellos, se realiza una búsqueda de parámetros óptimos para distintas configuraciones teniendo en cuenta el tiempo de computación de esta búsqueda:
 
 \begin{itemize}
 	\itemsep0em 

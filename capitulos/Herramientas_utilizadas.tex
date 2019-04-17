@@ -75,11 +75,9 @@ La mejor alternativa a NLTK considerada sería Spacy. Su uso está aumentando y su
 
 \subsection{NLTK: Natural Language Toolkit}{}
 \label{sec:Ejemplo_seccion}
-\noindent NLTK es una librería que define una infraestructura en la que crear programas para el procesado del lenguaje natural (NLP, ``Natural language processing'') en ``Python''. Provee la estructura básica para representar datos relevantes para el procesado del lenguaje natural, interfaces para realizar tareas como el etiquetado del discurso (POS, ``part-of-speech tagging''), etiquetado sintáctico y clasificación de texto \cite{NLTKweb}.
+\noindent NLTK \cite{NLTKweb} es una librería que define una infraestructura en la que crear programas para el procesado del lenguaje natural (NLP, ``\textit{Natural language processing}'') en ``\textit{Python}''. Provee la estructura básica para representar datos relevantes para el procesado del lenguaje natural, interfaces para realizar tareas como el etiquetado del discurso (POS, ``part-of-speech tagging''), etiquetado sintáctico y clasificación de texto.
 
-Esta librería fue desarrollada originalmente en el año 2001 como parte de un curso de lingüística computacional en la universidad de Pennsylvania. Desde entonces, ha sido desarrollado y mejorado por distintos contribuidores al tratarse de un proyecto libre. Actualmente, NLTK es utilizado en gran cantidad de investigaciones y supone un estándar muy importante para realizar tareas relacionadas con NLP. Está compuesto por una cantidad importante de módulos que pueden ser invocados desde un programa escrito en Python. En la siguiente figura se recogen los más importantes \todo{Explicar con más detalle los módulos que utilice en el trabajo} \cite{Bird2009}:
-
-(LA IMAGEN PROVOCA QUE SE DESCUADRE EL DOCUMENTO)
+Esta librería fue desarrollada originalmente en el año 2001 como parte de un curso de lingüística computacional en la universidad de Pennsylvania. Desde entonces, ha sido desarrollado y mejorado por distintos contribuidores al tratarse de un proyecto libre. Actualmente, NLTK es utilizado en gran cantidad de investigaciones y supone un estándar muy importante para realizar tareas relacionadas con NLP. Está compuesto por una cantidad importante de módulos que pueden ser invocados desde un programa escrito en Python. En la siguiente figura se recogen los más importantes \cite{Bird2009}:
 
 \begin{center}
 	\includegraphics[width=0.9\textwidth]{imagenes/NLTK_modules-1.jpg} %[width=4cm,,keepaspectratio]
@@ -88,15 +86,11 @@ Esta librería fue desarrollada originalmente en el año 2001 como parte de un cur
 \section{Scikit-learn}
 \label{sec:Ejemplo_seccion}
 
-\noindent Tal y como se ha ido introduciendo, el objetivo final del presente trabajo es la detección del lenguaje machista en las redes sociales. Este problema se puede modelar como una clasificación de documentos en los que en este caso se asignará una categoría a cada uno de los mensajes que conforman el corpus. 
 
-En la actualidad, la mayoría de trabajos llevan a cabo esta tarea mediante algoritmos o ténicas de aprendizaje supervisado \cite{Zimmerman2018,Davidson2017,AMIOverview2018}. Para el desarrollo de este tipo de métodos se utilizará la librería ``scikit-learn'' muy utilizada en proyectos de clasificación de documentos \cite{Ahluwalia2018}.
+\noindent Scikit-learn \cite{Pedregosa2011}  es un proyecto que provee una librería de aprendizaje de máquina para el entorno de programación ``Python''. El objetivo principal de esta librería es establecer un conjunto de herramientas dentro de un entorno de programación que sea accesible a usuarios no expertos. Esta librería incluye algoritmos clásicos de aprendizaje de máquina, herramientas para la selección, evaluación de modelos y preprocesado. Todos los objetos dentro de la librería comparten un API básica compuesta por 3 interfaces complementarias: ``estimators'' que permiten construir y ajustar modelos, ``predictors'' para realizar predicciones y ``transformers'' que permiten realizar conversiones a los datos.
 
-Scikit-learn \cite{Pedregosa2011}  es un proyecto que provee una librería de aprendizaje de máquina para el entorno de programación ``Python''. El objetivo principal del proyecto es establecer un conjunto de herramientas dentro de un entorno de programación que sea accesible a usuarios no expertos. Esta librería incluye algoritmos clásicos de aprendizaje de máquina, herramientas para la selección, evaluación de modelos y preprocesado.
+La mayor parte de modelos de aprendizaje supervisados o funciones auxiliares relacionadas con el procesado de datos utilizados en el presente trabajo están implementados o han sido desarrollados con ayuda de funciones disponibles en la librería scikit-learn.
 
-Todo los modelos de aprendizaje supervisados o funciones auxiliares relacionadas con el procesado de datos utilizados en el presente trabajo están implementados o han sido desarrollados con ayuda de funciones disponibles en la librería scikit-learn.
-
-Todos los objetos dentro de la librería comparten un API básica compuesta por 3 interfaces complementarias: ``estimators'' que permiten construir y ajustar modelos, ``predictors'' para realizar predicciones y ``transformers'' que permiten realizar conversiones a los datos.
 
 \subsection{``Estimators''}
 \label{sec:Ejemplo_subSeccion}
@@ -111,7 +105,7 @@ rf = RandomForestClassifier(n_estimators=250)
 rf.fit(X_train, y_train)
 \end{lstlisting}
 
-En el código anterior, primero se inicializa un ``estimator'' estableciendo el argumento ``n\_estimator''. Tras esto, se realiza una llamada al método ``fit'' para realizar el ajuste utilizando los datos de entrenamiento.
+En el código anterior, primero se inicializa un ``estimator'' estableciendo el argumento ``n\_estimators''. Tras esto, se realiza una llamada al método ``fit'' para realizar el ajuste utilizando los datos de entrenamiento.
 
 
 \subsection{``Predictors''}
@@ -127,7 +121,7 @@ y_pred = rf.predict(X_test)
 \subsection{``Transformers''}
 \label{sec:Ejemplo_subSeccion}
 
-\noindent Antes de aplicar un método de clasificación supervisada, suele ser habitual realizar filtrados o modificaciones en los datos, para ello, ``scikit-learn'' implementa la interfaz ``transformer'' para llevar a cabo este tipo de tareas.
+\noindent Antes de aplicar un método de clasificación supervisada, suele ser habitual realizar filtrados o modificaciones en los datos, para ello, ``scikit-learn'' implementa la interfaz ``transformer''.
 
 Esta interfaz define el método ``transform'' que toma como entrada una matriz de datos y devuelve como salida una versión transformada de estos datos. Algunas de las transformaciones más comunes pueden ser la selección de atributos, preprocesado o métodos de reducción de dimensionalidad. Un ejemplo de preprocesado podría ser el estandarizado de un conjunto de datos:
 
@@ -142,7 +136,7 @@ X_train = scaler.transform(X_train)
 \subsection{``Pipelines y selección de modelos''}
 \label{sec:Ejemplo_subSeccion}
 
-\noindent ``Scikit-learn'' permite componer nuevos ``estimators'' utilizando otros lo que permite crear flujos de trabajo en un único objeto. Este tipo de tarea se puede realizar de dos modos: mediante ``Pipeline'' utilizando un modelo secuencial o mediante ``FeatureUnion''.
+\noindent ``Scikit-learn'' permite componer nuevos ``estimators'' utilizando otros, lo que permite crear flujos de trabajo completos en un único objeto. Este tipo de tarea se puede realizar de dos modos: mediante ``Pipeline'' utilizando un modelo secuencial o mediante ``FeatureUnion''.
 
 Los objetos ``Pipeline'' encadenan ``estimators'' en un único objeto. Esto permite crear flujos de trabajo siguiendo un número fijo de pasos, por ejemplo: extracción de atributos, reducción de dimensionalidad, ajuste de un modelo y realización de de predicciones.
 
@@ -151,9 +145,11 @@ Los objetos ``FeatureUnion'' combinan multiples ``transformers'' en uno único y 
 Ambos objetos pueden ser combinados para crear flujos de trabajo más complejos. Por ejemplo, en el siguiente código se combinan dos ``Pipeline'' utilizando ``FeatureUnion'' y se añade un último paso ``clf'' que añade un clasificador.
 \begin{lstlisting}[language=Python]
 Pipeline([('feature-union', 
-	FeatureUnion([('text-features', text_pipeline), 
+	FeatureUnion([('text-features', 
+	text_pipeline), 
 	('other-features', preprocess_pipeline)])),
-	('clf', LogisticRegression(penalty = ``L2'')])
+	('clf', LogisticRegression(penalty = ``L2'')
+	])
 
 \end{lstlisting}
 

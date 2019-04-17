@@ -6,39 +6,6 @@
 \fancyhead[RE]{\textsc{CAPÍTULO} \thechapter. Corpus}
 \label{ch:Corpus}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-CORPUS (MachismoTwitter, DAMT (detección automática machismo twitter, Twittmach, Machistwitter, Machistlab):
-1-Motivación y definición del machismo (las definiciones de la guía de anotación)
-1.1 - Como he seleccionado esas expresiones machistas (meter referencias). Proceso de selección de las etiquetas machistas.
-
-
-2-Crawler (meter como se hace el crawler, Evernote->TFM->Notas):
-Descartadas las expresiones siguientes por tener menos de 100 tweets.
-"acabaras sola"	50
-"hombre que te aguante"	37
-"obsesionada con el machismo"	8
-"pareces una fulana"	5
-"no ha probado un hombre"	1
-
-
-
-5- Resultados:
-5.0- Campos disponibles en el API de Twitter (En el trabajo de MW)
-5.1-Análisis preliminar del corpus: Número de tweets
-
-
-3 - Etiquetado del corpus (las definiciones de la guía de anotación)
-3.1-Ejemplos de la guía de anotación
-3.2-Problemas encontrados: ambiguedad (tweets en los que tuvimos desacuerdo total), citaciones de expresiones machistas, redefinición de las reglas de etiquetado por fallo del kappa en el 20%
-3.3 - Herramienta utilizada para el etiquetado (google drive)
-3-4 - Cruce entre el resultado de los anotadores y el resto de campos
-3.4 - Kappa alcanzado, acuerdo entre anotadores (meter métricas de Excel).
-5.2-Análisis de la exploración del corpus de spyder
-
-6 - Adjuntar como anexo la guía de anotación
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 \noindent Este capítulo describe la metodología utilizada para evaluar la búsqueda y creación de un corpus en castellano con el objetivo de detectar lenguaje machista en la red de microblogging Twitter. De este modo, se realiza un corpus utilizando un conjunto de términos en castellano que, por lo general, pueden llevar a actitudes machistas. Esto permitirá el desarrollo de un sistema para detectar este tipo de comportamientos en Twitter.
 
 Idealmente, el conjunto obtenido en el trabajo permitirá realizar un sistema de clasificación automático para la detección de tweets con contenido machista. Por tanto, el objetivo principal es la creación un corpus que contenga texto con contenido machista. Para ello se realiza una búsqueda en la red social Twitter con distintos términos que pueden llevar a comportamientos machistas.
@@ -526,7 +493,7 @@ En los anteriores, hay contexto suficiente para comprender que se cita un conten
 \subsubsection{Acuerdo etiquetadores}
 \label{sec:Col_Eval}
 
-\noindent Para valorar el acuerdo alcanzado por los etiquetadores en su labor se ha optado por la evaluación del coeficiente kappa de Cohen \todo{Añadir definición teórica en la evaluación}. 
+\noindent Para valorar el acuerdo alcanzado por los etiquetadores en su labor se ha optado por la evaluación del coeficiente kappa de Cohen.
 
 Se realizó una evaluación de la medida kappa en 2 puntos: al haber etiquetado el 20\% de todo el corpus y al etiquetar el corpus completo. En la primera evaluación, se obtuvieron los resultados de la tabla 4.3. En este caso, se valoró que para el número de clases distintas este valor del coeficiente kappa era insuficiente y se revisaron los patrones de etiquetas propuestos por cada uno de los etiquetadores. De este modo, se detectaron los siguientes problemas:
 
