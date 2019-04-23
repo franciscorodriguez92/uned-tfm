@@ -59,6 +59,7 @@ Un modelo de representación muy utilizado se conoce como modelo de representació
 
 \begin{center}
 	\includegraphics[width=0.4\textwidth]{imagenes/modelo_vectorial.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Representación vector de documentos}	
 \end{center}
 
 En este caso, se tendría un vocabulario con únicamente dos rasgos $w_1$ y $w_2$ que conforman el espacio en el que se encuentran los documentos o textos $d_1$ y $d_2$. De este modo, se pueden emplear medidas de distancia, como la distancia euclídea o la distancia coseno, para comparar ambos documentos.
@@ -71,7 +72,7 @@ Utilizando este modelo, un texto quedará representado como una combinación linea
 
 Los métodos de clasificación supervisados utilizan un conjunto de documentos de ejemplo para cada una de las categorías que presenta la variable objetivo (a clasificar). Estos algoritmos, realizan una etapa de entrenamiento donde se presentan los patrones de ejemplo de modo que ante futuros patrones, el algoritmo será capaz de clasificar en alguna de las clases contenidas en el conjunto de ejemplo. Dentro de este proceso, existen muchas variables que influirán en los resultados del sistema como el tamaño del conjunto de ejemplo, la elección del algoritmo de clasificación o los parámetros de inicialización del mismo.
 
-Existen numerosos tipos de algoritmos de clasificación, a continuación se indican los más importantes para clasificación textual:\todo{Se puede ampliar explicación de cada método}
+Existen numerosos tipos de algoritmos de clasificación, a continuación se indican los más importantes para clasificación textual:\todo{Se puede ampliar explicación de cada método o hacer nuevos apartados si fuera necesario}
 \begin{itemize}
 	\itemsep0em 
 	\item Naive Bayes: Está basado en la teoría de la decisión de Bayes: la teoría de las probabilidades condicionadas. Por tanto, el problema de la clasificación se reduce al cálculo de las probabilidades a posteriori de una clase dado un documento.
@@ -91,6 +92,7 @@ Para la evaluación de los resultados se utiliza comúnmente la matriz de confusió
 
 \begin{center}
 	\includegraphics[width=0.5\textwidth]{imagenes/confusion_matrix_1.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Matriz de confusión}	
 \end{center}
 
 Esta tabla está formada por verdaderos positivos, verdaderos negativos, falsos positivos y falsos negativos. De este modo, si un documento es clasificado por el sistema automático en la misma categoría que la clasificación manual, se considerará como un verdadero positivo o negativo (\textit{True Positive}, TP o \textit{True Negative}, TN), mientras que si el documento es clasificado por el sistema con una categoría diferente, se estará ante un falso negativo o falso positivo (\textit{False Positive}, FP o \textit{False Negative}, FN).Utilizando estos cuatro componentes se calculas las medidas principales para evaluar los resultados:
@@ -135,7 +137,7 @@ Un valor de $k = 0$ indica que la proporción de acuerdo es igual a la probabilid
 		0.61 - 0.80 & Acuerdo satisfactorio \\
 		0.81 - 1.00 & Acuerdo excelente \\ \bottomrule
 	\end{tabular}
-	\caption{My caption}
+	\caption{Umbrales de kappa}
 	\label{my-label}
 \end{table}
 

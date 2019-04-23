@@ -6,7 +6,7 @@
 \fancyhead[RE]{\textsc{CAPÍTULO} \thechapter. Corpus}
 \label{ch:Corpus}
 
-\noindent Este capítulo describe la metodología utilizada para evaluar la búsqueda y creación de un corpus en castellano con el objetivo de detectar lenguaje machista en la red de microblogging Twitter. De este modo, se realiza un corpus utilizando un conjunto de términos en castellano que, por lo general, pueden llevar a actitudes machistas. Esto permitirá el desarrollo de un sistema para detectar este tipo de comportamientos en Twitter.
+\noindent Este capítulo describe la metodología utilizada para la creación de un corpus en castellano que permita entrenar un sistema de detección del lenguaje machista en la red de microblogging Twitter. De este modo, se realiza un corpus utilizando un conjunto de términos en castellano que, por lo general, pueden llevar a actitudes machistas. Esto permitirá el desarrollo de un sistema para detectar este tipo de comportamientos en Twitter.
 
 Idealmente, el conjunto obtenido en el trabajo permitirá realizar un sistema de clasificación automático para la detección de tweets con contenido machista. Por tanto, el objetivo principal es la creación un corpus que contenga texto con contenido machista. Para ello se realiza una búsqueda en la red social Twitter con distintos términos que pueden llevar a comportamientos machistas.
 
@@ -59,7 +59,7 @@ Pese a que, como se ha presentado, existen gran cantidad de expresiones que conl
 		28 & ``nenaza" &  \\
 		29 & ``lagartona" &  \\ \bottomrule
 	\end{tabular}
-	\caption{My caption}
+	\caption{Términos machistas elegidos para la creación del corpus}
 	\label{my-label}
 \end{table}
 
@@ -377,7 +377,7 @@ La tabla 4.2 representa el número de tweets recopilado por término. Como se pued
 		pareces una fulana & 5 \\
 		no ha probado un hombre & 1 \\ \bottomrule
 	\end{tabular}
-	\caption{My caption}
+	\caption{Número de tweets por término encontrados}
 	\label{my-label}
 \end{table}
 Como se ha comentado, el \textit{crawler} recolectó información desde el 01/07/2018 hasta 31/12/2018. En la figura 4.1 se puede observar el número de tweets recopilados por día. 
@@ -389,19 +389,19 @@ Como se puede observar, el número de tweets recopilados diariamente dista mucho 
 
 \begin{center}
 	\includegraphics[scale=0.8,keepaspectratio]{imagenes/tweets_pais.png} %[width=4cm,,keepaspectratio]
-	\captionof{figure}{Tweets recopilados diariamente}	
+	\captionof{figure}{Número de tweets por país}	
 \end{center}
 
 Otra característica interesante es el uso de \textit{hastags} en los tweets, en total, se han recopilado 15218 hastags. En la figura 4.3 se pueden observar los términos más utilizados. El \textit{hastags} más utilizado coincide con uno de los términos utilizados para la recopilación de los datos por el \textit{crawler}. El resto parecen estar relacionados con el programa televisivo ``Gran Hermano''. En la figura 4.4 se puede observar como España es el país que más \textit{hastags} utiliza.
 
 \begin{center}
 	\includegraphics[scale=0.8,keepaspectratio]{imagenes/hastags.png} %[width=4cm,,keepaspectratio]
-	\captionof{figure}{Tweets recopilados diariamente}	
+	\captionof{figure}{Número de hastags}	
 \end{center}
 
 \begin{center}
 	\includegraphics[scale=0.8,keepaspectratio]{imagenes/hastags_tweet_pais.png} %[width=4cm,,keepaspectratio]
-	\captionof{figure}{Tweets recopilados diariamente}	
+	\captionof{figure}{Número de hastags por país}	
 \end{center}
 
 
@@ -409,14 +409,14 @@ Para identificar si los tweets utilizan una gramática adecuada, se ha observado 
 
 \begin{center}
 	\includegraphics[scale=0.8,keepaspectratio]{imagenes/oov.png} %[width=4cm,,keepaspectratio]
-	\captionof{figure}{Tweets recopilados diariamente}	
+	\captionof{figure}{OOV por país}	
 \end{center}
 
 Por último, se han estudiado los enlaces por tweets. En total, se han recopilado 25539 enlaces para todos los mensajes. En la figura 4.6 se observa como España es el país que más enlaces por tweet utiliza.
 
 \begin{center}
 	\includegraphics[scale=0.8,keepaspectratio]{imagenes/enlaces_tweet_pais.png} %[width=4cm,,keepaspectratio]
-	\captionof{figure}{Tweets recopilados diariamente}	
+	\captionof{figure}{Número medio de URLs utilizadas por país}	
 \end{center}
 
 \section{Etiquetado del corpus}
@@ -510,7 +510,7 @@ Se realizó una evaluación de la medida kappa en 2 puntos: al haber etiquetado el
 		Etiquetador 2-3 & 0,58 \\
 		\textbf{Media Etiquetadores} & \textbf{0,51} \\ \bottomrule
 	\end{tabular}
-	\caption{My caption}
+	\caption{Kappa obtenido con el 20\% del etiquetado}
 	\label{my-label}
 \end{table}
 
@@ -537,7 +537,7 @@ Tras revisar los criterios de cada uno de los dos etiquetadores se obtuvieron lo
 		Etiquetador 2-3 & 0,74 \\
 		\textbf{Media Etiquetadores} & \textbf{0,76} \\ \bottomrule
 	\end{tabular}
-	\caption{My caption}
+	\caption{Kappa obtenido con el 20\% del etiquetado tras la corrección}
 	\label{my-label}
 \end{table}
 
@@ -555,13 +555,13 @@ Por último, se volvió a valorar la métrica kappa al término del etiquetado, alca
 		Etiquetador 2-3 & 0,88 \\
 		\textbf{Media Etiquetadores} & \textbf{0,75} \\ \bottomrule
 	\end{tabular}
-	\caption{My caption}
+	\caption{Kappa obtenido con el 100\% del etiquetado}
 	\label{my-label}
 \end{table}
 
 \begin{center}
 	\includegraphics[scale=0.4,keepaspectratio]{imagenes/etiquetadores_final.png} %[width=4cm,,keepaspectratio]
-	\captionof{figure}{Tweets recopilados diariamente}	
+	\captionof{figure}{Porcentaje de etiquetas elegidor por etiquetador}	
 \end{center}
 
 
@@ -585,7 +585,7 @@ Para el corpus final, se han asignado los valores de clase reflejados en la tabl
 		MACHISTA & 1119 (31.08\%) &  \\
 		DUDOSO & 272 (7.5\%) &  \\ \bottomrule
 	\end{tabular}
-	\caption{My caption}
+	\caption{Distribución de la clase para el corpus final}
 	\label{my-label}
 \end{table}
 
@@ -593,19 +593,19 @@ Utilizando los valores de la clase etiquetada, se han representado las variables
 
 \begin{center}
 	\includegraphics[scale=0.25,keepaspectratio]{imagenes/numericas_pairplot.png} %[width=4cm,,keepaspectratio]
-	\captionof{figure}{Tweets recopilados diariamente}	
+	\captionof{figure}{Representación de valores numéricos}	
 \end{center}
 
 
 \begin{center}
 	\includegraphics[scale=0.8,keepaspectratio]{imagenes/numericas_relevantes_pairplot.png} %[width=4cm,,keepaspectratio]
-	\captionof{figure}{Tweets recopilados diariamente}	
+	\captionof{figure}{Representación de valores numéricos relevantes}	
 \end{center}
 
 En cuanto a las variables categoricas, en la figura 4.10 se representan los valores para cada atributo respecto de los valores de la clase.
 
 \begin{center}
 	\includegraphics[scale=0.3,keepaspectratio]{imagenes/categoricas_pairplot.png} %[width=4cm,,keepaspectratio]
-	\captionof{figure}{Tweets recopilados diariamente}	
+	\captionof{figure}{Representación de variables categóricas}	
 \end{center}
 
