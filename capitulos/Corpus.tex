@@ -2,7 +2,7 @@
 %%% CORPUS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Corpus: MachismoTwitter, DAMT (detección automática machismo en twitter), Twittmach, Machistwitter, Machistlab}
+\chapter{MeTwo dataset (Machismo and Sexism Twitter Identification dataset)}
 \fancyhead[RE]{\textsc{CAPÍTULO} \thechapter. Corpus}
 \label{ch:Corpus}
 
@@ -492,12 +492,43 @@ En los anteriores, hay contexto suficiente para comprender que se cita un conten
 \subsection{Resultados del etiquetado del corpus}
 \label{sec:Col_Eval}
 
+\subsubsection{Evaluación del acuerdo}
+\label{sec:Col_Eval}
+
+\noindent Para valorar el acuerdo alcanzado por los etiquetadores en su labor se ha optado por la evaluación del coeficiente \textit{kappa de Cohen} \cite{Cohen1960}. Esta medida permite realizar una estimación de la concordancia entre los etiquetadores de modo que se evalúen los resultados derivados del etiquetado manual. Una concordancia muy pobre podría indicar varios problemas en el proceso. Por una parte, podría ser que la naturaleza del problema dificulta la tarea de clasificación incluso para un humano, por lo tanto, se debería de replantear el problema. Por otro lado, los etiquetadores podrían no haber entendido la tarea y sus criterios para realizar la tarea no fueran homogéneos. La expresión se calcula del siguiente modo:
+
+\[k=\frac{p_0 - p_c}{1-p_c}\]
+
+donde $p_0$ representa el acuerdo observado relativo entre los etiquetadores o proporción de acierto, y $p_c$ es la probabilidad hipotética de acuerdo por azar. Considerando $p$ clases distintas y N el número de elementos de la matriz de confusión:
+% http://www.pacea.u-bordeaux1.fr/IMG/pdf/Kappa_Cohen.pdf
+
+\[p_0=\frac{1}{n}\sum_{i=1}^{p}n_{ii}\]
+
+\[p_c=\frac{1}{n^2}\sum_{i=1}^{p}n_{i\cdot}n_{\cdot i}\]
+
+Un valor de $k = 0$ indica que la proporción de acuerdo es igual a la probabilidad de acuerdo por azar. Para evaluar el nivel de acuerdo según el valor de este medida se suele utilizar como convención la tabla 2.1.
+
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{@{}ll@{}}
+		\toprule
+		\textbf{kappa} & \textbf{Tipo de acuerdo} \\ \midrule
+		0.00 - 0.20 & Acuerdo muy débil \\
+		0.21 - 0.40 & Acuerdo débil \\
+		0.41 - 0.60 & Acuerdo medio \\
+		0.61 - 0.80 & Acuerdo satisfactorio \\
+		0.81 - 1.00 & Acuerdo excelente \\ \bottomrule
+	\end{tabular}
+	\caption{Umbrales de kappa}
+	\label{my-label}
+\end{table}
+
+
 \subsubsection{Acuerdo etiquetadores}
 \label{sec:Col_Eval}
 
-\noindent Para valorar el acuerdo alcanzado por los etiquetadores en su labor se ha optado por la evaluación del coeficiente kappa de Cohen.
-
-Se realizó una evaluación de la medida kappa en 2 puntos: Al completar el 20\% del etiquetado de todo el corpus y al etiquetar el corpus completo. En la primera evaluación, se obtuvieron los resultados de la tabla 4.3. En este caso, se valoró que para el número de clases distintas este valor del coeficiente kappa era insuficiente y se revisaron los patrones de etiquetas propuestos por cada uno de los etiquetadores. De este modo, se detectaron los siguientes problemas:
+\noindent Se realizó una evaluación de la medida kappa en 2 puntos: Al completar el 20\% del etiquetado de todo el corpus y al etiquetar el corpus completo. En la primera evaluación, se obtuvieron los resultados de la tabla 4.3. En este caso, se valoró que para el número de clases distintas este valor del coeficiente kappa era insuficiente y se revisaron los patrones de etiquetas propuestos por cada uno de los etiquetadores. De este modo, se detectaron los siguientes problemas:
 
 
 % Please add the following required packages to your document preamble:

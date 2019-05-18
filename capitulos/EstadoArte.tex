@@ -83,66 +83,6 @@ Existen numerosos tipos de algoritmos de clasificación, a continuación se indica
 \end{itemize}
 
 
-\subsection{Métodos de evaluación}
-\label{sec:Ejemplo_subSeccion} 
-
-\noindent En la última fase de un sistema de clasificación textual, el modelo se evalúa con un conjunto de datos de prueba en el que se conocen las clases a las que pertenecen sus documentos.
-
-Para la evaluación de los resultados se utiliza comúnmente la matriz de confusión. Se trata de una una herramienta que representa en cada columna el número de predicciones de cada clase, mientras que cada fila representa a las instancias en la clase real. En la siguiente imagen se presenta un esquema de la matriz de confusión:
-
-\begin{center}
-	\includegraphics[width=0.5\textwidth]{imagenes/confusion_matrix_1.png} %[width=4cm,,keepaspectratio]
-	\captionof{figure}{Matriz de confusión}	
-\end{center}
-
-Esta tabla está formada por verdaderos positivos, verdaderos negativos, falsos positivos y falsos negativos. De este modo, si un documento es clasificado por el sistema automático en la misma categoría que la clasificación manual, se considerará como un verdadero positivo o negativo (\textit{True Positive}, TP o \textit{True Negative}, TN), mientras que si el documento es clasificado por el sistema con una categoría diferente, se estará ante un falso negativo o falso positivo (\textit{False Positive}, FP o \textit{False Negative}, FN).Utilizando estos cuatro componentes se calculas las medidas principales para evaluar los resultados:
-
-\begin{itemize}
-	\itemsep0em 
-	\item Tasa de acierto o exactitud (\textit{accuracy}): representa el porcentaje de aciertos en relación a todos los documentos clasificados.
-	\[\textit{Accuracy}=\frac{TP+TN}{TP+FP+TN+FN}\]
-	\item Precisión: representa la fracción de asignaciones correctas frente al total de asignaciones positivas realizadas para esa clase. Es decir, realiza una medida de la tasa de acierto para un valor de la clase.
-	\[Precision=\frac{TP}{TP+FP}\]
-	\item Cobertura (\textit{recall}): representa la fracción de asignaciones positivas respecto al conjunto real de elementos pertenecientes a la clase. Es decir, realiza una medida de la capacidad que tiene el clasificador de detectar elementos de esa clase.
-	\[Cobertura=\frac{TP}{TP+FN}\]
-	\item Medida-F: combina las medidas de precision y cobertura.
-	\[Medida-F=\frac{2xprecisionxcobertura}{precision+cobertura}\]
-\end{itemize}
-
-
-Además de las medidas anteriores utilizadas para evaluar la bondad del sistema de clasificación, es necesario medir el acuerdo entre anotadores en el proceso de clasificación manual del corpus. Se necesita realizar una estimación de la concordancia entre los etiquetadores de modo que se evalúen los resultados derivados del etiquetado manual. Una concordancia muy pobre podría indicar varios problemas en el proceso. Por una parte, podría ser que la naturaleza del problema dificulta la tarea de clasificación incluso para un humano, por lo tanto, se debería de replantear el problema. Por otro lado, los etiquetadores podrían no haber entendido la tarea y sus criterios para realizar la tarea no fueran homogéneos.
-
-Para evaluar el acuerdo entre los etiquetadores, se ha utilizado la medida \textit{kappa de Cohen} \cite{Cohen1960}. Este coeficiente mide la concordancia entre dos examinadores en sus clasificaciones de un conjunto de documentos en distintas categorías. La expresión se calcula del siguiente modo:
-
-	\[k=\frac{p_0 - p_c}{1-p_c}\]
-
-donde $p_0$ representa el acuerdo observado relativo entre los etiquetadores o proporción de acierto, y $p_c$ es la probabilidad hipotética de acuerdo por azar. Considerando $p$ clases distintas y N el número de elementos de la matriz de confusión:
-% http://www.pacea.u-bordeaux1.fr/IMG/pdf/Kappa_Cohen.pdf
-
-	\[p_0=\frac{1}{n}\sum_{i=1}^{p}n_{ii}\]
-	
-	\[p_c=\frac{1}{n^2}\sum_{i=1}^{p}n_{i\cdot}n_{\cdot i}\]
-
-Un valor de $k = 0$ indica que la proporción de acuerdo es igual a la probabilidad de acuerdo por azar. Para evaluar el nivel de acuerdo según el valor de este medida se suele utilizar como convención la tabla 2.1.
-
-
-\begin{table}[]
-	\centering
-	\begin{tabular}{@{}ll@{}}
-		\toprule
-		\textbf{kappa} & \textbf{Tipo de acuerdo} \\ \midrule
-		0.00 - 0.20 & Acuerdo muy débil \\
-		0.21 - 0.40 & Acuerdo débil \\
-		0.41 - 0.60 & Acuerdo medio \\
-		0.61 - 0.80 & Acuerdo satisfactorio \\
-		0.81 - 1.00 & Acuerdo excelente \\ \bottomrule
-	\end{tabular}
-	\caption{Umbrales de kappa}
-	\label{my-label}
-\end{table}
-
-
-
 \section{Detección de lenguaje o discurso del odio (\textbf{\textit{hate speech detection}}) }
 \label{sec:Ejemplo_seccion}
 La detección del lenguaje machista o sexista está muy relacionada con la detección del lenguaje o discurso del odio en redes sociales. Existen numerosos trabajos donde se intenta detectar distintos tipos de lenguaje del odio, entre ellos el sexismo \cite{WATANABE2018,WaseemHovy2016,Georgios2018,Badjatiya2017,Zimmerman2018,Park2017,Waseem2016}. El lenguaje del odio se refiere al uso de lenguaje agresivo, violento u ofensivo hacia un grupo específico de personas que comparten una propiedad en común, sea esta propiedad su género, su raza, sus creencias o su religión \cite{Davidson2017}. Atendiendo a esta definición, se puede considerar la detección del machismo como un caso particular del discurso del odio. Por ello, es muy interesante realizar una evaluación de los trabajos realizados en esta línea de investigación.

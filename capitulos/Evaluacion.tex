@@ -2,7 +2,7 @@
 %%% EVALUACION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Evaluación}
+\chapter{Evaluación y discusión}
 \fancyhead[RE]{\textsc{CAPÍTULO} \thechapter. Evaluación}
 \label{ch:Evaluacion}
 
@@ -12,11 +12,51 @@
 \section{Metodología de evaluación}
 \label{sec:Met_Eval}
 
-\section{Métricas de evaluación}
-\label{sec:Metric_Eval}
-
-\section{Colecciones de evaluación}
+\subsection{Métricas de evaluación}
 \label{sec:Col_Eval}
 
-\section{Resultados}
-\label{sec:Resultados} 
+\noindent Para la evaluación de los resultados en clasificación textual o de documentos se utiliza comúnmente la matriz de confusión. Se trata de una una herramienta que representa en cada columna el número de predicciones de cada clase, mientras que cada fila representa a las instancias en la clase real. En la siguiente imagen se presenta un esquema de la matriz de confusión:
+
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{imagenes/confusion_matrix_1.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Matriz de confusión}	
+\end{center}
+
+Esta tabla está formada por verdaderos positivos, verdaderos negativos, falsos positivos y falsos negativos. De este modo, si un documento es clasificado por el sistema automático en la misma categoría que la clasificación manual, se considerará como un verdadero positivo o negativo (\textit{True Positive}, TP o \textit{True Negative}, TN), mientras que si el documento es clasificado por el sistema con una categoría diferente, se estará ante un falso negativo o falso positivo (\textit{False Positive}, FP o \textit{False Negative}, FN).Utilizando estos cuatro componentes se calculas las medidas principales para evaluar los resultados:
+
+\begin{itemize}
+	\itemsep0em 
+	\item Tasa de acierto o exactitud (\textit{accuracy}): representa el porcentaje de aciertos en relación a todos los documentos clasificados.
+	\[\textit{Accuracy}=\frac{TP+TN}{TP+FP+TN+FN}\]
+	\item Precisión: representa la fracción de asignaciones correctas frente al total de asignaciones positivas realizadas para esa clase. Es decir, realiza una medida de la tasa de acierto para un valor de la clase.
+	\[Precision=\frac{TP}{TP+FP}\]
+	\item Cobertura (\textit{recall}): representa la fracción de asignaciones positivas respecto al conjunto real de elementos pertenecientes a la clase. Es decir, realiza una medida de la capacidad que tiene el clasificador de detectar elementos de esa clase.
+	\[Cobertura=\frac{TP}{TP+FN}\]
+	\item Medida-F: combina las medidas de precision y cobertura.
+	\[Medida-F=\frac{2xprecisionxcobertura}{precision+cobertura}\]
+\end{itemize}
+
+
+\subsection{Colección de evaluación}
+\label{sec:Col_Eval}
+
+\subsection{Líneas base (\textit{baseline})}
+\label{sec:Col_Eval}
+
+\subsection{Experimento 1: Separación 30-70 (+ optimización f1)}
+\label{sec:Col_Eval}
+
+\subsection{Experimento 2: Aplicar crossfold a todo sin tunear y con los parámetros por defecto}
+\label{sec:Col_Eval}
+
+\section{Experimento 1 (Presentación de resultados y discusión)}
+\label{sec:Metric_Eval}
+
+\section{Experimento 2 (Presentación de resultados y discusión)}
+\label{sec:Col_Eval}
+
+\section{Efecto del desbalanceo de la clase}
+\label{sec:Resultados}
+
+
+
