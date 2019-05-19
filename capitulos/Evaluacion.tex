@@ -98,11 +98,57 @@ Este método permite evaluar un sistema más general cuyos parámetros de configura
 \section{Resultados experimento 1}
 \label{sec:Metric_Eval}
 
+La tabla 6.1 muestra los resultados promedio de exactitud (\textit{Accuracy}), medida F1, cobertura (\textit{Recall}) y precisión. Con el método de evaluación descrito para el primer experimento, el algoritmo \textit{Random Forest} alcanza una mayor tasa de acierto y precisión mientras que la regresión logística alcanza los mejores resultados para la medida F1 y \textit{recall}. 
 
+En relación a la comparación de los resultados obtenidos por el método con las dos líneas bases, en este caso las diferencias con respecto a la aproximación basada en unigramas son de unos cuatro puntos porcentuales para cada medida. Por tanto, el sistema mejora esta primera aproximación en todas las medidas pero, como se preveía, la línea base ya es un buen punto de partida del sistema.
+
+En el caso de la línea base basada en el clasificador sencillo de la clase mayoritaria, si se pueden observar grandes diferencias en las métricas de calidad. Esto indica, que cualquiera de las soluciones propuestas será mucho más adecuada que un clasificador basado en una única regla sencilla.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+	\centering
+	\begin{tabular}{@{}lllll@{}}
+		\toprule
+		& \textbf{Accuracy} & \textbf{F1} & \textbf{Recall} & \textbf{Precision} \\ \midrule
+		\textbf{Baseline (tf-idf)} & 0.68 & 0.59 & 0.62 & 0.59 \\
+		\textbf{Baseline} & 0.61 & 0.2 & 0.3 & 0.24 \\
+		\textbf{LR} & 0.7 & \textbf{0.62} & \textbf{0.64} & 0.62 \\
+		\textbf{RF} & \textbf{0.72} & 0.6 & 0.57 & \textbf{0.67} \\
+		\textbf{SVM} & 0.7 & 0.61 & 0.63 & 0.61 \\ \bottomrule
+	\end{tabular}
+	\caption{Resultados experimento 1}
+	\label{tab:my-table}
+\end{table}
 
 
 \section{Resultados experimento 2}
 \label{sec:Col_Eval}
+
+La tabla 6.2 muestra los resultados promedio de exactitud (\textit{Accuracy}), medida F1, cobertura (\textit{Recall}) y precisión. Para este segundo experimento, el algoritmo RF consigue de nuevo la mejor tasa de acierto y precisión, mientras que en este caso es el algoritmo SVM el que obtiene los mejores resultados en cuanto a la medida F1 y el \textit{recall}. Sin embargo, es importante destacar que el comportamiento de los tres clasificadores es bastante similar en líneas generales.
+
+En relación con el método de evaluación propuesto en el experimento 1, se puede observar una pequeña mejoraría de un punto para cada medida de calidad.
+
+En relación a la comparación de los resultados obtenidos por el método con las dos líneas bases, de nuevo, las diferencias con respecto a la aproximación basada en unigramas son de unos cuatro puntos porcentuales para cada medida. 
+
+En el caso de la línea base basada en el clasificador sencillo de la clase mayoritaria, se acrecientan las diferencias pues este segundo método de evaluación parece mejorar, en líneas generales, los resultados del primer método.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+	\centering
+	\begin{tabular}{@{}lllll@{}}
+		\toprule
+		& \textbf{Accuracy} & \textbf{F1} & \textbf{Recall} & \textbf{Precision} \\ \midrule
+		\textbf{Baseline (tf-idf)} & 0.69 & 0.58 & 0.56 & 0.62 \\
+		\textbf{Baseline} & 0.61 & 0.2 & 0.3 & 0.24 \\
+		\textbf{LR} & 0.72 & \textbf{0.63} & 0.62 & 0.65 \\
+		\textbf{RF} & \textbf{0.73} & 0.61 & 0.58 & \textbf{0.68} \\
+		\textbf{SVM} & 0.72 & \textbf{0.63} & \textbf{0.64} & 0.63 \\ \bottomrule
+	\end{tabular}
+	\caption{Resultados experimento 2}
+	\label{tab:my-table}
+\end{table}
 
 \section{Efecto del desbalanceo de la clase}
 \label{sec:Resultados}
