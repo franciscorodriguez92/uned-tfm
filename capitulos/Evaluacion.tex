@@ -6,8 +6,7 @@
 \fancyhead[RE]{\textsc{CAPÍTULO} \thechapter. Evaluación}
 \label{ch:Evaluacion}
 
-\todo{Explicar proceso de evaluación con digramas: ShuffleSplit + Crossvalidation}
-\noindent Este capítulo describe la metodología utilizada para evaluar el sistema/método o caso de estudio propuesto, a la vez que presenta los resultados obtenidos en la evaluación de las diferentes tareas y sobre colecciones de evaluación de distintos dominios. Algunos ejemplos de secciones pueden ser estos:
+\noindent En el siguiente capítulo se presentan los procedimientos de evaluación así como los resultados de los experimentos realizados. Además, se realizará una comparativa y discusión de los distintos resultados obtenidos. Para evaluar el sistema propuesto, se definen dos experimentos según el procedimiento seguido para realizar la evaluación del sistema. En el primero, se reservan una parte de los datos para realizar una búsqueda de los hiperparámetros óptimos para cada algoritmo de clasificación mientras que en el segundo se emplean los parámetros por defecto para evitar el sobreajuste. Con estos experimentos, se pretende evaluar el rendimiento del sistema propuesto para detección del machismo en redes sociales. Asimismo, se evaluará el efecto que tiene en el sistema el desbalanceo existente en la clase del conjunto de datos.
 
 \section{Metodología de evaluación}
 \label{sec:Met_Eval}
@@ -40,19 +39,69 @@ Esta tabla está formada por verdaderos positivos, verdaderos negativos, falsos p
 \subsection{Colección de evaluación}
 \label{sec:Col_Eval}
 
+\noindent Las colecciones de evaluación son conjuntos de datos etiquetados con información relevante para la tarea para la cual han sido desarrollados. En este caso, las colecciones de evaluación para clasificación de documentos están compuestas por textos, ya sean oraciones, párrafos o documentos completos, de distinta naturaleza y que están etiquetados con categorías concretas. Por ejemplo, para el presente trabajo, existen tres valores posibles para esta categoría: "MACHISTA", "NO\_MACHISTA" y "DUDOSO".
+
+Estos conjuntos de evaluación permiten intuir el rendimiento de los sistemas de clasificación y compararlo con el de otros sistemas. Asimismo, en los sistemas de clasificación supervisados son clave para poder ser entrenados utilizando un subconjunto de la colección.
+
+Para el presente trabajo, se utilizará como conjunto de evaluación del sistema de clasificación de contenido machista el corpus presentado en el capítulo 4. Se trata de un corpus compuesto por 3600 \textit{tweets} recopilados mediante el uso de expresiones que pueden conllevar actitudes machistas. 
+
+Para recuperar esta información se utilizaron los siguientes términos: ``feminazi", ``loca del", ``a la cocina", zorra, ``como una niña", ``las feministas", niñata, ``como una mujer", ``en tus días", ``a fregar", mojigata, marimacho, nenaza, ``para ser mujer", ``odio a las mujeres", lagartona, ``A las mujeres hay que", ``las mujeres no deberían", ``las mujeres de hoy en día", ``mujer al volante", ``mujer tenías que ser", ``mucho feminismo pero", ``pareces una puta", ``para ser chica". De este modo, se recopilaron todos los mensajes escritos en la red social que contuvieran estos términos durante las fechas 1/07/2018-31/12/2018.
+
+El propósito principal de este corpus es la obtención de texto con alto contenido machista así como expresiones que, aún pudiendo ser machistas, no lo sean en ese contexto. De este modo, se pretende obtener un conjunto rico en el uso de expresiones que pueden conllevar actitudes machistas en diferentes contextos. Para conseguir captar estos matices, el corpus está etiquetado con las categorías "MACHISTA", "NO\_MACHISTA" y "DUDOSO". 
+
 \subsection{Líneas base (\textit{baseline})}
 \label{sec:Col_Eval}
 
-\subsection{Experimento 1: Separación 30-70 (+ optimización f1)}
+\noindent Como se ha ido introduciendo en el capítulo 2, las referencias en el campo de detección del machismo son muy reducidas y, por tanto, es complejo encontrar algún trabajo comparable con el sistema desarrollado. Es por esto que en este trabajo se han desarrollado dos líneas base con las que comparar los resultados obtenidos por el sistema diseñado. La primera de ellas plantea un sistema de clasificación basado en una regresión logística sobre los atributos \textit{tf-idf} utilizando los unigramas de cada documento. De este modo, se plantea un sistema sencillo pero pudiendo ser, en ocasiones, mucho más efectivo que otras aproximaciones más complejas que utilizan bi-gramas o categorías gramaticales de los términos, por tanto, se trata de un \textit{baseline} difícil de batir.
+
+La segunda línea base está basada en un clasificador sencillo que predice siempre la clase mayoritaria. En este caso, como se puede observar en la tabla 4.7, la clase mayoritaria sería "NO\_MACHISTA" y, por tanto, este sistema clasificaría todos los registros de entrada con este valor de clase. La intención de esta línea base es comparar los resultados del sistema con otro hipotético no informado que no es capaz de "aprender" ningún patrón del conjunto de datos de entrenamiento.
+
+\subsection{Experimento 1: Búsqueda de hiperparámetros mediante la optimización de la medida F1}
 \label{sec:Col_Eval}
 
-\subsection{Experimento 2: Aplicar crossfold a todo sin tunear y con los parámetros por defecto}
+\noindent El primer experimento realizado trata de configurar cada algoritmo de clasificación para la tarea especifica que van a desarrollar. Como se introdujo en el capítulo 5 para la tarea de clasificación se emplean 3 algoritmos distintos disponibles en ``scikit-learn'': Regresión logística, Random Forest y SVM. En este primer experimento, se realiza una búsqueda para los siguientes parámetros:
+
+\begin{itemize}
+	\itemsep0em 
+	\item Regresión logística: C = [1, 10], class\_weight' = [None, 'balanced'].
+	\item Random Forest: n\_estimators" = [250, 450], bootstrap' = (True, False), max\_depth'= [None, 30].
+	\item SVM: C = [1, 10, 100, 10000], gamma = [0.001, 0.1, 0.6, 'auto'], kernel = 'rbf'.
+\end{itemize}
+
+Para ello, se sigue el procedimiento presentado en la figura 6.2 de forma iterativa. En el primer paso, se realizan diez reparticiones aleatorias en dos conjuntos de datos: entrenamiento (training) y testeo (testing). Para el conjunto de training, se reservan el 30\% de los datos y para el test, el resto. Para cada uno de los diez repartos, se utiliza el conjunto de training para la búsqueda de hiperparámetros y el testing para evaluar los resultados con los parámetros encontrados.
+
+Para la búsqueda de parámetros, se realiza una validación cruzada (\textit{cross validation}) con cinco grupos. En este proceso, se realizan cinco conjuntos (que coincidirían con los 5 "splits" de la figura) con los datos de entrenamiento y, posteriormente, se realiza el entrenamiento en cuatro de ellos y el testeo en el grupo restante. Este proceso permite obtener los parámetros que mejor han funcionado en el proceso según el valor de la medida F1. Este proceso se repetiría para cada uno de los 5 grupos.
+
+En la siguiente etapa del proceso se utilizaría el segundo conjunto de datos reservado para el testeo que coincidiría con el 70\% de todo el corpus para realizar la evaluación final. Utilizando los parámetros de entrada obtenidos en la etapa anterior, se realizaría una validación cruzada con 10 grupos del conjunto de testing. De nuevo, en este proceso se realizaría un reparto en diez grupos, donde nueve de ellos serán utilizados para el entrenamiento y el grupo restante para el testeo, repitiendo el proceso diez veces, una por grupo. Estas dos etapas, se repiten para los diez repartos indicados al inicio.
+
+Este experimento permite medir el resultado de un sistema diseñado especificamente para esta tarea pues la configuración de los algoritmos de clasificación se realiza según los datos del corpus. Además, al realizar diez iteraciones para el proceso, la varianza de los resultados se reduce y son menos dependientes del tipo de datos con el que se ha entrenado. La desventaja principal de este método es que es necesario reservar un conjunto de datos para la búsqueda de parámetros y se reduce la información de la que dispondrá el sistema de clasificación definitivo que realizará la predicción.
+
+\begin{center}
+	\includegraphics[scale=0.4,keepaspectratio]{imagenes/grid_search_cross_validation.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Búsqueda de hiperparámetros mediante la optimización de la medida F1}
+\end{center}
+
+\subsection{Experimento 2: Cross validation con parámetros por defecto}
 \label{sec:Col_Eval}
 
-\section{Experimento 1 (Presentación de resultados y discusión)}
+\noindent El segundo experimento consiste en una única validación para todo el corpus utilizando los parámetros por defecto para todos los algoritmos de clasificación utilizados.
+
+En este caso, se ha optado por una validación cruzada con diez grupos. En la figura 6.3 se presenta un ejemplo equivalente para cinco grupos. En este procedimiento, se realizaría una división del conjunto en 10 grupos del mismo tamaño del corpus y, de forma iterativa, se utilizarán nueve de ellos para el entrenamiento y el grupo restante para el testeo.
+
+Este método permite evaluar un sistema más general cuyos parámetros de configuración no estén diseñados para los datos de entrenamiento de los que se disponen. Esto permite mejorar la capacidad de generalización del sistema y evitar un posible sobreajuste.
+
+\begin{center}
+	\includegraphics[scale=0.55,keepaspectratio]{imagenes/cross_validation_5.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Validación cruzada k=5}
+\end{center}
+
+\section{Resultados experimento 1}
 \label{sec:Metric_Eval}
 
-\section{Experimento 2 (Presentación de resultados y discusión)}
+
+
+
+\section{Resultados experimento 2}
 \label{sec:Col_Eval}
 
 \section{Efecto del desbalanceo de la clase}
