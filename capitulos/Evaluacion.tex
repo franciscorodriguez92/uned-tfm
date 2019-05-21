@@ -121,19 +121,6 @@ En el caso de la línea base basada en el clasificador sencillo de la clase mayor
 	\label{tab:my-table}
 \end{table}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\todo{Puntos de discusión}Puntos de discusión:
-+Diferencias entre aproximacion y líneas base
-+Diferencia entre los modelos
-+Análisis de los errores y limitaciones del modelo (solución basada en el conteo de frecuencias).
-% https://medium.com/@dcameronsteinke/tf-idf-vs-word-embedding-a-comparison-and-code-tutorial-5ba341379ab0
-%https://towardsdatascience.com/3-basic-approaches-in-bag-of-words-which-are-better-than-word-embeddings-c2cbc7398016
-	+Analizar el número de featueres (vocabulario muy reducido? vocabulario poco HOMOGENEO)
-	+Importancia features
-	+Análisis de errores individuales
-	+Problemas en el preprocesado
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 Los resultados presentados en la tabla 6.1 muestran que el sistema de clasificación desarrollado en el presente trabajo se comporta mejor que las lineas base en todas las métricas de calidad. Estos buenos resultados parecen confirmar la hipótesis de que cualquier modelo utilizando todos los atributos disponibles en el corpus resulta más apropiado que solo el uso del texto disponible para cada registro.
 
 En concreto, la diferencia entre el mejor de los clasificadores del método propuesto y la línea base basada en unigramas es de 4\%. Esta diferencia se debe principalmente a la información que aportan los atributos numéricos y categóricos para la tarea del clasificación. Esto se observa en la figura 4.9 donde, claramente, la longitud del tweet y el número de \textit{retweets} tiene influencia en la clasificación. Se puede observar como en el caso de los tweets dudosos, la longitud media es mucho menor que en el caso de los machistas y no machistas. Además, se puede observar como los tweets dudosos no presentan gran cantidad de \textit{retweets}. Es por esto, que utilizar estos atributos en el sistema de clasificación aporta información útil y permite mejorar los resultados.
@@ -256,18 +243,18 @@ En ambos casos, se comparten tweets de una longitud considerable donde no existe
 	\captionof{figure}{Valores SHAP para ejemplo 6}
 \end{center}
 
-Otra fuente importante de errores que se ha detectado en el estudio de los errores del sistema de clasificación son las faltas de ortografía cometidas por los usuarios al utilizar la red social. Pese a que se ha utilizado un léxico para realizar un mapeo de las faltas más comunes, estos errores hacen que el sistema no pueda representar correctamente los términos como atributos del conjunto de datos.
+Otra fuente importante de errores que se ha detectado son las faltas de ortografía cometidas por los usuarios al utilizar la red social. Pese a que se ha utilizado un léxico para realizar un mapeo de las faltas más comunes, estos errores hacen que el sistema no pueda representar correctamente los términos como atributos del conjunto de datos.
 
 \section{Resultados experimento 2}
 \label{sec:Col_Eval}
 
 La tabla 6.2 muestra los resultados promedio de exactitud (\textit{Accuracy}), medida F1, cobertura (\textit{Recall}) y precisión. Para este segundo experimento, el algoritmo RF consigue de nuevo la mejor tasa de acierto y precisión, mientras que en este caso es el algoritmo SVM el que obtiene los mejores resultados en cuanto a la medida F1 y el \textit{recall}. Sin embargo, es importante destacar que el comportamiento de los tres clasificadores es bastante similar en líneas generales.
 
-En relación con el método de evaluación propuesto en el experimento 1, se puede observar una pequeña mejoraría de un punto para cada medida de calidad.
+En relación con el método de evaluación propuesto en el experimento 1, se puede observar una pequeña mejoraría de un punto para la tasa de acierto, la precisión y la medida F1. Sin embargo, se mantienen muy similares los comportamientos de cada algoritmo de predicción. Este efecto, se puede deber a que los parámetros que obtenemos del método 2 no son tan buenos por los pocos datos que utilizamos (solo 25\% del corpus) y modifican muy poco el comportamiento de éstos por defecto.
 
-En relación a la comparación de los resultados obtenidos por el método con las dos líneas bases, de nuevo, las diferencias con respecto a la aproximación basada en unigramas son de unos cuatro puntos porcentuales para cada medida. 
+Se ha observado mediante distintos repartos de datos en las etapas de búsqueda de parámetros y evaluación, que aumentar la cantidad de información disponible para la validación cruzada, mejoraba siempre los resultados independientemente del valor de los parámetros de entrada de los algoritmos. Es decir, añadir más información a la etapa de búsqueda de parámetros no ha resultado tan efectivo como reservar la mayor parte de la información para entrenar y evaluar el sistema final.
 
-En el caso de la línea base basada en el clasificador sencillo de la clase mayoritaria, se acrecientan las diferencias pues este segundo método de evaluación parece mejorar, en líneas generales, los resultados del primer método.
+En relación a la comparación de los resultados obtenidos por el método con las dos líneas bases, de nuevo, se mantienen las mismas tasas de mejoras que en el experimento anterior.
 
 % Please add the following required packages to your document preamble:
 % \usepackage{booktabs}
@@ -286,8 +273,37 @@ En el caso de la línea base basada en el clasificador sencillo de la clase mayor
 	\label{tab:my-table}
 \end{table}
 
+En cuanto a las diferencias entre los modelos empleados, se observan las mismas relaciones y los efectos producidos son equivalentes al experimento anterior. Si se observan detenidamente los resultados, se observará como las medidas de calidad que más aumentan respecto del experimento 1 serían la tasa de acierto y la precisión (la medida F1 aumenta como consecuencia de la precisión). Esto se produce porque, en realidad, este experimento detecta algunos casos más de tweets no machistas, probablemente porque se presenta más cantidad de información en el entrenamiento. Por tanto, la detección de tweets machistas seguiría siendo la principal fuente de error del sistema. Se ha comprobado, mediante un estudio de los errores, que se dan los mismos efectos descritos en el experimento 1.
+
+
 \section{Efecto del desbalanceo de la clase}
 \label{sec:Resultados}
+\noindent Los resultados presentados hasta este punto, demuestran que el problema principal del sistema desarrollado es el sesgo producido hacia el valor de la clase mayoritaria.
+
+Para evaluar el impacto del desbalanceo de la clase hacia tweets no machistas e intentar paliar este efecto, se ha realizado un experimento mediante un muestreo del corpus. Como se puede observar en la tabla 4.7, el valor de la clase ``DUDOSO'' sería el que cuenta con menos instancias dentro del corpus. Por esto, se han realizado una prueba realizando un muestreo aleatorio de las otras dos clases para igualar la cantidad de registros entre las 3 clases que componen el corpus. 
+
+En la tabla se pueden observar los resultados para cada uno de los métodos empleados en el presente trabajo, evaluados mediante una validación cruzada con 10 grupos y los parámetros por defecto (mismas condiciones que el experimento 2).
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+	\centering
+	\begin{tabular}{@{}lllll@{}}
+		\toprule
+		& \textbf{Accuracy} & \textbf{F1} & \textbf{Recall} & \textbf{Precision} \\ \midrule
+		\textbf{LR} & 0.61 & 0.61 & 0.61 & 0.62 \\
+		\textbf{RF} & 0.68 & 0.68 & 0.68 & 0.68 \\
+		\textbf{SVM} & 0.63 & 0.63 & 0.66 & 0.63 \\ \bottomrule
+	\end{tabular}
+	\caption{Resultados experimento 2}
+	\label{tab:my-table}
+\end{table}
+
+Como se puede observar, los resultados empeoran generalmente para la tas pese a que existe un equilibrio total en el número de registros por clase. Los algoritmos LR y SVM son los que más empeoran en este caso, una posible causa podría ser la escasa información con la que cuenta el sistema en este caso, 267 instancias por clase.
+
+El único algoritmo que consigue mejorar alguna de sus medidas de calidad es el RF. En este caso, se mejora notablemente la medida F1 y la cobertura, lo que indica, que en condiciones de equilibrio entre las clases, este algoritmo mejora notablemente la detección del resto de valores de la clase del corpus.
+
+
 
 
 
