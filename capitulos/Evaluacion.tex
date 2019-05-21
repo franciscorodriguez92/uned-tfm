@@ -121,6 +121,142 @@ En el caso de la línea base basada en el clasificador sencillo de la clase mayor
 	\label{tab:my-table}
 \end{table}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\todo{Puntos de discusión}Puntos de discusión:
++Diferencias entre aproximacion y líneas base
++Diferencia entre los modelos
++Análisis de los errores y limitaciones del modelo (solución basada en el conteo de frecuencias).
+% https://medium.com/@dcameronsteinke/tf-idf-vs-word-embedding-a-comparison-and-code-tutorial-5ba341379ab0
+%https://towardsdatascience.com/3-basic-approaches-in-bag-of-words-which-are-better-than-word-embeddings-c2cbc7398016
+	+Analizar el número de featueres (vocabulario muy reducido? vocabulario poco HOMOGENEO)
+	+Importancia features
+	+Análisis de errores individuales
+	+Problemas en el preprocesado
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Los resultados presentados en la tabla 6.1 muestran que el sistema de clasificación desarrollado en el presente trabajo se comporta mejor que las lineas base en todas las métricas de calidad. Estos buenos resultados parecen confirmar la hipótesis de que cualquier modelo utilizando todos los atributos disponibles en el corpus resulta más apropiado que solo el uso del texto disponible para cada registro.
+
+En concreto, la diferencia entre el mejor de los clasificadores del método propuesto y la línea base basada en unigramas es de 4\%. Esta diferencia se debe principalmente a la información que aportan los atributos numéricos y categóricos para la tarea del clasificación. Esto se observa en la figura 4.9 donde, claramente, la longitud del tweet y el número de \textit{retweets} tiene influencia en la clasificación. Se puede observar como en el caso de los tweets dudosos, la longitud media es mucho menor que en el caso de los machistas y no machistas. Además, se puede observar como los tweets dudosos no presentan gran cantidad de \textit{retweets}. Es por esto, que utilizar estos atributos en el sistema de clasificación aporta información útil y permite mejorar los resultados.
+
+Esta hipótesis se reafirma con los resultados de la figura 6.4. En esta figura, se observan los valores SHAP (\textit{SHapley Additive exPlanations}) \cite{shap} para los tweets dudosos. En esta representación se observan los atributos más importantes que se tienen en cuenta para clasificar un tweet con la etiqueta dudoso. El primer atributo (\textit{display\_text\_width}) coincide con la longitud del tweet, y, se confirma que a menor valor en este atributo (mejor longitud del tweet) más probable es que el sistema clasifique el texto como dudoso. Cabe destacar otros atributos como los términos como ``nenaza'' y ``feminazi'' en los que se observa que la presencia de estos términos reduce la probabilidad de que el sistema clasifique el tweet como dudoso. Esto se debe a que la existencia de estos términos en los tweets se han asociado con comportamientos machistas, como se puede puede observar en la figura 6.5. Otro atributo interesante que provocó inconvenientes durante el proceso de etiquetado manual del corpus es la existencia del término ``lagartona''. En este caso, el que exista este término provoca que aumente la probabilidad de que el tweet sea dudoso, esto ocurre por la ambigüedad de la palabra que puede hacer referencia a una persona que vende su cuerpo a cambio de dinero o a una persona pícara. Esta confusión provoca que, si existe el término en un mensaje, aumente la probabilidad de ser dudoso.
+
+Estos atributos numéricos y categóricos influyen también para el resto de valores de la clase. De hecho, se puede observar en la figura 6.7 como las 3 primeras variables en importancia son variables no textuales. Por ejemplo, la variables ``statuses\_count'' indica la cantidad de mensajes emitidos por el usuario que publica el tweet y, en este sistema, tiene gran impacto para clasificar los tweets como machistas y no machistas.
+
+%statuses\_count :La cantidad de Tweets (incluidos los retweets) emitidos por el usuario. 
+%listed\_count :Número de listas públicas de las que el usuario es miembro.
+
+\begin{center}
+	\includegraphics[scale=0.55,keepaspectratio]{imagenes/shap_values_dudosos.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Valores SHAP para tweets dudosos}
+\end{center}
+
+\begin{center}
+	\includegraphics[scale=0.55,keepaspectratio]{imagenes/shap_values_machistas.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Valores SHAP para tweets machistas}
+\end{center}
+
+\begin{center}
+	\includegraphics[scale=0.55,keepaspectratio]{imagenes/shap_values_no_machistas.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Valores SHAP para tweets no machistas}
+\end{center}
+
+\begin{center}
+	\includegraphics[scale=0.55,keepaspectratio]{imagenes/shap_values_impacto.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Impacto de los atributos}
+\end{center}
+
+La tabla 6.1 muestra también ligeras diferencias entre los resultados obtenidos según el algoritmo de clasificación utilizado. En este experimento, RF y LR obtienen el mejor valor para dos de las cuatro métricas de calidad evaluadas, sin embargo, las diferencias con SVM no son demasiado amplias. 
+
+A priori, cabía esperar mejores resultados para el clasificador SVM pues ha sido aplicado de un modo exitoso en referencias previas \cite{Canos2018,Wahyu2018}. Este tipo de algoritmo suele funcionar mejor que otros como los árboles de decisión en problemas donde las matrices de datos son muy ``dispersas'' y el concepto de distancia entre los diferentes puntos tiene mayor importancia, como ocurre al realizar la representación de texto mediante los atributos tf-idf. Sin embargo, en este problema en particular, solo se trabajan con 222 atributos en total antes de aplicar el algoritmo de clasificación, esto provoca que este tipo de técnica deje de tener la efectividad esperada.
+
+En cuanto a los resultados obtenidos con el algoritmo RF, es importante señalar que se ha conseguido unos valores elevados en la tasa de acierto y en precisión debido a la gran capacidad de la técnica para detectar los tweets no machistas. Esto se puede confirmar mediante la matriz de confusión representada en la tabla 6.2 donde se observa que el valor de clase ``NO\_MACHISTA'' es claramente el que mejor se clasifica mediante esta técnica. 
+
+La elevada precisión del algoritmo RF para los tweets no machistas, se debe al efecto del desbalanceo de la clase. Como ya se introdujo en los capítulos anteriores, y debido a la naturaleza del problema, existen una gran predominancia de los tweets no machistas en el corpus etiquetado manualmente. Esto provoca, que algoritmos como los árboles de decisión, puedan tener un sesgo en sus predicciones hacia la clase predominante (https://www3.nd.edu/~nchawla/papers/ECML08.pdf, https://www3.nd.edu/~nchawla/papers/SDM10.pdf). Otro tipo de técnicas como SVM o LR pueden alcanzar mejores rendimientos en este tipo de problemas (https://www.int-arch-photogramm-remote-sens-spatial-inf-sci.net/XLI-B7/379/2016/isprs-archives-XLI-B7-379-2016.pdf). Pese a esto, RF no se aleja demasiado en otras métricas como F1 por el uso conjunto de numerosos árboles de decisión y que permite mejorar el rendimiento que se obtendría con un único árbol de decisión.
+
+%%
+% Se puede mejorar la explicación: mostrar la estructura de los árboles y obtener importancia de atributos
+
+En cuanto a los algoritmos SVM y LR, los resultados muestran un comportamiento muy similar en ambos casos. Esto se debe principalmente al uso de un ``kernel'' lineal para el algoritmo SVM, lo que provoca que la frontera de decisión entre clases sea lineal, al igual que ocurre con el algoritmo LR. En ambos casos, los resultados muestran una menor capacidad para detectar los tweets no machistas pero se mejora el equilibrio entre el resto de valores de la clase. En la tabla 6.3, se puede observar como estos modelos mejoran notablemente la detección de tweets dudosos y machistas. Esto se debe, probablemente, a un mejor funcionamiento de estos métodos ante clases desbalanceadas.
+
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+	\centering
+	\begin{tabular}{@{}llll@{}}
+		\toprule
+		\textbf{RF} & \textbf{DUDOSO} & \textbf{MACHISTA} & \textbf{NO\_MACHISTA} \\ \midrule
+		\textbf{DUDOSO} & 70 & 32 & 80 \\
+		\textbf{MACHISTA} & 31 & 407 & 387 \\
+		\textbf{NO\_MACHISTA} & 39 & 124 & 1350 \\ \bottomrule
+	\end{tabular}
+	\caption{Matriz de confusión para una iteración de RF}
+	\label{tab:my-table}
+\end{table}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+	\centering
+	\begin{tabular}{@{}llll@{}}
+		\toprule
+		\textbf{LR} & \textbf{DUDOSO} & \textbf{MACHISTA} & \textbf{NO\_MACHISTA} \\ \midrule
+		\textbf{DUDOSO} & 116 & 36 & 36 \\
+		\textbf{MACHISTA} & 96 & 479 & 247 \\
+		\textbf{NO\_MACHISTA} & 91 & 250 & 1169 \\ \bottomrule
+	\end{tabular}
+	\caption{Matriz de confusión para una iteración de LR}
+	\label{tab:my-table}
+\end{table}
+
+Es importante también destacar que en cualquiera de los dos modelos de clasificación, la principal fuente de errores proviene de la detección de tweets machistas. En la tabla 6.3, se puede observar como en esta clase se produce la mayor parte de los errores donde se clasifican erróneamente más del el 30\% de los tweets machistas. En concreto, la mayor parte de los errores se produce en la clasificación de tweets de este tipo como tweets no machistas. Para estudiar esta fuente de error, se ha realizado un estudio en profundidad para las clasificaciones producidas con este error. Por ejemplo, el tweet \textit{@CopitoDeSnow\_ Ahora es cuando digo ``no está mal para ser mujer''} se ha clasificado erroneamente como no machista por el sistema. En la figura 6.8 se representa la contribución de los atributos más importantes para la clasificación ofrecida por el sistema. En este caso, la existencia de los términos ``ser'' y ``digo'' además de la no existencia del término ``nenaza'', aumentan la probabilidad de que el sistema clasifique el tweet como no machista mientras que los atributos que disminuyen la probabilidad de esta clasificación serían el tamaño del tweet y la publicación de éste desde un dispositivo Android. Como se puede observar, no se detectan términos textuales que reduzcan la clasificación de no machista y, por ello, el tweet se clasifica erróneamente. Para este ejemplo, el sistema falla en la detección del grupo ``mal para ser mujer'' como una expresión que claramente conlleva una actitud machista.
+
+\begin{center}
+	\includegraphics[scale=0.55,keepaspectratio]{imagenes/shap_values_ej1.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Valores SHAP para ejemplo 1}
+\end{center}
+
+Otro ejemplo de error de este tipo sería el tweet \textit{La  negativa a q el aborto sea legal, lleva implícito el elemento castigo: si follaste, pare.Porque las mujeres, no deberían follar tan alegremente, ni que fueran  hombres}. De nuevo, se puede observar en la figura 6.9 como la inexistencia del término ``nenaza'' aumenta la probabilidad de que el tweet sea no machista. Esto se produce porque, en general, todas las instancias que contenían este término se han considerado machistas y, por tanto, el modelo está sesgado hacia los valores de clase que se le presentaron durante el entrenamiento. Es interesante remarcar, que el término ``deberían'' contribuye a reducir la probabilidad de que el tweet se considere no machista, sin embargo, no lo suficiente para evitar el error del clasificador. Este término se repite mucho en el corpus para dar opiniones machistas acerca de como deben de comportarse las mujeres o colectivos feministas.
+
+
+\begin{center}
+	\includegraphics[scale=0.55,keepaspectratio]{imagenes/shap_values_ej2.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Valores SHAP para ejemplo 2}
+\end{center}
+
+De nuevo, el sistema produce un error en la clasificación del tweet \textit{@damita2808 @berege7 @Mariagtriana Y los ojos? Uff demasiado dureza en la mirada para ser chica...no?}. Al igual que ocurre en los ejemplos anteriores, la inexistencia del término ``nenaza'' contribuye a clasificar el tweet como no machista al mismo tiempo que el sistema falla al detectar algunos de los términos la expresión ``demasiado para ser chica''. Esto se produce, al igual que en los casos anteriores, por la limitación de la aproximación basada en unigramas que utiliza frecuencias de términos para representar el texto a clasificar. Esto, supone una desventaja en corpus como el que se estudia en este trabajo, donde el vocabulario es muy heterogéneo y las expresiones o grupos de palabras clave no se repiten lo suficiente durante la etapa de entrenamiento del sistema. En este corpus, solo se trabajan con 222 atributos, lo que indica que se opera con un vocabulario de menos de 200 términos que se repiten en al menos el 1\% de los tweets. Se han realizado pruebas reduciendo este umbral hasta un 0.3\% para aumentar el número de términos del vocabulario pero los resultados no han mejorado. Este mismo efecto se produce en el tweet  \textit{Las mujeres no deberían usar sostén} (figura 6.11) donde los términos textuales no tienen un peso relevante al realizar la clasificación. Por tanto, por un lado, hay que tener en cuenta que, pese a realizar el corpus mediante la búsqueda de unos términos bien definidos, la ambigüedad y riqueza del lenguaje provoca que el contexto en el que se usan sea muy diverso, más aún al tratarse de una red social. Por otro lado, el método aplicado puede tener limitaciones importantes para trabajar en este contexto pues está basado en frecuencias de términos.
+
+\begin{center}
+	\includegraphics[scale=0.55,keepaspectratio]{imagenes/shap_values_ej3.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Valores SHAP para ejemplo 3}
+\end{center}
+
+\begin{center}
+	\includegraphics[scale=0.55,keepaspectratio]{imagenes/shap_values_ej7.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Valores SHAP para ejemplo 4}
+\end{center}
+
+
+
+Otro efecto relevante se produce en los siguientes tweets clasificados erróneamente como no machistas por el sistema:
+
+	\textit{@EsppeonzAguirre "Por ejemplo,@IrantzuVarela hace unos sketches poniéndose unas barbas postizas despeinadas. Es lo que antes se llamaba un marimacho. El igualitarismo ha hecho mucho daño. Uno tiene que mandar y otro obedecer acríticamente}
+	
+	\textit{Buscad mujeres con valores. No prestéis atención a ninguna niñata feminista. No os relacionéis con ellas, salvo para educarlas. No dejemos que nos coma el NOM.}
+
+En ambos casos, se comparten tweets de una longitud considerable donde no existe ningún término individual que señale una actitud machista sino un conjunto de ellos que denotan este tipo de comportamientos. Por esto, se puede observar en las figuras 6.12 y 6.13 como los términos individuales más importantes en el corpus como ``marimacho'', ``niñata'' o ``feminista'' presentes en los tweets ``compiten'' para realizar la clasificación. La limitación de la solución propuesta para tener en cuenta el contexto provoca el error en estos casos. Para intentar reducir este efecto y considerar grupos de palabras, se han realizado pruebas incluyendo atributos tf-idf basados en bigramas sin éxito en los resultados.
+
+\begin{center}
+	\includegraphics[scale=0.55,keepaspectratio]{imagenes/shap_values_ej5.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Valores SHAP para ejemplo 5}
+\end{center}
+
+\begin{center}
+	\includegraphics[scale=0.55,keepaspectratio]{imagenes/shap_values_ej4.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Valores SHAP para ejemplo 6}
+\end{center}
+
+Otra fuente importante de errores que se ha detectado en el estudio de los errores del sistema de clasificación son las faltas de ortografía cometidas por los usuarios al utilizar la red social. Pese a que se ha utilizado un léxico para realizar un mapeo de las faltas más comunes, estos errores hacen que el sistema no pueda representar correctamente los términos como atributos del conjunto de datos.
 
 \section{Resultados experimento 2}
 \label{sec:Col_Eval}
