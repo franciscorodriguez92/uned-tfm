@@ -315,4 +315,16 @@
   year      = {1960},
 }
 
+@InProceedings{shap,
+  author    = {Strumbelj, Erik, and Igor Kononenko},
+  title     = {Explaining prediction models and individual predictions with feature contributions},
+  booktitle = {Knowledge and information systems 41.3},
+  year      = {2014},
+}
+
+@InProceedings{Liu,
+  author = {Wei Liu and Sanjay Chawla},
+  title  = {A Robust Decision Tree Algorithm for Imbalanced Data Sets},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}
