@@ -12,13 +12,14 @@
 
 \noindent Con el rápido crecimiento de las redes sociales, la comunicación entre personas de diferentes culturas en todo el mundo se ha convertido mucho más directa y sencilla. Esto provoca un gran aumento de los ``ciber'' conflictos entre las personas que utilizan con frecuencia este tipo de plataformas. Con millones de contribuciones e información generada diariamente por los usuarios de este tipo de herramientas, resulta impracticable y poco escalable realizar una política manual para detectar el abuso y el machismo. Pese a esto, empresas como Facebook han anunciado planes para contratar varios miles de empleados encargados de moderar el contenido de la plataforma \cite{FacebookHiring2017}. Pese a dedicar muchos esfuerzos y recursos, las grandes compañías como Twitter encuentran gran cantidad de dificultades para afrontar el problema \cite{Twitter2016} debido a la gran cantidad de posts que no pueden ser mediados por sus moderadores. Además, han impulsado fuertes iniciativas para responder a las críticas recibidas por no atajar el problema con la suficiente contundencia. Twitter, por ejemplo, ha aplicado politicas para prohibir el uso de sus plataformas para atacar a personas o grupos sociales (Twitter: \cite{TwitterPolicy}). La importancia de este problema junto con la gran cantidad de información generada por los usuarios hace necesaria la creación de sistemas y herramientas que puedan automáticamente detectar el contenido inapropiado en redes sociales.
 
-Un nuevo estudio realizado en EEUU \cite{Duggan2017} sostiene que el 41\% de personas encuestadas había sufrido personalmente algún tipo de discriminación o acoso online, de las cuales el 18\% había sufrido algún tipo de acoso grave, por ejemplo debido a su género (8\%). De igual modo, las mujeres tienen más de el doble de probabilidades de sufrir acoso debido a su género. (ESTE PARRAFO PROVOCA QUE LA SEPARACION ENTRE PARRAFOS CAMBIE)
+Un nuevo estudio realizado en EEUU \cite{Duggan2017} sostiene que el 41\% de personas encuestadas había sufrido personalmente algún tipo de discriminación o acoso online, de las cuales el 18\% había sufrido algún tipo de acoso grave, por ejemplo debido a su género (8\%). De igual modo, las mujeres tienen más de el doble de probabilidades de sufrir acoso debido a su género.
 
 La importancia del problema radica en la posibilidad de que un abuso verbal en redes sociales acarree eventualmente un acto de violencia física. De hecho, no es inusual que contenidos machistas hacia las mujeres sean trasladados a acciones violentas. Por ejemplo, algunos estudios sociales como \cite{Fulper2014} demuestra la existencia de una correlación entre el número de violaciones y el número de tweets machistas por estado en USA. Esto sugiere que las redes sociales pueden ser utilizadas como detector de violencia machista.
 
 Amnistía internacional, publicó recientemente un estudio donde denuncia este hecho \cite{Amnesty2017}. En el reporte, se explica cómo para muchas mujeres Twitter es una plataforma donde la violencia y al abuso contra ellas florece, en la mayoría de los casos sin ninguna consecuencia. Según este informe, Twitter está fallando como empresa a la hora de respetar los derechos de la mujer en línea. En lugar de reforzar las voces de las mujeres, la violencia y el abuso que experimentan en la plataforma hace que las mujeres se autocensuren a la hora de postear, limiten sus interacciones e incluso les hace abandonar Twitter por completo. De este modo, la violencia y el abuso que muchas mujeres experimentan en Twitter tiene un efecto perjudicial en su derecho a expresarse en igualdad, libremente y sin miedo. 
 
-Todo lo expuesto justifica sin duda la realización de este trabajo, en el que se propone una arquitectura para la detección automática del machismo. Todos los estudios listados justifican la necesidad de detectar y filtrar de un modo automatizado el contenido que incita o promueve el machismo. En concreto, el lenguaje machista o sexista, ocupa gran parte de este discurso en sitios webs como Twitter. Mientras que en la mayoría de las plataformas el uso de este tipo de lenguaje está prohibido, el tamaño de estas redes hace imposible controlar todo el contenido que generan. Para la realización de este proyecto, ...\todo{Completar cuando se avance en el trabajo}
+Todo lo expuesto justifica sin duda la realización de este trabajo, en el que se propone una arquitectura para la detección automática del machismo. Todos los estudios listados justifican la necesidad de detectar y filtrar de un modo automatizado el contenido que incita o promueve el machismo. En concreto, el lenguaje machista o sexista, ocupa gran parte de este discurso en sitios webs como Twitter. Mientras que en la mayoría de las plataformas el uso de este tipo de lenguaje está prohibido, el tamaño de estas redes hace imposible controlar todo el contenido que generan. Resulta adecuado, por tanto, afirmar que las posibilidades y ventajas que proporcionaría un sistema capaz de detectar este tipo de actitudes en en texto de manera automática supondrían un beneficio sustancial
+para los usuarios y consumidores de redes sociales e internet en general.
 
 
 \section{Propuesta y objetivos}
@@ -26,17 +27,30 @@ Todo lo expuesto justifica sin duda la realización de este trabajo, en el que se
 
 \noindent Que se ha realizado en el trabajo de fin de master, cuales eran los objetivos y breve resumen de los resultados obtenidos. Texto de prueba 3.
 
+Objetivos:
+? Comprender los mecanismos y señales textuales que conllevan lenguaje y actitudes machistas en redes sociales.
+? Recopilar información y conformar un corpus representativo que permita el estudio del lenguaje machista en las redes sociales.
+? Evaluar el desarrollo de un sistema automático para la detección del lenguaje machista.
+Metodología y evaluación:
+? Se analizará el problema realizando una revisión del estado del arte.
+? Se revisarán las herramientas disponibles para abordar el problema y se determinará cuales son las más adecuadas.
+? Se desarrollará un sistema automático que permite identificar las señales textuales que expresan lenguaje machista. Para este desarrollo, se empleará una metodología iterativa donde en cada iteración se reevaluarán las transformaciones, experimentos y algoritmos utilizados para la realización del sistema. De este modo, se irán aplicando soluciones cada vez más sofisticadas que permitan mejorar la bondad del sistema de clasificación.
+
+En la actualidad, el abuso online se ha convertido en un gran problema, especialmente por el anonimato y la interactividad de la web que facilita el incremento y permanencia de este tipo de abusos. Se trata de un campo en el que ha aumentado la producción científica enormemente durante este mismo año y donde se han desarrollado competiciones con gran participación por parte de la comunidad científica. A lo largo del trabajo, se presenta el ciclo completo para la recolección de datos, preprocesamiento y construcción del sistema de clasificación.
+
 \section{Estructura del documento}
 \label{sec:EstructuraDelDocumento}
 
-\noindent Breve descripción de los capítulos del trabajo.
+\noindent En este capítulo se estructuran los capítulos que componen el presente trabajo fin de máster.
 
 \begin{description}
 
 \item \textbf{Capítulo 1. Introducción.} Este capítulo introduce los principales motivos que han llevado a la realización de este trabajo, así como la problemática y el estado actual de la disciplina. Por último, se presentan las diferentes contribuciones del trabajo realizado.
 \item \textbf{Capítulo 2. Estado del arte.} Este capítulo describe en mayor detalle la disciplina que nos ocupa, presentando su origen y su historia hasta el presente. Se muestran las técnicas actuales más utilizadas para resolver las tareas más relevantes del tema abordado, así como sus debilidades.
-\item \textbf{Capítulo 3. Sistema/Método/Caso de Estudio propuesto.}  En este capítulo se describe en profundidad el sistema/método o caso de estudio propuesto.
-\item \textbf{Capítulo 4. Evaluación.} Este capítulo describe la metodología utilizada para evaluar la propuesta realizada, a la vez que presenta los resultados obtenidos al evaluar el método propuesto en diferentes tareas y sobre colecciones de evaluación de distintos dominios.
-\item \textbf{Capítulo 5. Discusión.} Este capítulo analiza y discute en profundidad los resultados obtenidos en la evaluación presentada en el capítulo anterior.
-\item \textbf{Capítulo 6. Conclusiones y trabajo futuro.} Este capítulo recopila las diferentes conclusiones extraídas del trabajo realizado, y propone algunas líneas de trabajo futuro.
-\end{description} \todo{Completar al terminar el trabajo}
+\item \textbf{Capítulo 3. Herramientas utilizadas.}  En este capítulo se describen todas las herramientas y tecnologías que han sido necesarias para elaborar el proyecto. Se realiza una definición de cada una de ellas y se describe el papel que desempeñan dentro del trabajo desarrollado.
+\item \textbf{Capítulo 4. MeTwo dataset (Machismo and Sexism Twitter Identification dataset)}  En este capítulo se describe en profundidad la metodología seguida para componer el corpus con texto y expresiones machistas.
+\item \textbf{Capítulo 5. Sistema.}  En este capítulo se describe en profundidad el sistema de clasificación propuesto.
+\item \textbf{Capítulo 6. Evaluación y discusión.} Este capítulo describe la metodología utilizada para evaluar la propuesta realizada, a la vez que presenta los resultados obtenidos al evaluar el método propuesto en diferentes tareas y sobre colecciones de evaluación de distintos dominios. Además, se analiza y discute en profundidad los resultados obtenidos en la evaluación presentada anteriormente.
+\item \textbf{Capítulo 7. Conclusiones y trabajo futuro.} Este capítulo recopila las diferentes conclusiones extraídas del trabajo realizado, y propone algunas líneas de trabajo futuro.
+
+\end{description}
