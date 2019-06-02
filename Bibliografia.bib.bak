@@ -327,4 +327,50 @@
   title  = {A Robust Decision Tree Algorithm for Imbalanced Data Sets},
 }
 
+@InProceedings{Ustuner2016,
+  author    = {M. Ustuner},
+  title     = {BALANCED VS IMBALANCED TRAINING DATA: CLASSIFYING RAPIDEYE DATA WITH SUPPORT VECTOR MACHINES},
+  booktitle = {The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences, Volume XLI-B7},
+  year      = {2016},
+}
+
+@Misc{TwitterAPI,
+  author = {Twitter},
+  title  = {https://developer.twitter.com/en/docs/api-reference-index.html},
+  year   = {2018},
+  url    = {https://developer.twitter.com/en/docs/api-reference-index.html},
+}
+
+@Misc{Tweetpy,
+  author = {Joshua Roesslein},
+  title  = {Tweepy},
+  year   = {2009},
+  url    = {https://tweepy.readthedocs.io/en/latest/},
+}
+
+@InProceedings{carreras04,
+  author    = {Xavier Carreras and Isaac Chao and Lluís Padró and Muntsa Padró},
+  title     = {FreeLing: An Open-Source Suite of Language Analyzers},
+  booktitle = {Proceedings of the 4th International Conference on Language Resources and Evaluation (LREC 04)},
+  year      = {2004},
+}
+
+@Misc{StanfordParser,
+  author = {Stanford NLP Group},
+  year   = {2015},
+  url    = {https://nlp.stanford.edu/software/spanish-faq.html},
+}
+
+@InProceedings{TweetNLP,
+  author = {Olutobi Ovoputi},
+  title  = {Improved Part-of-Speech Tagging for Online Conversational Text with Word Clusters},
+  year   = {2013},
+}
+
+@InProceedings{Spacy,
+  author = {Honnibal, Matthew AND Montani, Ines},
+  title  = {spaCy 2: Natural language understanding with Bloom embeddings, convolutional neural networks and incremental parsing},
+  year   = {2017},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}

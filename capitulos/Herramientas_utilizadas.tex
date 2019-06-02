@@ -12,9 +12,9 @@
 \label{sec:Ejemplo_seccion}
 \subsection{Amazon Web Services}{}
 \label{sec:Ejemplo_seccion}
-\noindent AWS es una creciente unidad dentro la compañía Amazon.com que ofrece una importante variedad de soluciones de Cloud Computing a empresas tanto PYMES como grandes organizaciones a través de su infraestructura interna siendo la marca más utilizada actualmente en el mercado de la nube con casi un 40\% de cuota de mercado \cite{AWScuota}. Amazon ofrece unos servicios en la nube pública mediante una tarificación de precios en función del tiempo de uso, anchos de banda consumidos, etc. Por lo tanto, su gran ventaja competitiva es ofrecer unos recursos de infraestructura y plataforma poco asumibles a la mayoría de empresas para el periodo que se requiera. 
+\noindent AWS es una creciente unidad dentro la compañía Amazon.com que ofrece una importante variedad de soluciones de Cloud Computing tanto PYMES como a grandes empresas a través de su infraestructura interna, siendo la marca más utilizada actualmente en el mercado de la nube con casi un 40\% de cuota de mercado \cite{AWScuota}. Amazon ofrece unos servicios en la nube pública mediante una tarificación de precios en función del tiempo de uso, anchos de banda consumidos, etc. Por lo tanto, su gran ventaja competitiva es ofrecer unos recursos de infraestructura y plataforma poco asumibles a la mayoría de empresas para el periodo que se requiera. 
 
-Los clientes de AWS tan sólo deben pagar lo que usen del servicio, de esta manera, obtener unos potentes servidores con una plataforma determinada, un espacio de almacenamiento o una gran base de datos supone la adquisición de un hardware que no se aproveche todo el tiempo, que tan sólo interese para un periodo determinado y satisfacer una necesidad puntual, prescindiendo de importantes inversiones en infraestructura. Orientado a empresas, se adapta con total flexibilidad y escalabilidad a las necesidades de Cloud que tenga el cliente, mediante un acuerdo de nivel de servicio, se especifica el nivel de compromiso del servicio, disponibilidad y ofrece un punto de confianza que otros proveedores de nube pública no proporcionan, dato que le da ventaja frente a sus competidores.
+Los clientes de AWS tan sólo deben pagar lo que usen del servicio, de esta manera, obtener unos potentes servidores con una plataforma determinada, un espacio de almacenamiento o una gran base de datos supone la adquisición de un hardware que no se aproveche todo el tiempo, que tan sólo interese para un periodo determinado y satisfacer una necesidad puntual, prescindiendo de importantes inversiones en infraestructura. Orientado a empresas, se adapta con total flexibilidad y escalabilidad a las necesidades de cloud que tenga el cliente, mediante un acuerdo de nivel de servicio, se especifica el nivel de compromiso del servicio, disponibilidad y ofrece un punto de confianza que otros proveedores de nube pública no proporcionan, dato que le da ventaja frente a sus competidores.
 
 Dado que ha sido pionero en el sector y posee una gran cantidad de desarrolladores que trabajan para mejorar el servicio, desde su publicación en 2006, ha sido líder en el sector por delante de Google App Engine, Azure de Microsoft, Alibaba, etc \cite{AWScuota}. Siempre ha ido un paso por delante y le ha permitido innovar en el sector y ofrecer unos precios muy competitivos, soluciones para todos los gustos e importantes acuerdos con Microsoft, IBM y HP como estrategias de marketing para ofrecer software y plataformas propietarias (además de software libre que fue lo primero que se ofrecía con plataformas Linux) en sus imágenes de máquinas virtuales. En la siguiente figura se puede ver un resumen de los servicios de AWS:
 
@@ -37,24 +37,24 @@ La segunda plataforma de cloud computing más importante a nivel mundial es Azure
 
 \subsection{Twitter API y rtweet}{}
 \label{sec:Ejemplo_seccion}
-\noindent Twitter proporciona múltiples APIs para facilitar el acceso a los datos de su plataforma. De todas ellas, la necesaria para crear el corpus objetivo sería el API REST de Twitter. En concreto, es necesario utilizar la funcionalidad Tweet Search que permite realizar búsquedas de los tweets generados en la plataforma según distintos parámetros de búsqueda.
+\noindent Twitter proporciona múltiples APIs para facilitar el acceso a los datos de su plataforma. De todas ellas, la necesaria para crear el corpus objetivo sería el API REST de Twitter \cite{TwitterAPI}. En concreto, es necesario utilizar la funcionalidad Tweet Search que permite realizar búsquedas de los tweets generados en la plataforma según distintos parámetros de búsqueda.
 
 Dentro del API existen 3 tipos de cuenta según la cantidad de información disponible para consulta: Standard Search, Premium Search y Enterprise Search. De todas ellas, solamente la primera es gratuita por lo que será la utilizada durante el proceso de generación del corpus. Es importante señalar que este tipo de búsqueda presenta algunas limitaciones. Las dos más importantes serían la existencia de una ventana temporal de consulta limitada a 7 días anteriores y, por otra parte, la limitación de descarga de tweets a 18.000 cada 15 minutos.
 
 Para recopilar la información de Twitter, se ha utilizado la herramienta rtweet \cite{rtweet-package}. Se trata de un cliente del lenguaje de programación R para acceder al API de Twitter. Este paquete facilita mucho las tareas habituales como la búsqueda de tweets.
 
-Existen varias alternativas a rtweet como tweetpy para el lenguaje de programación Python o twitteR. Se ha optado por rtweet porque ambas alternativas están más desactualizadas y son proyectos mucho más inactivos
+Existen varias alternativas a rtweet como tweetpy \cite{Tweetpy} para el lenguaje de programación Python o twitteR. Se ha optado por rtweet porque ambas alternativas están más desactualizadas y son proyectos mucho más inactivos.
 
 
 \section{Preprocesado y tokenización}
 \label{sec:Ejemplo_seccion}
 
-\noindent En la etapa inicial para la clasificación de textos, se aplican distintas técnicas que permitan Extraer los atributos o \textit{features} necesarias para realizar una representación fiel del texto y que permita la utilización de un algoritmo de clasificación. Existen multitud de procedimientos aplicables en esta etapa como la tokenización, el reconocimiento de entidades nombradas, el etiquetado sintáctico y morfológico:
+\noindent En la etapa inicial para la clasificación de textos, se aplican distintas técnicas que permitan Extraer los atributos o \textit{features} necesarias para realizar una representación fiel del texto y que permitan la utilización de un algoritmo de clasificación. Existen multitud de procedimientos aplicables en esta etapa como la tokenización, el reconocimiento de entidades nombradas, el etiquetado sintáctico y morfológico:
 
 \begin{itemize}
 	\itemsep0em 
 	\item Tokenización: Permite separar cada palabra o símbolo del corpus en unidades independientes (como palabras) que pueden ser almacenadas para su posterior procesado.
-	\item Reconocimiento de entidades nombradas: Tarea que permite clasificar en categorías predefinidas, como personas, organizaciones, lugares, expresiones de tiempo y cantidades.
+	\item Reconocimiento de entidades nombradas: Tarea que permite clasificar fragmentos de texto en categorías predefinidas, como personas, organizaciones, lugares, expresiones de tiempo y cantidades.
 	\item Etiquetado sintáctico: Proceso en el que se busca sobre el espacio de todas las posibles combinaciones de las reglas gramaticales definidas para encontrar la estructura de una oración.
 	\item Etiquetado morfológico: En este proceso se le asigna a cada palabra su función dentro del corpus utilizado. Normalmente, se utilizan 8 etiquetas distintas en la mayoría de los idiomas utilizados en Europa: nombre, verbo, pronombre, preposición, adverbio, conjunción, partícula y articulo.
 \end{itemize}
@@ -63,22 +63,22 @@ Para aplicar este tipo de técnicas, existen gran cantidad de proyectos o librerí
 
 \begin{itemize}
 	\itemsep0em 
-	\item Freeling: Es una librería que soporta el lenguaje español y se utiliza en \cite{Frenda2018}. Pese a que tiene mucha de las características que se necesitan, tiene una menor comunidad y está menos extendido que algunas del resto de las herramientas.
-	\item Stanford Parser: Se trata de una librería desarrollada por el grupo de trabajo de NLP de la universidad de Stanford.
-	\item TweetNLP: Librería desarrollada específicamente para le procesado de tweets. Su uso no está muy extendido.
-	\item Spacy: Se utiliza en \cite{Waseem2016} y permite aplicar las técnicas de procesado de un modo eficiente.
-	\item NLTK: Se trata de la librería más extendida para el preprocesamiento, se utiliza en \cite{Zimmerman2018,Davidson2017,Frenda2018}.
+	\item Freeling \cite{carreras04}: Es una librería que soporta el lenguaje español y se utiliza en \cite{Frenda2018}. Pese a que tiene mucha de las características que se necesitan, tiene una menor comunidad y está menos extendido que algunas del resto de las herramientas.
+	\item Stanford Parser \cite{StanfordParser}: Se trata de una librería desarrollada por el grupo de trabajo de NLP de la universidad de Stanford.
+	\item TweetNLP \cite{TweetNLP}: Librería desarrollada específicamente para le procesado de tweets. Su uso no está muy extendido.
+	\item Spacy \cite{Spacy}: Se utiliza en \cite{Waseem2016} y permite aplicar las técnicas de procesado de un modo eficiente.
+	\item NLTK \cite{NLTKweb}: Se trata de la librería más extendida para el preprocesamiento, se utiliza en \cite{Zimmerman2018,Davidson2017,Frenda2018}.
 \end{itemize}
 
 De todas las herramientas listadas, se ha optado por la librería NLTK. Se trata de una librería muy extendida que cuenta con una gran comunidad y permite un desarrollo muy ágil. Algunas librerías como Freeling o Stanford Parser requieren varias dependencias para poder ser utilizadas.
 
-La mejor alternativa a NLTK considerada sería Spacy. Su uso está aumentando y su funcionamiento es muy similar ya que ambas están desarrolladas en Python. Se ha optado por NLTK porque aún sigue siendo más utilizada.
+La mejor alternativa a NLTK considerada sería Spacy. Su uso está aumentando y su funcionamiento es muy similar ya que ambas están desarrolladas en Python. Se ha optado por NLTK porque a día de hoy sigue siendo más utilizada.
 
 \subsection{NLTK: Natural Language Toolkit}{}
 \label{sec:Ejemplo_seccion}
 \noindent NLTK \cite{NLTKweb} es una librería que define una infraestructura en la que crear programas para el procesado del lenguaje natural (NLP, ``\textit{Natural language processing}'') en ``\textit{Python}''. Provee la estructura básica para representar datos relevantes para el procesado del lenguaje natural, interfaces para realizar tareas como el etiquetado del discurso (POS, ``part-of-speech tagging''), etiquetado sintáctico y clasificación de texto.
 
-Esta librería fue desarrollada originalmente en el año 2001 como parte de un curso de lingüística computacional en la universidad de Pennsylvania. Desde entonces, ha sido desarrollado y mejorado por distintos contribuidores al tratarse de un proyecto libre. Actualmente, NLTK es utilizado en gran cantidad de investigaciones y supone un estándar muy importante para realizar tareas relacionadas con NLP. Está compuesto por una cantidad importante de módulos que pueden ser invocados desde un programa escrito en Python. En la siguiente figura se recogen los más importantes \cite{Bird2009}:
+Esta librería fue desarrollada originalmente en el año 2001 como parte de un curso de lingüística computacional en la Universidad de Pennsylvania. Desde entonces, ha sido desarrollada y mejorada por distintos contribuidores al tratarse de un proyecto libre. Actualmente, NLTK es utilizado en gran cantidad de investigaciones y supone un estándar muy importante para realizar tareas relacionadas con NLP. Está compuesto por una cantidad importante de módulos que pueden ser invocados desde un programa escrito en Python. En la siguiente figura se recogen los más importantes \cite{Bird2009}:
 
 \begin{center}
 	\includegraphics[width=0.9\textwidth]{imagenes/NLTK_modules-1.jpg} %[width=4cm,,keepaspectratio]
@@ -89,7 +89,7 @@ Esta librería fue desarrollada originalmente en el año 2001 como parte de un cur
 \label{sec:Ejemplo_seccion}
 
 
-\noindent Scikit-learn \cite{Pedregosa2011}  es un proyecto que provee una librería de aprendizaje de máquina para el entorno de programación ``Python''. El objetivo principal de esta librería es establecer un conjunto de herramientas dentro de un entorno de programación que sea accesible a usuarios no expertos. Esta librería incluye algoritmos clásicos de aprendizaje de máquina, herramientas para la selección, evaluación de modelos y preprocesado. Todos los objetos dentro de la librería comparten un API básica compuesta por 3 interfaces complementarias: ``estimators'' que permiten construir y ajustar modelos, ``predictors'' para realizar predicciones y ``transformers'' que permiten realizar conversiones a los datos.
+\noindent Scikit-learn \cite{Pedregosa2011}  es un proyecto que provee una librería de aprendizaje de máquina para el entorno de programación ``Python''. El objetivo principal de esta librería es establecer un conjunto de herramientas dentro de un entorno de programación que sea accesible a usuarios no expertos. Esta librería incluye algoritmos clásicos de aprendizaje de máquina, herramientas para la selección, evaluación de modelos y preprocesado. Todos los objetos dentro de la librería comparten una API básica compuesta por 3 interfaces complementarias: ``estimators'' que permiten construir y ajustar modelos, ``predictors'', para realizar predicciones, y ``transformers'', que permiten realizar conversiones a los datos.
 
 La mayor parte de modelos de aprendizaje supervisados o funciones auxiliares relacionadas con el procesado de datos utilizados en el presente trabajo están implementados o han sido desarrollados con ayuda de funciones disponibles en la librería scikit-learn.
 
