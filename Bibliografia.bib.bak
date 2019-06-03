@@ -1,7 +1,7 @@
 % Encoding: windows-1252
 
 @InProceedings{WaseemHovy2016,
-  author    = {Zeerak Waseem, Dirk Hovy},
+  author    = {Zeerak Waseem},
   title     = {{Hateful Symbols or Hateful People? Predictive Features for Hate Speech Detection on Twitter}},
   booktitle = {Proceedings of NAACL-HLT 2016},
   year      = {2016},
@@ -18,7 +18,7 @@
 }
 
 @InProceedings{Georgios2018,
-  author    = {Georgios K. Pitsilis, Heri Ramampiaro and Helge Langseth},
+  author    = {Georgios K., Heri R. and Helge Langseth},
   title     = {Detecting Oensive Language in Tweets Using Deep Learning},
   booktitle = {Department of Computer Science Norwegian University of Science and Technology},
   year      = {2018},
@@ -65,8 +65,8 @@
   year      = {2017},
 }
 
-@InProceedings{WATANABE2018,
-  author    = {HAJIME WATANABE, MONDHER BOUAZIZI , TOMOAKI OHTSUKI},
+@InProceedings{Watanabe2018,
+  author    = {Hajime Watanabe},
   title     = {Hate Speech on Twitter: A Pragmatic Approach to Collect Hateful and Offensive Expressions and Perform Hate Speech Detection},
   booktitle = {2018 IEEE},
   year      = {2018},
@@ -269,7 +269,7 @@
 }
 
 @InProceedings{Zimmerman2018,
-  author    = {Steven Zimmerman, Chris Fox, Udo Kruschwitz},
+  author    = {Steven Zimmerman},
   title     = {Improving Hate Speech Detection with Deep Learning Ensembles},
   booktitle = {Proceedings of the Eleventh International Conference on Language Resources and Evaluation (LREC 2018)},
   year      = {2018},
@@ -371,6 +371,93 @@
   author = {Honnibal, Matthew AND Montani, Ines},
   title  = {spaCy 2: Natural language understanding with Bloom embeddings, convolutional neural networks and incremental parsing},
   year   = {2017},
+}
+
+@Book{Jurafsky,
+  title     = {Speech and Language Processing},
+  publisher = {Prentice-Hall},
+  year      = {2009},
+  author    = {Daniel Jurafsky},
+}
+
+@InProceedings{Hai2010,
+  author = {Alex Hai Wang},
+  title  = {Spam Detection in Twitter},
+  year   = {2010},
+}
+
+@Book{Russell2002,
+  title     = {Artificial Intelligence: A Modern Approach},
+  publisher = {Prentice Hall},
+  year      = {2002},
+  author    = {Russell, S. and Norvig, P.},
+}
+
+@InProceedings{2Mauro2016,
+  author = {Mauro Dragoni, Serena Villata.},
+  title  = {Combining NLP Approaches for Rule Extraction from Legal Documents},
+  year   = {2016},
+}
+
+@InProceedings{Mark,
+  author = {Mark Hepple, Neil Ireso},
+  title  = {NLP-enhanced Content Filtering within the POESIA Project},
+}
+
+@InProceedings{Elizabeth2001,
+  author = {Elizabeth D. Liddy},
+  title  = {Natural Language Processing},
+  year   = {2001},
+}
+
+@InProceedings{Aurangzeb2010,
+  author = {Aurangzeb Khan, Baharum Baharudin},
+  title  = {A Review of Machine Learning Algorithms for Text-Documents Classification},
+  year   = {2010},
+}
+
+@InProceedings{Fresno2006,
+  author = {Fresno, V.},
+  title  = {Representación Autocontenida de documentos HTML: una propuesta basada en combinaciones heurísticas de criterios},
+  year   = {2006},
+}
+
+@InProceedings{Leo2001,
+  author = {Leo Breiman},
+  title  = {Random Forests},
+  year   = {2001},
+}
+
+@InProceedings{Corinna1995,
+  author = {Corinna Cortes},
+  title  = {Support-vector networks},
+  year   = {1995},
+}
+
+@Book{Goodfellow-et-al-2016,
+  title     = {Deep Learning},
+  publisher = {MIT Press},
+  year      = {2016},
+  author    = {Ian Goodfellow and Yoshua Bengio and Aaron Courville},
+  note      = {\url{http://www.deeplearningbook.org}},
+}
+
+@InProceedings{Gongde2003,
+  author = {Gongde Guo},
+  title  = {KNN Model-Based Approach in Classification},
+  year   = {2003},
+}
+
+@InProceedings{Mingxing2019,
+  author = {Mingxing Tan},
+  title  = {EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks},
+  year   = {2019},
+}
+
+@InProceedings{Jacob2019,
+  author = {Jacob Devlin},
+  title  = {BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding},
+  year   = {2019},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}

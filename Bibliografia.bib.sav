@@ -18,7 +18,7 @@
 }
 
 @InProceedings{Georgios2018,
-  author    = {Georgios K., Heri R. and Helge Langseth},
+  author    = {Georgios K., Heri Rand Helge Langseth},
   title     = {Detecting Oensive Language in Tweets Using Deep Learning},
   booktitle = {Department of Computer Science Norwegian University of Science and Technology},
   year      = {2018},
@@ -148,7 +148,7 @@
 }
 
 @InProceedings{Shushkevich2018,
-  author    = {Elena Shushkevich and John Cardiff},
+  author    = {Elena Shushkevich, John Cardiff},
   title     = {Classifying Misogynistic Tweets Using a Blended Model: The AMI Shared Task in IBEREVAL 2018},
   booktitle = {IberEval 2018},
   year      = {2018},
