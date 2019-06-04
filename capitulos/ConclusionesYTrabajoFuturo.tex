@@ -6,13 +6,33 @@
 \fancyhead[RE]{\textsc{CAPÍTULO} \thechapter. Conclusiones y trabajo futuro}
 \label{ch:Conclusiones y trabajo futuro}
 
-\noindent Este capítulo recopila las diferentes conclusiones extraídas del trabajo realizado, y propone algunas líneas de trabajo futuro. Las siguientes secciones son las que suelen contener este tipo de capítulos, aunque pueden variar dependiendo del tema del trabajo.
-
-Incluso se me ocurre la creación de un léxico machista específico para el español utilizando para ello el training. Podríamos usar WordNet para expandir sinónimo y antónimos, etc.
-
 \section{Conclusiones}
 \label{sec:Conclu}
+\noindent En este trabajo fin de máster se ha presentado un nuevo sistema que pretende resolver el problema de detección del machismo en redes sociales. El sistema realiza un análisis supervisado y emplea distintos atributos unificados para, posteriormente, hacer uso de un algoritmo de aprendizaje de máquina que permita detectar expresiones y actitudes machistas en las redes sociales. Para cada atributo, se aplican diferentes métodos de preprocesado como la normalización de términos mediante un léxico de \textit{slang} o la sustitución de emoticonos. Tras esto, se unifican los distintos tipos de atributos procesados en un conjunto de datos común que será la entrada de la última fase. En la última etapa, se emplean algoritmos de clasificación supervisada con la intención de obtener un modelo predictivo capaz de detectar las señales textuales que expresan lenguaje machista.
 
+Se ha presentado MeTwo, un corpus desarrollado en el presenta trabajo, que ha sido utilizado para entrenar el sistema de clasificación descrito. El corpus aportado por este trabajo cuenta 3600 mensajes etiquetados por 3 anotadores para la tarea de detección del machismo. Hasta la fecha, y en conocimiento del autor de este trabajo, se trata del corpus etiquetado más extenso disponible en castellano para la tarea de detección del machismo.
+
+Asimismo, en el capítulo 2, se ha realizado una extensa revisión del estado del arte en la detección del lenguaje ofensivo, tanto sexista como de otro tipo, siendo posible detectar las principales limitaciones y problemas por resolver en la actualidad. La principal conclusión extraída es que se trata de una línea investigación muy actual y de creciente popularidad. Se trata de una tarea compleja, en la que aún no se ha investigado suficientemente como demuestran los escasos trabajos que tratan la detección de lenguaje machista en castellano.
+
+Uno de los principales objetivos ha sido la detección de señales textuales que expresan lenguaje machista en castellano. En conocimiento del autor, solo una serie de publicaciones relacionadas con la competición \cite{AMIOverview2018} han abordado la problemática desde un punto de vista práctico sin una investigación para la composición del corpus utilizado en la etapa de entrenamiento. En este trabajo, se ha experimentado
+con diferentes términos y conceptos para componer un corpus que permita desarrollar un sistema específico para la tarea y los datos recolectados. De este modo, a lo largo del trabajo, se presenta el ciclo completo para la recolección de datos, preprocesamiento y construcción del sistema de clasificación para el lenguaje.
+
+Por otro lado, se ha realizado una evaluación exhaustiva para determinar la viabilidad del modelo propuesto y valorar el desempeño del sistema desarrollado. Para ello, se ha utilizado el corpus MeTwo con distintos experimentos de valoración del sistema de clasificación. Los resultados obtenidos con este método son prometedores y se consigue clasificar las instancias del conjunto de test con más de un 70\% de acierto. Pese a los resultados obtenidos, se han detectado distintas limitaciones debido a las técnicas utilizadas. Uno de los problemas detectados ha sido un excesivo sesgo hacia ciertos términos independientemente del contexto en el que se utilicen. Por ejemplo, el término ``nenaza'' tiene gran importancia en el clasificador para la detección de mensajes machistas. Asimismo, otra limitación está relacionada con los términos que no se repiten a lo largo del corpus pero presentan actitudes machistas. Estos dos efectos se producen por la representación textual basada en frecuencias de términos y que empeora en entornos donde el uso de éstos no es homogéneo.
+
+Otro inconveniente del sistema desarrollado es la excesiva dependencia a la presencia de términos sin tener en cuenta el contexto. Debido al método de representación textual utilizado, el orden en el que aparecen las palabras dentro del mensaje no es importante y, por ello, el método falla al detectar el machismo en textos donde no haya ningún término que, por si mismo, conlleve machismo en un gran porcentaje de ocasiones.
 
 \section{Trabajo futuro}
 \label{sec:Trab_Fut} 
+
+Respecto a continuar con el TFM, te expongo brevemente algunas ideas que nosotros hemos pensado para ampliar el TFM :
+
+Profundizar más en el tipo de machismo que hay, desde un punto de vista más teórico, para después etiquetar un corpus. La clave aquí sería hilar un poco más fino, es decir, esto es machista, pero además es machismo agresivo, esto es micro machismo, esto es machismo pero en algo que cuenta una víctima que le ha pasado, etc.
+
+Estaría interesante ampliar las fuentes, es decir, poder incluir periódicos. Esto podríamos ver como lo hacemos, si nosotros solos mediante un crawler o a través de datasets de empresas con las que colaboramos y que tienen ya esto en tiempo real.
+También sería interesante hacerlo en redes sociales pero en tiempo real. Sé que Twitter no te deja mucho al día, pero como demo es suficiente.
+Habría que profundizar más en las técnicas para la clasificación automática, entrando ya en temas de redes neuronales profundas y BERT.
+
+Adaptarlo para el inglés sería casi necesario, para publicar más.
+Incluso se me ocurre la creación de un léxico machista específico para el español utilizando para ello el training. Podríamos usar WordNet para expandir sinónimo y antónimos, etc.
+
+Y por último, como salida final del sistema y demo, que eso es muy visible e impactante de cara a artículos y defensa de la tesis, sería hacer un portal web: ?Observatorio del machismo?. En este portal, se podría poner un mapa y mostrar los tipos de machismos en España, Europa, o el mundo, los términos más usados, medios más o menos afines, etc.
