@@ -48,6 +48,10 @@ Para construir cualquier clasificador de textos o documentos es necesario seguir
 \subsection{Representación textual}
 \label{sec:Ejemplo_subSeccion} 
 
+
+\subsubsection{Modelo de espacio vectorial}
+\label{sec:Ejemplo_subSeccion} 
+
 \noindent La representación del texto es un paso fundamental para el procesamiento automático de textos. Una representación fiel al contenido del documento, que incluya la información necesaria para extraer conocimiento útil, será clave para el desarrollo de una arquitectura con un rendimiento adecuado. En este proceso, se han de tener en cuenta las especificaciones de los algoritmos que se empleen a continuación.
 
 En esta fase, se definen todos los atributos utilizados en el paso posterior por el algoritmo de clasificación. Los atributos seleccionados o generados a partir de los originales serán los que marquen el éxito de la arquitectura completa. La elección del algoritmo de clasificación para los pasos posteriores influirá de un modo mucho menos significativo. Por ejemplo, en \cite{Victor2018} y \cite{Wahyu2018} se utiliza el mismo algoritmo de clasificación pero los resultados son muy diferentes debido a los atributos utilizados. 
@@ -62,6 +66,103 @@ Un modelo de representación muy utilizado se conoce como modelo de representació
 En este caso, se tendría un vocabulario con únicamente dos rasgos $w_1$ y $w_2$ que conforman el espacio en el que se encuentran los documentos o textos $d_1$ y $d_2$. De este modo, se pueden emplear medidas de distancia, como la distancia euclídea o la distancia coseno, para comparar ambos documentos.
 
 Utilizando este modelo, un texto quedará representado como una combinación lineal de vectores, donde cada coeficiente representa la relevancia de cada rasgo en el contenido del texto, calculado con una función de pesado. Para un texto $d$, un vocabulario de tamaño $n$: $\vec{d}=t_1j \vec{t_1} + ... + t_nj \vec{t_n} $. Para el cálculo de la relevancia de cada rasgo $t_nj$, se utilizará una función de pesado. Una de las más utilizadas se conoce como TF-IDF (frecuencia del termino x frecuencia inversa del documento) y se calcularía del siguiente modo: \[TF-IDF(\vec{t_i},\vec{d_j})=f_{ij}\log(\frac{N}{d_f(\vec{t_i})})\] donde $N$ es la dimensión del corpus (en este caso número de tweets), $f_{ij}$ la frecuencia del término en el documento y $d_f(\vec{t_i})$ el número de documentos (en este caso el tweet) en los que aparece el término.
+
+
+\subsubsection{Representación semántica mediante modelo de espacio vectorial}
+\label{sec:Ejemplo_subSeccion} 
+
+\noindent En el apartado anterior, se ha descrito un procedimiento para la representación textual que permite convertir la información contenida en el texto como una combinación lineal de vectores, donde cada coeficiente representa la existencia o no de los términos contenidos en el vocabulario del corpus. A pesar de ser uno de los métodos más simples y utilizados para el problema de clasificación de textos, los documentos y textos que se quieren representar tienen un contenido semántico que no queda representado con este tipo de métodos. Es decir, este método no es capaz de capturar información acerca del significado que tienen los términos que contienen los documentos. Por ejemplo, pensemos en los 3 documentos de ejemplo:
+
+	$d_1 = $``\textit{Pizza margarita}''
+
+	$d_2 = $``\textit{Pizza calzone}''
+
+	$d_3 = $``\textit{Macarrones}''
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+	\centering
+	\begin{tabular}{@{}lllll@{}}
+		\toprule
+		\textbf{Términos} & \textbf{Pizza} & \textbf{margarita} & \textbf{calzone} & \textbf{Macarrones} \\ \midrule
+		\textbf{$d_1$} & 1 & 1 & 0 & 0 \\
+		\textbf{$d_2$} & 1 & 0 & 1 & 0 \\
+		\textbf{$d_3$} & 0 & 0 & 0 & 1 \\ \bottomrule
+	\end{tabular}
+	\caption{Matriz documento - término}
+	\label{tab:my-table}
+\end{table}
+
+Si se realiza una representación de los documentos según el modelo descrito anteriormente (con el número de términos como función de pesado) se obtendría la matriz de la tabla 2.1. Como se puede observar, los documentos $d_1$ y $d_2$ tienen en común un atributo mientras que el documento $d_3$ no tendría ningún rasgo común con el resto de documentos. Sin embargo, si se tiene en cuenta el significado o la representación semántica de los documentos, se concluiría que todos los documentos indican comida italiana y, por tanto, todos tienen en común ese rasgo semántico. Esto indica que si un documento se trata únicamente como una sucesión de términos, se perderán los conceptos a los que hace referencia.
+
+Los métodos para la generación automática de atributos semánticos fueron desarrollados alrededor del año 1990 con el objetivo de capturar la información semántica presente en los documentos. Uno de los algoritmos más populares dentro de esta familia se conoce como LSA (\textit{Latent Semantic Analysis}) \cite{Deerwester1990} que describe a cada palabra o conjunto de palabras en un espacio vectorial de dimensión reducida en el que las palabras semánticamente similares se encontrarán más próximas. Para ello, este método toma como entrada una matriz término-documento a la que se le aplica una descomposición de valores singulares obteniendo así una representación vectorial tanto de los términos como de los documentos. De este modo, se puede cuantificar la similitud semántica de dos palabras mediante el uso de medidas de distancias entre vectores. Esta técnica fue rápidamente aplicada a distintos dominios como modelo cognitivo \cite{Landauer1997}, como modelo de lenguaje \cite{Jurafsky1998} o como calificador automático \cite{Rehder1998}.
+
+Aunque el método LSA se planteó como una variante al modelo de espacio vectorial, hace uso de las mismas formas de representación a la entrada del método. 
+
+Aqu´?, un texto se representa en un espacio de coordenadas donde los documentos y los rasgos
+se expresan como una combinaci´on de factores sem´anticos subyacentes. El LSI formaliza esta
+similitud a partir del ´algebra lineal. Cuando dos palabras est´an relacionadas, como por ejemplo
+?coche? y ?autom´ovil?, cabr´?a esperar que aparecieran en conjuntos similares de documentos. El
+LSI puede verse como un m´etodo de an´alisis de coaparici´on entre rasgos. En lugar de usar una
+funci´on de medida que considere la similitud entre rasgos como una m´etrica vectorial, como puede
+ser la funci´on coseno, en este enfoque se usa una funci´on m´as sofisticada, la descomposici´on de
+valores singulares (Singular Value Descomposition, SVD). Con ella se pretende medir la similitud
+entre diferentes rasgos de un vocabulario en base a coaparici´on entre rasgos.
+
+Formalmente, el LSI es la aplicaci´on de la funci´on SVD a las matrices rasgo-documentos.
+
+
+
+
+
+
+\subsubsection{\textit{Word Embedding}}
+\label{sec:Ejemplo_subSeccion} 
+
+In the previous sections we saw how to represent a word as a sparse, long vector with
+dimensions corresponding to the words in the vocabulary, and whose values were tfidf
+or PPMI functions of the count of the word co-occurring with each neighboring
+word. In this section we turn to an alternative method for representing a word: the
+use of vectors that are short (of length perhaps 50-500) and dense (most values are
+non-zero).
+
+It turns out that dense vectors work better in every NLP task than sparse vectors.
+While we don?t complete understand all the reasons for this, we have some
+intuitions. First, dense vectors may be more successfully included as features in
+machine learning systems; for example if we use 100-dimensional word embeddings
+as features, a classifier can just learn 100 weights to represent a function of
+word meaning; if we instead put in a 50,000 dimensional vector, a classifier would
+have to learn tens of thousands of weights for each of the sparse dimensions. Second,
+because they contain fewer parameters than sparse vectors of explicit counts,
+dense vectors may generalize better and help avoid overfitting. Finally, dense vectors
+may do a better job of capturing synonymy than sparse vectors. For example,
+car and automobile are synonyms; but in a typical sparse vector representation, the
+car dimension and the automobile dimension are distinct dimensions. Because the
+relationship between these two dimensions is not modeled, sparse vectors may fail
+to capture the similarity between a word with car as a neighbor and a word with
+automobile as a neighbor.
+
+
+Unsupervisedly learned word embeddings have seen tremendous success in numerous NLP tasks in recent years. So much so that in many NLP architectures, they are close to fully replacing more traditional distributional representations such as LSA features.
+
+The term word embeddings was originally coined by Bengio et al. in 2003 who trained them in a neural language model together with the model?s parameters. However, Collobert and Weston were arguably the first to demonstrate the power of pre-trained word embeddings in their 2008 paper A unified architecture for natural language processing, in which they establish word embeddings as a highly effective tool when used in downstream tasks, while also announcing a neural network architecture that many of today?s approaches were built upon. It was Mikolov et al. (2013), however, who really brought word embedding to the fore through the creation of word2vec, a toolkit enabling the training and use of pre-trained embeddings. A year later, Pennington et al. introduced us to GloVe, a competitive set of pre-trained embeddings, suggesting that word embeddings was suddenly among the mainstream.
+
+
+
+-word embedding vs lsa (http://ruder.io/secret-word2vec/): 
+
+Word embedding models such as word2vec and GloVe gained such popularity as they appeared to regularly and substantially outperform traditional Distributional Semantic Models (DSMs). Many attributed this to the neural architecture of word2vec, or the fact that it predicts words, which seemed to have a natural edge over solely relying on co-occurrence counts.
+
+
+DSMs can be seen as count models as they ?count? co-occurrences among words by operating on co-occurrence matrices. Neural word embedding models, in contrast, can be viewed as predict models, as they try to predict surrounding words.
+
+In 2014, Baroni et al. [11] demonstrated that, in nearly all tasks, predict models consistently outperform count models, and therefore provided us with a comprehensive verification for the supposed superiority of word embedding models.
+
+
+
+
+
 
 \subsection{Clasificación}
 \label{sec:Ejemplo_subSeccion} 
