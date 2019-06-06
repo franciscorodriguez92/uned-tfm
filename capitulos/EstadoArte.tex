@@ -96,68 +96,44 @@ Utilizando este modelo, un texto quedará representado como una combinación linea
 
 Si se realiza una representación de los documentos según el modelo descrito anteriormente (con el número de términos como función de pesado) se obtendría la matriz de la tabla 2.1. Como se puede observar, los documentos $d_1$ y $d_2$ tienen en común un atributo mientras que el documento $d_3$ no tendría ningún rasgo común con el resto de documentos. Sin embargo, si se tiene en cuenta el significado o la representación semántica de los documentos, se concluiría que todos los documentos indican comida italiana y, por tanto, todos tienen en común ese rasgo semántico. Esto indica que si un documento se trata únicamente como una sucesión de términos, se perderán los conceptos a los que hace referencia.
 
-Los métodos para la generación automática de atributos semánticos fueron desarrollados alrededor del año 1990 con el objetivo de capturar la información semántica presente en los documentos. Uno de los algoritmos más populares dentro de esta familia se conoce como LSA (\textit{Latent Semantic Analysis}) \cite{Deerwester1990} que describe a cada palabra o conjunto de palabras en un espacio vectorial de dimensión reducida en el que las palabras semánticamente similares se encontrarán más próximas. Para ello, este método toma como entrada una matriz término-documento a la que se le aplica una descomposición de valores singulares obteniendo así una representación vectorial tanto de los términos como de los documentos. De este modo, se puede cuantificar la similitud semántica de dos palabras mediante el uso de medidas de distancias entre vectores. Esta técnica fue rápidamente aplicada a distintos dominios como modelo cognitivo \cite{Landauer1997}, como modelo de lenguaje \cite{Jurafsky1998} o como calificador automático \cite{Rehder1998}.
+Los métodos para la generación automática de atributos semánticos fueron desarrollados alrededor del año 1990 con el objetivo de capturar la información semántica presente en los documentos. Uno de los algoritmos más populares dentro de esta familia se conoce como LSA (\textit{Latent Semantic Analysis}) \cite{Deerwester1990} o LSI (\textit{Latent Semantic Index}) que describe a cada palabra o conjunto de palabras en un espacio vectorial de dimensión reducida en el que las palabras semánticamente similares se encontrarán más próximas. Para ello, este método toma como entrada una matriz término-documento a la que se le aplica una descomposición de valores singulares (\textit{Singular Value Descomposition}, SVD) obteniendo así una representación vectorial tanto de los términos como de los documentos. De este modo, se puede cuantificar la similitud semántica de dos palabras mediante el uso de medidas de distancias entre vectores. Esta técnica fue rápidamente aplicada a distintos dominios como modelo cognitivo \cite{Landauer1997}, como modelo de lenguaje \cite{Jurafsky1998} o como calificador automático \cite{Rehder1998}.
 
-Aunque el método LSA se planteó como una variante al modelo de espacio vectorial, hace uso de las mismas formas de representación a la entrada del método. 
+Aunque el método LSA se planteó como una variante al modelo de espacio vectorial, hace uso de las mismas formas de representación a la entrada del método. Aquí, el texto se representa en un espacio de coordenadas donde los documentos y los términos se expresan como una combinación de factores semánticos o \textit{topics} subyacentes. De este modo, cuando las palabras están relacionadas, por ejemplo, ``\textit{Pizza}'', ``\textit{Lasaña}'' y ``\textit{Macarrones}'', cabrá esperar que aparecieran en conjuntos similares de documentos. 
 
-Aqu´?, un texto se representa en un espacio de coordenadas donde los documentos y los rasgos
-se expresan como una combinaci´on de factores sem´anticos subyacentes. El LSI formaliza esta
-similitud a partir del ´algebra lineal. Cuando dos palabras est´an relacionadas, como por ejemplo
-?coche? y ?autom´ovil?, cabr´?a esperar que aparecieran en conjuntos similares de documentos. El
-LSI puede verse como un m´etodo de an´alisis de coaparici´on entre rasgos. En lugar de usar una
-funci´on de medida que considere la similitud entre rasgos como una m´etrica vectorial, como puede
-ser la funci´on coseno, en este enfoque se usa una funci´on m´as sofisticada, la descomposici´on de
-valores singulares (Singular Value Descomposition, SVD). Con ella se pretende medir la similitud
-entre diferentes rasgos de un vocabulario en base a coaparici´on entre rasgos.
-
-Formalmente, el LSI es la aplicaci´on de la funci´on SVD a las matrices rasgo-documentos.
+Formalmente, el LSA es la aplicación de la función SVD a la matriz término documento. Esta matriz $A_{[mxn]}$ almacena en sus componentes $a_{ij}$ información relativa a las frecuencias de los términos $t_i$ en los documentos $d_j$. Un ejemplo de esta matriz se obtendría aplicando la transpuesta $A^T$ a la matriz traspuesta de la tabla 2.1. La proyección SVD se calcula descomponiendo la matriz $A_{[mxn]}$ en un producto de tres matrices:
 
 
+\[A_{[mxn]}=U_{[mxr]}\Sigma_{[rxr]}(V_{[nxr]})^T\] donde $r$ toma valores entre 1 y $\min(\dim(\vec{t_i}, d))$. Este valor $r$ se puede considerar como el número de rasgos semánticos o \textit{topics} (temas) en los que se agruparán los documentos. En esta expresión, las matrices $V$ y $U$ están formadas por vectores ortonormales (el módulo de cada vector columna es 1 y todos ellos son linealmente independientes). De este modo, $V^T V = U^T U = I$ mientras que $\Sigma$ representa una matriz diagonal en la que sus elementos están ordenados en orden decreciente.
 
-
+En resumen, SVD encuentra la proyección óptima a un espacio de dimensión reducida explotando patrones de coaparición entre términos. En este proceso, aquellos rasgos que tienen patrones similares son proyectados a una misma dirección. Estos patrones tratan de inferir similitud semántica entre términos, lo que en ocasiones no es acertado \cite{Manning1990}. Sin embargo, en muchos casos ha demostrado ser un indicador válido de relaciones temáticas. En \cite{Foltz1996}, la representación del documento se reduce a un conjunto de 20 palabras y se consideran conjuntos de sintagmas, tratados como atributos, para crear el vector de características, usando la similitud normalizada entre fragmentos de textos.
 
 
 \subsubsection{\textit{Word Embedding}}
-\label{sec:Ejemplo_subSeccion} 
+\label{sec:Ejemplo_subSeccion}
 
-In the previous sections we saw how to represent a word as a sparse, long vector with
-dimensions corresponding to the words in the vocabulary, and whose values were tfidf
-or PPMI functions of the count of the word co-occurring with each neighboring
-word. In this section we turn to an alternative method for representing a word: the
-use of vectors that are short (of length perhaps 50-500) and dense (most values are
-non-zero).
+\noindent En las secciones previas se han presentado dos métodos que hacen uso del modelo de espacio vectorial para representar los documentos. En el primer apartado, se explicó cómo representar texto mediante un vector en el que las dimensiones corresponden a las palabras en el vocabulario. En esta sección, se presenta un método alternativo para representar términos mediante el uso de vectores de números reales de menor tamaño y más densos (más valores distintos de cero). Este tipo de técnicas se conocen como \textit{word embedding} y han tenido un éxito enorme en numerosas tareas relacionadas con el procesamiento natural del lenguaje en los últimos años \cite{Jacob2019} superando a los métodos empleados tradicionalmente como LSA \cite{Baroni2014}. Mientras que los métodos explicados hasta ahora utilizan el conteo de términos para representar los documentos, los métodos basados en \textit{word embedding} pueden ser vistos como modelos de predicción que intentan predecir los términos alrededor de las palabras. De este modo, estos métodos son capaces de tener en cuenta el contexto en el que se utilizan los términos contenidos en el corpus.
 
-It turns out that dense vectors work better in every NLP task than sparse vectors.
-While we don?t complete understand all the reasons for this, we have some
-intuitions. First, dense vectors may be more successfully included as features in
-machine learning systems; for example if we use 100-dimensional word embeddings
-as features, a classifier can just learn 100 weights to represent a function of
-word meaning; if we instead put in a 50,000 dimensional vector, a classifier would
-have to learn tens of thousands of weights for each of the sparse dimensions. Second,
-because they contain fewer parameters than sparse vectors of explicit counts,
-dense vectors may generalize better and help avoid overfitting. Finally, dense vectors
-may do a better job of capturing synonymy than sparse vectors. For example,
-car and automobile are synonyms; but in a typical sparse vector representation, the
-car dimension and the automobile dimension are distinct dimensions. Because the
-relationship between these two dimensions is not modeled, sparse vectors may fail
-to capture the similarity between a word with car as a neighbor and a word with
-automobile as a neighbor.
+Como se ha comentado, los vectores obtenidos mediante \textit{word embedding} son más densos y funcionan mejor que las representaciones tradicionales. Aunque no se entienden todas las razones de esta mejora, se tienen ciertas ideas \cite[Capítulo~6]{Jurafsky}. Primero, estos vectores pueden utilizarse de un modo más adecuado como atributos en los sistemas de aprendizaje de máquina debido a la gran reducción de los vectores con los que se trabaja. Asimismo, esta reducción de coeficiente puede ayudar a mejorar la capacidad de generalización del clasificador y a prevenir el sobreajuste. Finalmente, las técnicas de \textit{word embedding} son capaces de capturar la información semántica de los términos. Por ejemplo, los documentos de la tabla 2.1 serán próximos entre sí si se utilizaran este tipo de métodos para representar los términos que contienen.
 
+El término \textit{word embeddings} fue originalmente acuñado en \cite{Bengio2003}, sin embargo, fue en  \cite{Collobert2008} donde se demostró todas las ventajas de este tipo de metodología. Otro hito importante dentro de esta línea de trabajo fue la publicación de \cite{Mikolov2013} en la que se presenta la librería \textit{word2vec}, una de las herramienta más populares que permite entrenar y utilizar modelos pre-entrenados de \textit{word embedding}. Un año después, fue presentado \textit{GloVe} \cite{Pennington2014} confirmando la popularidad de las técnicas de \textit{word embedding}.
 
-Unsupervisedly learned word embeddings have seen tremendous success in numerous NLP tasks in recent years. So much so that in many NLP architectures, they are close to fully replacing more traditional distributional representations such as LSA features.
-
-The term word embeddings was originally coined by Bengio et al. in 2003 who trained them in a neural language model together with the model?s parameters. However, Collobert and Weston were arguably the first to demonstrate the power of pre-trained word embeddings in their 2008 paper A unified architecture for natural language processing, in which they establish word embeddings as a highly effective tool when used in downstream tasks, while also announcing a neural network architecture that many of today?s approaches were built upon. It was Mikolov et al. (2013), however, who really brought word embedding to the fore through the creation of word2vec, a toolkit enabling the training and use of pre-trained embeddings. A year later, Pennington et al. introduced us to GloVe, a competitive set of pre-trained embeddings, suggesting that word embeddings was suddenly among the mainstream.
+El algoritmo \textit{word2vec} se basa en dos métodos principales: \textit{skipgram} y \textit{negative sampling}.
 
 
 
--word embedding vs lsa (http://ruder.io/secret-word2vec/): 
+- SKIPGRAM: https://www.infoq.com/presentations/nlp-word-embedding/
 
-Word embedding models such as word2vec and GloVe gained such popularity as they appeared to regularly and substantially outperform traditional Distributional Semantic Models (DSMs). Many attributed this to the neural architecture of word2vec, or the fact that it predicts words, which seemed to have a natural edge over solely relying on co-occurrence counts.
+- NEGATIVE SAMPLING: https://www.infoq.com/presentations/nlp-word-embedding/
+
+- WORD2VEC: https://jalammar.github.io/illustrated-word2vec/
 
 
-DSMs can be seen as count models as they ?count? co-occurrences among words by operating on co-occurrence matrices. Neural word embedding models, in contrast, can be viewed as predict models, as they try to predict surrounding words.
 
-In 2014, Baroni et al. [11] demonstrated that, in nearly all tasks, predict models consistently outperform count models, and therefore provided us with a comprehensive verification for the supposed superiority of word embedding models.
+-BERT y ELMO: 
+
+
+https://jalammar.github.io/illustrated-bert/ If we?re using this GloVe representation, then the word ?stick? would be represented by this vector no-matter what the context was. ?Wait a minute? said a number of NLP researchers (Peters et. al., 2017, McCann et. al., 2017, and yet again Peters et. al., 2018 in the ELMo paper ), ?stick?? has multiple meanings depending on where it?s used. Why not give it an embedding based on the context it?s used in ? to both capture the word meaning in that context as well as other contextual information??. And so, contextualized word-embeddings were born.
+
 
 
 
