@@ -117,27 +117,26 @@ Como se ha comentado, los vectores obtenidos mediante \textit{word embedding} so
 
 El término \textit{word embeddings} fue originalmente acuñado en \cite{Bengio2003}, sin embargo, fue en  \cite{Collobert2008} donde se demostró todas las ventajas de este tipo de metodología. Otro hito importante dentro de esta línea de trabajo fue la publicación de \cite{Mikolov2013} en la que se presenta la librería \textit{word2vec}, una de las herramienta más populares que permite entrenar y utilizar modelos pre-entrenados de \textit{word embedding}. Un año después, fue presentado \textit{GloVe} \cite{Pennington2014} confirmando la popularidad de las técnicas de \textit{word embedding}.
 
-El algoritmo \textit{word2vec} se basa en dos métodos principales: \textit{skipgram} y \textit{negative sampling}.
+El algoritmo \textit{word2vec} se basa en dos técnicas principalmente: \textit{skipgram} \cite{Mikolovb2013} y \textit{negative sampling} \cite{Gutmann2012}. El método \textit{skipgram} es un modelo del lenguaje que, tomando un término como referencia, intenta predecir una ventana de términos alrededor de él. Para ilustrar el proceso, considérese el ejemplo ``Un coche atropelló a David'' y una ventana de cinco palabras (dos hacia delante y dos hacia atrás del término central). El primer paso del algoritmo es generar el conjunto de datos con el que entrenar el modelo de predicción, para ello, se realiza el proceso de la figura 2.2. En la primera iteración, se desplaza la ventana hasta el primer término (como atributo de entrada) y se toman los dos términos posteriores (como salida del modelo de predicción), en este caso, se generan los dos ejemplos de entrenamiento \textit{(Un, coche)} y \textit{(Un, atropelló)}. Este proceso se repite de modo iterativo para todos los términos del corpus, generando un corpus de entrenamiento como el de la figura 2.2.
 
+\begin{center}
+	\includegraphics[scale=0.4,keepaspectratio]{imagenes/ex_skipgram.png} %[width=4cm,,keepaspectratio]
+	\captionof{figure}{Ejemplo algoritmo skpigram}	
+\end{center}
 
+Un problema de utilizar el corpus generado en la figura 2.2 es que, al ser una palabra de todo el vocabulario la salida del modelo, es necesario indicar una probabilidad para cada elemento del vocabulario. Esto puede ser computacionalmente muy costoso más aún si tenemos en cuenta que pueden existir millones de términos en un único vocabulario. Por ello, en lugar de intentar predecir la palabra ``vecina'' dado un término de entrada, se modifica el enfoque y se realiza la predicción de la probabilidad de que dos palabras sean ``vecinas'' dados dos términos de entrada. De este modo, el corpus de la figura 2.2 se verá modificado y se tendrán ambas palabras como entrada al modelo de predicción y, como etiqueta, se utiliza un ``1'' habitualmente para representar los términos vecinos y un ``0'' para el resto de casos. Sin embargo, en la figura 2.2 todos los ejemplos son vecinos y, por tanto, el corpus solo tendría ejemplos de este tipo para el entrenamiento y cualquier clasificador solo podría predecir este tipo de clase. Por esto, es necesario presentar patrones de entrada que no sean vecinos y, para ello, se utiliza el procedimiento de \textit{negative sampling} o muestreo negativo. En este proceso, se muestrean varios ejemplos negativos (términos que no sean vecinos) para cada caso utilizando el corpus existente. Por tanto, el corpus de la figura 2.2 se completaría con ejemplos negativos de términos de otros documentos del corpus, por ejemplo, en la primera iteración se podría añadir los patrones \textit{(Un, saltar, 0)} o \textit{(Un, violeta, 0)} como ejemplos negativos. Esta técnica aplicada junto con el método \textit{skipgram}, constituyen los dos elementos más importantes en el proceso de entrenamiento de \textit{word2vec}.
 
-- SKIPGRAM: https://www.infoq.com/presentations/nlp-word-embedding/
+Previo al proceso de entrenamiento del algoritmo, se establece un tamaño de vocabulario, por ejemplo, 10.000 términos. Tras esto, se crean dos matrices: la matriz \textit{embedding} y la matriz de contexto. Estas dos matrices tendrán tamaño $vxe$ done $v$ corresponde al tamaño del vocabulario y $e$ al número de elementos que contendrá el vector final de números reales con el que se codificará el texto. Estas dos matrices almacenan las palabras del vocabulario y se inicializan sus vectores asociados con valores aleatorios para comenzar el proceso de entrenamiento.
 
-- NEGATIVE SAMPLING: https://www.infoq.com/presentations/nlp-word-embedding/
+Para comenzar el entrenamiento, se toma un ejemplo positivo y sus ejemplos negativos asociados. Para el primer caso de la figura 2.2, se tomaría el ejemplo positivo \textit{(Un, coche, 1)} y sus ejemplos negativos asociados \textit{(Un, saltar, 0), (Un, violeta, 0)}. De este modo, se tendrían cuatro palabras: la entrada \textit{Un} y \textit{coche, saltar, violeta} como contexto. En el siguiente paso, se busca la palabra de entrada en la matriz de \textit{embedding} y el resto en la matriz de contexto. A continuación, se realiza el producto escalar para los 3 vectores y se compara el resultado con las etiquetas \textit{(1, 0, 0)} para este caso. En la primera iteración, al estar inicializadas las matrices con valores aleatorios, los resultados no coincidirán con las etiquetas, por tanto, es necesario actualizar las matrices de \textit{embedding} y contexto según el error cometido. Para este proceso, se utiliza el método de descenso de gradiente estocático \cite{Bengio2003}. Este proceso completo se repite para todos los patrones de entrada durante un número de iteraciones que, como resultado, generará la matriz de \textit{embedding} con los vectores de números reales asociados a cada término del vocabulario.
 
-- WORD2VEC: https://jalammar.github.io/illustrated-word2vec/
+La matriz de \textit{embedding} resultante del proceso de entrenamiento contendrá, por tanto, un vector numérico para cada término que exista dentro del vocabulario. Por ejemplo, si existiera la palabra ``banco'' dentro del corpus de entrenamiento, esta matriz contendría un vector numérico que identificaría esta palabra y su relación semántica con el resto de términos que conforman el corpus. Sin embargo, debido a la ambigüedad del lenguaje, este término puede tener más de un significado dependiendo del contexto, por ejemplo, se podría encontrar el término dentro de los siguientes documentos:
 
-
-
--BERT y ELMO: 
-
-
-https://jalammar.github.io/illustrated-bert/ If we?re using this GloVe representation, then the word ?stick? would be represented by this vector no-matter what the context was. ?Wait a minute? said a number of NLP researchers (Peters et. al., 2017, McCann et. al., 2017, and yet again Peters et. al., 2018 in the ELMo paper ), ?stick?? has multiple meanings depending on where it?s used. Why not give it an embedding based on the context it?s used in ? to both capture the word meaning in that context as well as other contextual information??. And so, contextualized word-embeddings were born.
-
-
-
-
-
+	\textit{``He ido al banco a ingresar dinero''}
+	
+	\textit{``Me he sentado en el banco a descansar''}
+	
+Pese a que el significado del término es distinto, el algoritmo \textit{word2vec} representaría la palabra con el mismo vector. Para abordar este problema, surgen los métodos de \textit{word-embeddings} contextualizados. En este tipo de métodos, en lugar de utilizar un vector fijo para cada término, se observa el contexto en el que se utiliza para asignar un vector con el que codificar la palabra. Dentro de estos métodos destacan ELMo \cite{Matthew2018} y BERT \cite{Jacob2019} que ha alcanzado los mejores resultados hasta la fecha para muchas tareas relacionadas con el procesado del lenguaje.
 
 
 \subsection{Clasificación}
