@@ -544,4 +544,10 @@
   year   = {2012},
 }
 
+@InProceedings{Matthew2018,
+  author = {Matthew E. Peters and Mark Neumann},
+  title  = {Deep contextualized word representations},
+  year   = {2018},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}
