@@ -6,7 +6,7 @@
 \fancyhead[RE]{\textsc{CAPÍTULO} \thechapter. Sistema}
 \label{ch:Sistema_Metodo_Caso_de_Estudio}
 
-\noindent En el presente capítulo se describe el sistema automático de detección del machismo en redes sociales desarrollado en el presente trabajo fin de máster. El sistema está basado en aprendizaje supervisado y emplea distintos atributos unificados para, posteriormente, hacer uso de un algoritmo de aprendizaje de máquina que clasificará los registros de entrada en 3 categorías: MACHISTA, NO\_MACHISTA Y DUDOSO. De este modo, los mensajes de texto o tweets de entrada se clasificarán según el grado de machismo que presenten.
+\noindent En el presente capítulo se describe el sistema automático de detección del machismo en redes sociales desarrollado en el presente trabajo fin de máster. El sistema está basado en aprendizaje supervisado y emplea distintos atributos unificados para, posteriormente, hacer uso de un algoritmo de aprendizaje de máquina que clasificará los registros de entrada en tres categorías: MACHISTA, NO\_MACHISTA Y DUDOSO. De este modo, los mensajes de texto o tweets de entrada se clasificarán según el grado de machismo que presenten.
 
 El sistema ha sido desarrollado teniendo en cuenta la naturaleza del problema tratado. En este caso, como ya se introdujo, se trata de texto en español por lo que método de clasificación estará preparado para trabajar con este idioma. No obstante, la arquitectura del sistema y las técnicas aplicadas pueden ser adaptadas perfectamente para otros idiomas.
 
@@ -31,7 +31,7 @@ En la primera etapa, se realiza un preprocesado diferenciado según el tipo de at
 
 \begin{itemize}
 	\itemsep0em 
-	\item Reemplazo de emojis: Se reemplazan los emojis por una descripción de lo que representa el dibujo. En este caso, resulta útil poder identificar el emoji que se está utilizando ya que puede modificar el significado de la frase. Por ejemplo, en la frase de la imagen 5.2 se puede observar como el emoji permite identificar como machista la expresión:
+	\item Reemplazo de emojis: Se reemplazan los emojis por una descripción de lo que representa el dibujo. En este caso, resulta útil poder identificar el emoji que se está utilizando, ya que puede modificar el significado de la frase. Por ejemplo, en la frase de la figura 5.2 se puede observar cómo el emoji permite identificar como machista la expresión:
 \begin{center}
 	\includegraphics[scale=0.4,keepaspectratio]{imagenes/emoji_machista.png} %[width=4cm,,keepaspectratio]
 	\captionof{figure}{Uso de emoji en contexto machista}	
@@ -50,7 +50,7 @@ En la primera etapa, se realiza un preprocesado diferenciado según el tipo de at
 
 Para ilustrar el funcionamiento de la etapa de preprocesado, se supone el siguiente mensaje:
 \begin{center}
-	\includegraphics[scale=0.4,keepaspectratio]{imagenes/ejemplo_preprocesado.png} %[width=4cm,,keepaspectratio]
+	\includegraphics[scale=0.5,keepaspectratio]{imagenes/ejemplo_preprocesado_correccion.png} %[width=4cm,,keepaspectratio]
 	\captionof{figure}{Ejemplo de preprocesado}	
 \end{center}
 
@@ -60,7 +60,7 @@ A partir del texto preprocesado, se realiza la tokenización de cada mensaje. Par
 
 Una vez realizada la tokenización del mensaje, se llevan a cabo tres procesos: filtrado de stopwords, reemplazo de abreviaturas y \textit{stemming}. Las palabras vacías o stopwords constituyen el grupo de palabras sin un significado concreto, por ejemplo, artículos, preposiciones o conjunciones. Este tipo de elementos no aportan información adicional al contexto del mensaje y, por tanto, se eliminan antes del proceso de clasificación.
 
-La tarea llevada a cabo en este trabajo presenta una dificultad añadida por el entorno en el que se utiliza el lenguaje. En las redes sociales, y en Twitter en concreto, se publican mensajes cortos y, frecuentemente, no siguen las reglas convencionales del idioma. De este modo, el uso de abreviaturas o emoticones está muy extendido en este tipo de plataformas. Es por ello, que realizar diccionarios específicos para cada idioma que permitan normalizar este tipo de contenido es muy importante previo a la tarea de clasificación. En este trabajo, se utiliza el diccionario en castellano realizado en \cite{Helena2016} que compila diccionarios de palabras ``slang'', abreviaturas, contracciones y emoticonos que ayudan al preprocesamiento de textos publicados en redes sociales. Un ejemplo del tipo de expresiones que se reemplazan en este proceso se podría ilustrar del siguiente modo: ``\textit{Esta es aki la reuna de las feministas de verdad o no?}''. En el ejemplo anterior, se encuentra la palabra coloquial "aki" que normalizada al español sería ``aquí''.
+La tarea llevada a cabo en este trabajo presenta una dificultad añadida por el entorno en el que se utiliza el lenguaje. En las redes sociales, y en Twitter en concreto, se publican mensajes cortos y, frecuentemente, no siguen las reglas convencionales del idioma. De este modo, el uso de abreviaturas o emoticonos está muy extendido en este tipo de plataformas. Es por ello, que realizar diccionarios específicos para cada idioma que permitan normalizar este tipo de contenido es muy importante previo a la tarea de clasificación. En este trabajo, se utiliza el diccionario en castellano realizado en \cite{Helena2016} que compila diccionarios de palabras ``slang'', abreviaturas, contracciones y emoticonos que ayudan al preprocesamiento de textos publicados en redes sociales. Un ejemplo del tipo de expresiones que se reemplazan en este proceso se podría ilustrar del siguiente modo: ``\textit{Esta es aki la reina de las feministas de verdad o no?}''. En el ejemplo anterior, se encuentra la palabra coloquial ``aki'' que normalizada al español sería ``aquí''.
 
 Por último, se aplica un método de stemming para reducir las palabras a su raíz. En este caso, se utiliza el algoritmo de Porter \cite{Porter1980} desarrollado en la década de los ochenta por Martin Porter y basado en un conjunto de reglas aplicadas en cascada para obtener la raíz de las palabras.
 
@@ -72,7 +72,7 @@ A partir del texto tokenizado, es necesario representar la información contenida
 
 \subsection{Atributos numéricos}{}
 \label{sec:Ejemplo_seccion}
-\noindent Otro tipo de atributo que se utiliza en el presente sistemas son los numéricos. En este caso particular, se consideran los siguientes atributos numéricos:
+\noindent Otro tipo de atributos que se utiliza en el presente sistema son los numéricos. En este caso particular, se consideran los siguientes atributos numéricos:
 
 \begin{itemize}
 	\itemsep0em 
@@ -86,7 +86,7 @@ A partir del texto tokenizado, es necesario representar la información contenida
 	\item favourites\_count: número de tweets que el usuario que publicó el tweet marcó como favorito.
 \end{itemize}
 
-El uso de este tipo de atributos permite tener en cuenta distintos aspectos del contexto en el que se genera el tweet. Por ejemplo, existe un grupo de atributos como favorite\_count o retweet\_count que mide la popularidad del tweet. Este tipo de atributos permite valorar la posible propagación de un mensaje machista en Twitter. Por otra parte, existen campos como followers\_count que miden la popularidad del usuario que publica el tweet. Además, otros campos como display\_text\_width demuestran tener una relevancia especial para los tweets etiquetados con categoria ``DUDOSO'' (figura 4.9).
+El uso de este tipo de atributos permite tener en cuenta distintos aspectos del contexto en el que se genera el tweet. Por ejemplo, existe un grupo de atributos como favorite\_count o retweet\_count que mide la popularidad del tweet. Este tipo de atributos permite valorar la posible propagación de un mensaje machista en Twitter. Por otra parte, existen campos como followers\_count que miden la popularidad del usuario que publica el tweet. Además, otros campos como display\_text\_width demuestran tener una relevancia especial para los tweets etiquetados con categoría ``DUDOSO'' (figura 4.9).
 
 En los atributos numéricos se realizan únicamente dos procesos: imputación de valores nulos y escalado. En este caso, se imputan los valores nulos sustituyéndolos por 0 y, para el escalado, se realiza una estandarización para que en los valores numéricos se consiga una media nula y una desviación estándar de uno.
 
@@ -94,7 +94,7 @@ En los atributos numéricos se realizan únicamente dos procesos: imputación de va
 \subsection{Atributos categóricos}{}
 \label{sec:Ejemplo_seccion}
 
-\noindent El último tipo de atributo que se emplea son los atributos categóricos. Para este sistema, se consideran los siguientes atributos categóricos:
+\noindent El último tipo de atributos que se emplea son los atributos categóricos. Para este sistema, se consideran los siguientes atributos categóricos:
 
 \begin{itemize}
 	\itemsep0em 
@@ -108,9 +108,9 @@ En los atributos numéricos se realizan únicamente dos procesos: imputación de va
 	\item verified: indica si el usuario que publica el tweet es verificado por Twitter.
 \end{itemize}
 
-Al igual que en el caso de los atributos numéricos, el uso de algunos de estos atributos categóricos intentan recoger el contexto en el que se publica el mensaje. Por ejemplo, el campo ``verified'' mide la influencia del usuario y los atributos ``url\_presence'' o ``media\_type'' indica si el mensaje comparte otro contenido distinto a su texto.
+Al igual que en el caso de los atributos numéricos, el uso de algunos de estos atributos categóricos intenta recoger el contexto en el que se publica el mensaje. Por ejemplo, el campo ``verified'' mide la influencia del usuario y los atributos ``url\_presence'' o ``media\_type'' indican si el mensaje comparte otro contenido distinto a su texto.
 
-En los atributos categóricos únicamente se aplica una transformación para convertir esta información a tipo numérico y que sea posible utilizarlo en el posterior algoritmo de clasificación. En este caso se emplea la codificación ``one-hot'' que crea un nuevo atributo por cada valor del atributo categórico asignando 1 ó 0 según la existencia o no de ese valor para cada registro.
+En los atributos categóricos únicamente se aplica una transformación para convertir esta información a tipo numérico y que sea posible utilizarlo en el posterior algoritmo de clasificación. En este caso, se emplea la codificación ``one-hot'' que crea un nuevo atributo por cada valor del atributo categórico asignando 1 ó 0 según la existencia o no de ese valor para cada registro.
 
 \section{Unión de atributos}
 \label{sec:Ejemplo_seccion}
@@ -125,24 +125,24 @@ En esta etapa se combinan los tres tipos distintos de atributos que se considera
 	\item categóricos: se incorporan todos los atributos categóricos considerados habiendo realizado una transformación de sus valores a atributos numéricos.
 \end{itemize}
 
-La salida de esta etapa será un conjunto de datos que contendrán los tres tipos de atributos descritos, que serán la entrada de la última fase del sistema.
+La salida de esta etapa será un conjunto de datos que contendrán los tres tipos de atributos descritos y serán la entrada de la última fase del sistema.
 
 \section{Clasificación}
 \label{sec:Ejemplo_seccion}
 \noindent La última etapa del sistema realiza el ajuste de un algoritmo de aprendizaje de máquina a los datos obtenidos en las fases anteriores.
 
-El objetivo final del presente trabajo es la detección del lenguaje machista en las redes sociales. Este problema se puede modelar como una clasificación de documentos en los que se asignará una categoría a cada uno de los mensajes que conforman el corpus. 
+El objetivo final del presente trabajo es la detección del lenguaje machista en las redes sociales. Este problema se puede modelar como una clasificación de documentos en la que se asignará una categoría a cada uno de los mensajes que conforman el corpus. 
 
 En la actualidad, la mayoría de trabajos llevan a cabo esta tarea mediante algoritmos o ténicas de aprendizaje supervisado \cite{Zimmerman2018,Davidson2017,AMIOverview2018}. Para la tarea de clasificación se emplean tres algoritmos distintos disponibles en ``scikit-learn'': Regresión logística, Random Forest y SVM. Para todos ellos, se realiza una búsqueda de parámetros óptimos para distintas configuraciones teniendo en cuenta el tiempo de computación de esta búsqueda:
 
 \begin{itemize}
 	\itemsep0em 
 	\item Línea base 1: Se clasifican todos los registros del testeo con la categoria mayoritaria.
-	\item Línea base 2 (atributos de texto): Se aplica regresión logística con la siguiente búsqueda de parámetros C = [1, 10], class\_weight' = [None, 'balanced'].
-	\item Regresión logística (atributos numéricos, categóricos y texto): Se aplica una regresión logística a todos los atributos disponibles con la siguiente búsqueda de parametros: C = [1, 10], class\_weight' = [None, 'balanced'].
-	\item Random Forest (atributos numéricos, categóricos y texto): Se utiliza el algoritmo Random Forest con todos los atributos disponibles y los siguientes parámetros: n\_estimators" = [250, 450], bootstrap' = (True, False), max\_depth'= [None, 30].
-	\item SVM (atributos numéricos, categóricos y texto):Se utiliza el algoritmo SVM con todos los atributos disponibles y los siguientes parámetros: C = [1, 10, 100, 10000], gamma = [0.001, 0.1, 0.6, 'auto'], kernel = 'rbf'.
+	\item Línea base 2 (atributos de texto): Se aplica regresión logística con la siguiente búsqueda de parámetros C = [1, 10], ``class\_weight'' = [None, 'balanced']. El parámetro C permite ajustar la regularización (valores más pequeños indican una mayor regularización) mientras que ``class\_weight'' realiza un balanceo de los valores de la clase cuando se configura el valor ``balanced''.
+	\item Regresión logística (atributos numéricos, categóricos y texto): Se aplica una regresión logística a todos los atributos disponibles con la siguiente búsqueda de parametros: C = [1, 10], ``class\_weight'' = [None, 'balanced'].
+	\item Random Forest (atributos numéricos, categóricos y texto): Se utiliza el algoritmo Random Forest con todos los atributos disponibles y los siguientes parámetros: ``n\_estimators'' = [250, 450], ``bootstrap'' = (True, False), ``max\_depth''= [None, 30]. El parámetro ``n\_estimators'' permite establecer el número de arboles de decisión a utilizar, ``bootstrap'' permite indicar si todo el conjunto de datos debe de ser utilizado para entrenar cada árbol y ``max\_depth'' indica la profundidad máxima de cada árbol.
+	\item SVM (atributos numéricos, categóricos y texto): Se utiliza el algoritmo SVM con todos los atributos disponibles y los siguientes parámetros: C = [1, 10, 100, 10000], ``gamma'' = [0.001, 0.1, 0.6, 'auto'], ``kernel'' = 'rbf'. El parámetro C permite regular el margen de la frontera de decisión mientras que ``kernel'' y ``gamma'' hacen referencia al tipo de núcleo utilizado.
 \end{itemize}
 
-Se ha seleccionado un subconjunto muy reducido para cada configuración debido a las limitaciones computacionales.
+Se ha seleccionado un subconjunto muy reducido de valores distintos para la búsqueda de parámetros de cada configuración debido a las limitaciones computacionales.
 

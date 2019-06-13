@@ -6,20 +6,20 @@
 \fancyhead[RE]{\textsc{CAPÍTULO} \thechapter. MeTwo dataset}
 \label{ch:Corpus}
 
-\noindent Este capítulo describe la metodología utilizada para la creación de un corpus en castellano que permita entrenar un sistema de detección del lenguaje machista. De este modo, se ha generado un corpus utilizando como semillas un conjunto de términos en castellano que, por lo general, pueden llevar a actitudes machistas. Idealmente, el conjunto generado contendrá suficientes ejemplos de tweets machistas que serán utilizados como entrada del sistema de clasificación.
+\noindent Este capítulo describe la metodología utilizada para la creación de un corpus en castellano que permita entrenar un sistema de detección del lenguaje machista. De este modo, se ha generado un corpus utilizando como semillas un conjunto de términos en castellano que, por lo general, describen actitudes machistas. Idealmente, el conjunto generado contendrá suficientes ejemplos de tweets machistas que serán utilizados como entrada del sistema de clasificación.
 
 Al comienzo de esta sección, se analiza el problema y se estudian las expresiones y términos más empleados en textos con comportamiento machista. Se realiza una búsqueda preliminar para observar si con los términos estudiados se encuentran ejemplos de textos machistas y, finalmente, se define el método para extraer la información de Twitter y evaluar las características principales del corpus obtenido.
 
 
 \section{Machismo en Twitter}
 \label{sec:Met_Eval}
-\noindent En este apartado, se van a definir todas las características que deben de presentar los textos seleccionados para considerarse machistas y la lista de términos o expresiones seleccionados para generar el corpus. Como primer paso, se han estudiado diversas referencias para recopilar aquellas expresiones más comunes que pueden conllevar a comportamientos machistas o sexistas. Posteriormente, se han identificado las expresiones más representativas y se han realizado diversas búsquedas para evaluar la cantidad de contenido machista que contienen dichas expresiones en Twitter. Finalmente, se han obtenido de la red social Twitter los mensajes que contenían estas expresiones utilizando su API. Durante este estudio solo se han considerado expresiones en castellano.
+\noindent En este apartado, se van a definir todas las características que deben presentar los textos seleccionados para considerarse machistas y la lista de términos o expresiones seleccionados para generar el corpus. Como primer paso, se han estudiado diversas referencias para recopilar aquellas expresiones más comunes que pueden conllevar a comportamientos machistas o sexistas. Posteriormente, se han identificado las expresiones más representativas y se han realizado diversas búsquedas para evaluar la cantidad de contenido machista que contienen dichas expresiones en Twitter. Finalmente, se han obtenido de la red social Twitter los mensajes que contenían estas expresiones utilizando su API. Durante este estudio, solo se han considerado expresiones en castellano.
 
-Las expresiones o términos que se buscan son aquellas que, de un modo u otro, minusvaloran el papel de las mujeres en nuestra sociedad, incentivan el abuso o acoso hacia las mujeres o no les permitan expresarse libremente. Existen gran cantidad de expresiones y términos que se utilizan a diario de modo consciente o no, que minimizan el papel de la mujer en la sociedad. En \cite{TwitterSexism} la periodista Ana Isabel Bernal-Triviño propone, a través de un hilo en su cuenta de Twitter, recopilar frases de violencia machista que las mujeres hayan escuchado o recibido en algún momento. Estas expresiones tienen mucho valor para el análisis pues un gran número de mujeres aporta su experiencia personal frente al machismo. En muchos tweets se repiten términos como ``niñata'' o ``a fregar'' que se utilizan para referirse a las mujeres de forma despectiva.
+Las expresiones o términos que se buscan son aquellas que, de un modo u otro, minusvaloran el papel de las mujeres en nuestra sociedad, incentivan el abuso o acoso hacia las mujeres o no les permitan expresarse libremente. Existen gran cantidad de expresiones y términos que se utilizan a diario, de modo consciente o no, que minimizan el papel de la mujer en la sociedad. En \cite{TwitterSexism} la periodista Ana Isabel Bernal-Triviño propone, a través de un hilo en su cuenta de Twitter, recopilar frases de violencia machista que las mujeres hayan escuchado o recibido en algún momento. Estas expresiones tienen mucho valor para el análisis pues un gran número de mujeres aporta su experiencia personal frente al machismo. En muchos tweets se repiten términos como ``niñata'' o ``a fregar'' que se utilizan para referirse a las mujeres de forma despectiva.
 
-Existen refranes, dichos populares y tópicos que se utilizan diariamente y que refuerzan la idea de que las mujeres son inferiores al hombre en una tarea determinada. Por ejemplo, la expresión ``Mujer al volante, peligro constante'' o ``¡Mujer tenía que ser!'' minusvalora la habilidad de las mujeres para realizar una tarea específica solo por ser mujeres. Otras muchas expresiones machistas se recopilaron en un trabajo realizado en un instituto de Albacete \cite{ElPais}.
+Existen refranes, dichos populares y tópicos que se utilizan diariamente y que refuerzan la idea de que las mujeres son inferiores al hombre en una tarea determinada. Por ejemplo, las expresiones ``Mujer al volante, peligro constante'' o ``¡Mujer tenía que ser!'' minusvaloran la habilidad de las mujeres para realizar una tarea específica solo por ser mujeres. Otras muchas expresiones machistas se recopilaron en un trabajo realizado en un instituto de Albacete \cite{ElPais}.
 
-Pese a que, como se ha presentado, existen gran cantidad de expresiones que conllevan actitudes machistas, ha sido necesario recoger también ciertos términos más generales que permitan establecer una buena relación entre tweets con contenido machista y aquellos que no presentan este tipo de lenguaje. Esto será muy importante a la hora de entrenar el sistema automático de clasificación. Así, partiendo de los trabajos anteriores, se han seleccionado las siguientes expresiones: ``feminazi'', '``a la cocina'', '``a fregar'', ``marimacho'', ``ninata'', '``mujer tenias que ser'', '``las feministas'',``en tus dias'', ``zorra'','``como una mujer'', '``como una nina'', '``pareces una fulana'', '``pareces una puta'','``no ha probado un hombre'','``loca del'', '``obsesionada con el machismo'', '``para ser mujer'','``para ser chica'','``hombre que te aguante'','``acabaras sola'', ``mojigata'', '``mucho feminismo pero'','``mujer al volante'', '``las mujeres no deberian'', '``A las mujeres hay que'', '``odio a las mujeres'','``las mujeres de hoy en dia'', ``nenaza'', ``lagartona''. En total, 29 expresiones que se utilizarán para recopilar \textit{tweets} como punto de partida para la generación del dataset. La tabla 1 recopila dichos términos.
+Pese a que, como se ha presentado, existen gran cantidad de expresiones que conllevan actitudes machistas, ha sido necesario recoger también ciertos términos más generales que permitan establecer una buena relación entre tweets con contenido machista y aquellos que no presentan este tipo de lenguaje. Esto será muy importante a la hora de entrenar el sistema automático de clasificación. Así, partiendo de los trabajos anteriores, se han seleccionado 29 expresiones que se utilizarán para recopilar tweets como punto de partida para la generación del dataset. La tabla 1 recopila dichos términos. A continuación, se describen las expresiones seleccionadas.
 
 
 % Please add the following required packages to your document preamble:
@@ -71,7 +71,7 @@ El término \textbf{``feminazi''} es una forma de relacionar, de forma claramente
 	
 	``\textit{Pero que violento!!! De cinco billetes, solo en uno aparece una mujer, esto es inaceptable!!! \#feminazi}''
 
-Sin embargo, existen otros ejemplos que se utiliza la expresión sin conllevar actitudes machistas:
+Sin embargo, existen otros ejemplos que utilizan la expresión sin conllevar actitudes machistas:
 
 ``\textit{Si quieres pensar que el origen del hashtag deviene de la búsqueda del rigor histórico, a tope. Estás en tu derecho, igual que yo en un texto de opinión de valorarlo totalmente al contrario. ¿No te convencen mis argumentos? Intentemos debatir. ¿Usas "feminazi"? Te quedas solo}''
 
@@ -100,7 +100,7 @@ Las palabras \textbf{``Marimacho''} y \textbf{``Niñata''}, dependiendo del conte
 
 ``\textit{@carmenro\_ Mal follada y retrasada. Das pena niñata. Tienes un concepto muy equivocado de los andaluces y Andalucía. Gente como tú son las qué no queremos en nuestra comunidad. Aquí hay gente muy trabajadora y humilde. Envidia es lo que tienes.}''
 
-Es importante aclarar, que en el proceso de etiquetado, el término \textbf{``Marimacho''} y \textbf{``niñata''} no se ha considerado machista si no se encontraba en un contexto muy claro. De forma general, \textbf{``marimacho''} se utiliza para indicar que una mujer presenta rasgos masculinos algo que, aún pudiendo ser un tipo de abuso, no se ha considerado machista. Por otra parte, \textbf{``niñata''} se utiliza para indicar que una mujer es inmadura, algo que de forma general no sería machista.
+Es importante aclarar, que en el proceso de etiquetado, el término \textbf{``Marimacho''} y \textbf{``niñata''} no se ha considerado machista si no se encontraba en un contexto muy claro. De forma general, \textbf{``marimacho''} se utiliza para indicar que una mujer presenta rasgos masculinos algo que, aún pudiendo ser utilizado para expresar odio (homofobia), no se ha considerado inherentemente machista. Por otra parte, \textbf{``niñata''} se utiliza para indicar que una mujer es inmadura, algo que, en principio, no sería machista.
 
 Las expresiones \textbf{``Mujer tenías que ser''} y \textbf{``Las Feministas''} se utilizan para descalificar a las mujeres por el hecho de pertenecer a un colectivo. Ejemplos encontrados en Twitter son los siguientes:
 
@@ -151,7 +151,7 @@ El término \textbf{``nenaza''} se utiliza también como descalificativo en Twitte
 
 ``\textit{@marianorajoy ha perdido la Moncloa como una nenaza  porque no ha sabido defender como hombre y estadista a la Nación. Se va como los cobardes. Por la puerta de atrás. El peor presidente de España }''
 
-La expresión \textbf{``pareces una fulana'}' se utiliza como descalificativo por la apariencia física de las mujeres:
+La expresión \textbf{``pareces una fulana''} se utiliza como descalificativo por la apariencia física de las mujeres:
 
 
 ``\textit{Te acabo de ver en el Telenoticiasde TV3. Maquillate mejor, pareces una fulana.}''
@@ -209,7 +209,7 @@ Otra expresión machista utilizada en Twitter es \textbf{``hombre que te aguante'
 ``\textit{Damaris, cásate con tu "marido (Ana)" porque no vas a encontrar un hombre que te aguante.}''
 
 
-Otra expresión machista utilizada en Twitter es \textbf{``acabaras sola''}. En este caso, expresa que una mujer sin un hombre a su lado es una mujer "incompleta":
+Otra expresión machista utilizada en Twitter es \textbf{``acabaras sola''}. En este caso, expresa que una mujer sin un hombre a su lado es una mujer ``incompleta'':
 
 
 ``\textit{\#SomosLaAudiencia21F  SOFIA:   ¡ eres patética, no, lo siguiente ¡  Deja a ALEJANDRO en paz de una vez. 
@@ -254,7 +254,7 @@ La frase \textbf{``A las mujeres hay que''} se utiliza habitualmente para discri
 ``\textit{Hoy en día a las mujeres hay que tenerle un cuidado cabron. Acuérdate que estamos en la era del chismin, la era mierdosa. Te da un abrazo y después dice que le rozaste la teta. Wao! Pero si nos abrazamos! Obvio que las tetas feas esas van a rozar cabrona!}''
 
 
-Otra expresión que suele conllevar actitudes machistas el \textbf{``odio a las mujeres''}:
+Otra expresión que suele conllevar actitudes machistas es \textbf{``odio a las mujeres''}:
 
 
 ``\textit{Odio a las mujeres pero me atraen sexualmente}''
@@ -278,9 +278,9 @@ Por último, el insulto \textbf{``lagartona''} se utiliza coloquialmente para sug
 \section{Generación del corpus, ``\textit{Crawler}''}
 \label{sec:Metric_Eval}
 
-\noindent En este apartado, se especifica el proceso utilizado para extraer la información deseada de Twitter. En la fase de creación del corpus se ha utilizado el API de Twitter a través del paquete \textit{rtweet} disponible para el lenguaje de programación R. 
+\noindent En este apartado, se especifica el proceso seguido para extraer la información deseada de Twitter. En la fase de creación del corpus se ha utilizado el API de Twitter a través del paquete \textit{rtweet} disponible para el lenguaje de programación R. 
 
-Las especificaciones iniciales para el desarrollo del \textit{Crawler} implican la recolección diaria de 100 tweets para cada término contenido en la tabla 4.1, lo que, idealmente, haría un total de 2900 tweets diarios. De este modo, no se superaría el límite diario del API de Twitter y se recopilaría bastante información cada día. Al llegar a 15000 tweets para un término, se considera que hay suficiente información y se dejará de buscar los tweets que lo contengan.
+Las especificaciones iniciales para el desarrollo del \textit{Crawler} implican la recolección diaria de 100 tweets para cada término contenido en la tabla 4.1, lo que, idealmente, haría un total de 2900 tweets diarios. De este modo, no se superaría el límite diario del API de Twitter y se recopilaría bastante información cada día. Al llegar a 15000 tweets para un término, se considerará que hay suficiente información y se dejará de buscar los tweets que lo contengan.
 
 Al término del proceso de \textit{crawling}, se eligirán aleatoriamente 150 tweets para cada término. Por tanto, será un requisito obtener, al menos, 150 tweets para cada término para poder ser considerado.
 
@@ -340,7 +340,7 @@ Para esta tarea, el proceso de \textit{crawling} se ha extendido a lo largo de l
 \label{sec:Resultados} 
 \noindent A continuación, se presentan las características y estructura principal del corpus generado. 
 
-La tabla 4.2 muestra el número de tweets recopilado por término. Como se puede observar, se ha recopilado información para todos los términos pero existen 4 de ellos para los que se han recopilado menos de 150 mensajes y que serán descartados por no disponer de suficiente información, se trata de los términos ``acabarás sola'', ``hombre que te aguante'', ``obsesionada con el machismo'', ``pareces una fulana'' y ``no ha probado un hombre''. Además, es importante remarcar que la cantidad de información varía notablemente según los términos, a partir del término 11 la cantidad de información por término se reduce en más de la mitad.
+La tabla 4.2 muestra el número de tweets recopilado por término. Como se puede observar, se ha recopilado información para todos los términos pero existen cinco de ellos para los que se han recopilado menos de 150 mensajes y que serán descartados por no disponer de suficiente información. Se trata de los términos ``acabarás sola'', ``hombre que te aguante'', ``obsesionada con el machismo'', ``pareces una fulana'' y ``no ha probado un hombre''. Además, es importante remarcar que la cantidad de información varía notablemente según los términos, a partir del término 11 la cantidad de información por término se reduce en más de la mitad.
 % Please add the following required packages to your document preamble:
 % \usepackage{booktabs}
 \begin{table}[]
@@ -383,7 +383,7 @@ La tabla 4.2 muestra el número de tweets recopilado por término. Como se puede o
 \end{table}
 
 
-Como se ha comentado, el \textit{crawler} recolectó información desde el 01/07/2018 hasta 31/12/2018. En la figura 4.1 se puede observar el número de tweets recopilados por día. Como se puede observar, el número de tweets recopilados diariamente dista mucho de los 2400 que podrían generarse si se encontraran los 100 tweets objetivo para cada término. Además, a partir del día 29/11/2018 se reducen los tweets recopilados al encontrar los 15000 tweets objetivo para alguno de los términos. De todos estos tweets, se puede observar en la figura 4.2 como España es el país que más genera.
+Como se ha comentado, el \textit{crawler} recolectó información desde el 01/07/2018 hasta el 31/12/2018. En la figura 4.1 se puede observar el número de tweets recopilados por día. Como se puede observar, el número de tweets recopilados diariamente dista mucho de los 2400 que podrían generarse si se encontraran los 100 tweets objetivo para cada término. Además, a partir del día 29/11/2018, se reducen los tweets recopilados al encontrar los 15000 tweets objetivo para algunos de los términos. De todos estos tweets, se puede observar en la figura 4.2 como España es el país que más genera.
 \begin{center}
 	\includegraphics[scale=0.45,keepaspectratio]{imagenes/tweets_dia.png} %[width=4cm,,keepaspectratio]
 	\captionof{figure}{Tweets recopilados diariamente}	
@@ -395,7 +395,7 @@ Como se ha comentado, el \textit{crawler} recolectó información desde el 01/07/2
 	\captionof{figure}{Número de tweets por país}	
 \end{center}
 
-Otra característica interesante es el uso de \textit{hastag} en los tweets, en total, se han recopilado 15218 hastags. En la figura 4.3 se pueden observar los términos más utilizados. El \textit{hastags} más utilizado coincide con uno de los términos utilizados para la recopilación de los datos por el \textit{crawler}. El resto parecen estar relacionados con el programa televisivo ``Gran Hermano''. En la figura 4.4 se puede observar cómo España es el país que más \textit{hastags} utiliza.
+Otra característica interesante es el uso de \textit{hastags} en los tweets, en total, se han recopilado 15218 hastags. En la figura 4.3 se pueden observar los términos más utilizados. El \textit{hastag} más utilizado coincide con uno de los términos utilizados para la recopilación de los datos por el \textit{crawler}. El resto parecen estar relacionados con el programa televisivo ``Gran Hermano''. En la figura 4.4 se puede observar cómo España es el país que más \textit{hastags} utiliza.
 
 \begin{center}
 	\includegraphics[scale=0.5,keepaspectratio]{imagenes/hastags.png} %[width=4cm,,keepaspectratio]
@@ -408,7 +408,7 @@ Otra característica interesante es el uso de \textit{hastag} en los tweets, en t
 \end{center}
 
 
-Para identificar si los tweets utilizan una gramática adecuada, se ha observado las palabras OOV (\textit{out of vocabulary}) utilizando un diccionario español. En la figura 4.5 se muestra como los Estados Unidos es el país con más OOV por tweet, llegando a 4 palabras oov por tweet, lo que indica que los mensajes producidos contienen un gran número de palabras que no se encuentran en ningún diccionario. Esto obligará a realizar un procesamiento para intentar normalizar este tipo de términos y permiten el correcto funcionamiento del sistema de clasificación.
+Para identificar si los tweets utilizan una gramática adecuada, se han observado las palabras OOV (\textit{out of vocabulary}) utilizando un diccionario español. En la figura 4.5 se muestra cómo los Estados Unidos es el país con más OOV por tweet, llegando a 4 palabras OOV por tweet, lo que indica que los mensajes producidos contienen un gran número de palabras que no se encuentran en ningún diccionario. Esto obligará a realizar un procesamiento para intentar normalizar este tipo de términos y permitir el correcto funcionamiento del sistema de clasificación.
 
 \begin{center}
 	\includegraphics[scale=0.5,keepaspectratio]{imagenes/oov.png} %[width=4cm,,keepaspectratio]
@@ -433,23 +433,22 @@ Teniendo en cuenta el objetivo principal del presente trabajo, se ha propuesto l
 
 \begin{itemize}
 	\itemsep0em 
-	\item MACHISTA: tweets que contienen connotaciones machistas/ofensivas hacia las mujeres. Los tweets que pertenecen a esta categoría deben de contener actitudes discriminatorias hacia las mujeres por su sexo. Ejemplo:
+	\item MACHISTA: tweets con connotaciones machistas/ofensivas hacia las mujeres. Los tweets que pertenecen a esta categoría deben de contener actitudes discriminatorias hacia las mujeres por su sexo. Ejemplo:
 	``\textit{@EmanuelGPA Lo irónico es que lo dice una mujer, que ``naturalmente'' debería callarse y dedicarse a la cocina, limpiar y criar hijos}''
 	En este ejemplo, se infravalora a la mujer de un modo expreso.
 	             
-	\item NO\_MACHISTA: tweets que no contienen connotaciones machistas. Ejemplo:
+	\item NO\_MACHISTA: tweets que no tienen connotaciones machistas. Ejemplo:
 	``\textit{¿Por qué cuando ven a una chica con pelo corto piensan que es bi, torta o marimacho? ...Capaz es solo un look o que el pelo largo le da mucho calor... Y si es...¿Cual es el problema?}''
 	Dentro de esta categoría se clasifican también mensajes xenófobos y ofensivos en general pero que no discriminan a las mujeres por su sexo. Ejemplo: 
 	``\textit{@kenia773 @LuisCarlos POR CIERTO, EN TU FOTO DE PERFIL SE PUEDE OBSERVAR QUE ERES BASTANTE VARONIL, ASÍ QUE SI NO ERES MARIMACHO, EMPIEZA A SERLO}''
 	\item DUDOSO: tweets que, dependiendo del contexto, no presente en el tweet, podrían ser machistas (si el fragmento ofensivo se refiriese a mujeres). Ejemplo:        
-	``\textit{@hazteoir @PSOE Más vale que se marche a fregar!}''
-	Para poder considerar el tweet machista es necesario una referencia expresa a las mujeres, pese a que en el texto se pueda realizar una comparación con una mujer mediante una expresión machista.                  
+	``\textit{@hazteoir @PSOE Más vale que se marche a fregar!}''. Para poder considerar el tweet machista es necesario una referencia expresa a las mujeres, pese a que en el texto se pueda realizar una comparación con una mujer mediante una expresión machista.                  
 	
 \end{itemize}
 
-El proceso de etiquetado ha sido llevado a cabo por 3 anotadores que han analizado los 3600 tweets que conforman el corpus para asignar una de las 3 etiquetas propuestas. Para ello, se ha desarrollado una guía de etiquetado en la que se explican las etiquetas, se proponen ejemplos de cada una de ellas y se establecen las normas de entrega (ver apéndice). El etiquetado se llevó a cabo entre los meses de enero y marzo de 2019 mediante la herramienta ``Google Sheets'', un entorno de trabajo colaborativo online que permite la creación de hojas de cálculo.
+El proceso de etiquetado ha sido llevado a cabo por tres anotadores que han analizado los 3600 tweets que conforman el corpus para asignar una de las tres etiquetas propuestas. Para ello, se ha desarrollado una guía de etiquetado en la que se explican las etiquetas, se proponen ejemplos de cada una de ellas y se establecen las normas de entrega (ver apéndice). El etiquetado se llevó a cabo entre los meses de enero y marzo de 2019 mediante la herramienta ``Google Sheets'', un entorno de trabajo colaborativo online que permite la creación de hojas de cálculo.
 
-Durante el anotado del corpus, cada uno de los 3 etiquetadores propone una clase de las 3 disponibles para cada tweets. Al término del etiquetado, se decidirá por votación de los 3 anotadores la etiqueta final. En caso de desacuerdo total entre los 3, un cuarto etiquetador decidirá la clase final para el tweet.
+Durante el anotado del corpus, cada uno de los tres etiquetadores propone una clase de las tres disponibles para cada tweets. Al término del etiquetado, se decidirá por votación de los tres anotadores la etiqueta final. En caso de desacuerdo total entre los tres, un cuarto etiquetador decidirá la clase final para el tweet.
 
 
 \subsection{Dificultades encontradas en el etiquetado del corpus}
@@ -487,7 +486,7 @@ Otra de las dificultades encontradas durante el proceso de etiquetado ha sido la
 	``\textit{@mariarodd17 Tía ella diciendo cosas tipo: es que las mujeres de hoy en día son muy sueltas y son unas acosadoras, estás ahora van preparadas con to y van a los hombres diciéndoles vamos a pasar un rato que ni te cobro y ellos los pobres si tienen pareja tienen que ir preparados para no caer}''
 
 
-En los anteriores, hay contexto suficiente para comprender que se cita un contenido machista como ejemplo para apoyar su desacuerdo con ese tipo de lenguaje. Sin embargo, se ha decidido incluir tanto citas, chistes o incluso críticas al machismo como mensajes machistas. El objetivo principal de este trabajo ha sido identificar todo tipo de expresión machista para, de ese modo, determinar eso la cantidad de machismo existente en las redes sociales.
+En los anteriores, hay contexto suficiente para comprender que se cita un contenido machista como ejemplo para apoyar su desacuerdo con ese tipo de lenguaje. Sin embargo, se ha decidido incluir tanto citas, chistes o incluso críticas al machismo como mensajes machistas. El objetivo principal de este trabajo ha sido identificar todo tipo de expresión machista para, de ese modo, determinar la cantidad de machismo existente en las redes sociales.
 
 
 \subsection{Resultados del etiquetado del corpus}
@@ -496,7 +495,7 @@ En los anteriores, hay contexto suficiente para comprender que se cita un conten
 \subsubsection{Evaluación del acuerdo}
 \label{sec:Col_Eval}
 
-\noindent Para valorar el acuerdo alcanzado por los etiquetadores en su labor se ha optado por el cálculo del coeficiente \textit{kappa de Cohen} \cite{Cohen1960}. Esta medida permite realizar una estimación de la concordancia entre los etiquetadores de modo que se evalúen los resultados derivados del etiquetado manual. Una concordancia muy pobre podría indicar varios problemas en el proceso. Por una parte, podría ser que la naturaleza del problema dificulte la tarea de clasificación incluso para un humano, por lo tanto, se debería de replantear el problema. Por otro lado, los etiquetadores podrían no haber entendido la tarea y sus criterios para realizar la tarea no fueran homogéneos. La expresión se calcula del siguiente modo:
+\noindent Para valorar el acuerdo alcanzado por los etiquetadores en su labor se ha optado por el cálculo del coeficiente \textit{kappa de Cohen} \cite{Cohen1960}. Esta medida permite realizar una estimación de la concordancia entre los etiquetadores de modo que se evalúen los resultados derivados del etiquetado manual. Una concordancia muy pobre podría indicar varios problemas en el proceso. Por una parte, podría ser que la naturaleza del problema dificulte la tarea de clasificación incluso para un humano, por lo tanto, se debería de replantear el problema. Por otro lado, los etiquetadores podrían no haber entendido la tarea y que sus criterios para realizarla no fueran homogéneos. El coeficiente se calcula del siguiente modo:
 
 \[k=\frac{p_0 - p_c}{1-p_c}\]
 
@@ -507,7 +506,7 @@ donde $p_0$ representa el acuerdo observado relativo entre los etiquetadores o p
 
 \[p_c=\frac{1}{n^2}\sum_{i=1}^{p}n_{i\cdot}n_{\cdot i}\]
 
-Un valor de $k = 0$ indica que la proporción de acuerdo es igual a la probabilidad de acuerdo por azar. Para evaluar el nivel de acuerdo según el valor de este medida se suele utilizar como convención la tabla 4.3.
+Un valor de $k = 0$ indica que la proporción de acuerdo es igual a la probabilidad de acuerdo por azar. Para evaluar el nivel de acuerdo según el valor de esta medida se suele utilizar como convención la tabla 4.3.
 
 
 \begin{table}[]
@@ -529,7 +528,7 @@ Un valor de $k = 0$ indica que la proporción de acuerdo es igual a la probabilid
 \subsubsection{Acuerdo etiquetadores}
 \label{sec:Col_Eval}
 
-\noindent Se realizó una evaluación de la medida kappa en 2 puntos: Al completar el 20\% del etiquetado de todo el corpus y al etiquetar el corpus completo. En la primera evaluación, se obtuvieron los resultados de la tabla 4.4. En este caso, se valoró que para el número de clases distintas este valor del coeficiente kappa era insuficiente y se revisaron los patrones de etiquetas propuestos por cada uno de los etiquetadores. De este modo, se detectaron los siguientes problemas:
+\noindent Se realizó una evaluación de la medida kappa en dos puntos: al completar el 20\% del etiquetado de todo el corpus y al etiquetar el corpus completo. En la primera evaluación, se obtuvieron los resultados de la tabla 4.4. En este caso, se valoró que para el número de clases distintas este valor del coeficiente kappa era insuficiente y se revisaron los patrones de etiquetas propuestos por cada uno de los etiquetadores. De este modo, se detectaron los siguientes problemas:
 
 
 % Please add the following required packages to your document preamble:
@@ -623,7 +622,7 @@ Para el corpus final, se han asignado los valores de clase reflejados en la tabl
 	\label{my-label}
 \end{table}
 
-Utilizando los valores de la clase etiquetada, se han representado las variables numéricas de las que se disponen en el corpus (figura 4.8). Dos de las más destacadas se pueden observar en la figura 4.9, donde se representan el tamaño de los tweets en número de caracteres y de \textit{retweets}. Un aspecto a destacar es que los tweets DUDOSOS son, en media, mucho más cortos que el resto de valores de la clase; sin embargo, los tweets MACHISTAS y NO\_MACHISTAS siguen una distribución muy similar en cuanto al número de caracteres.
+Utilizando los valores de la clase etiquetada, se han representado las variables numéricas de las que se disponen en el corpus (figura 4.8). Dos de las más destacadas se pueden observar en la figura 4.9, donde se representan el tamaño de los tweets en número de caracteres y de \textit{retweets}. Un aspecto a destacar es que los tweets DUDOSOS son, en media, mucho más cortos para que el resto de valores de la clase; sin embargo, los tweets MACHISTAS y NO\_MACHISTAS siguen una distribución muy similar en cuanto al número de caracteres. Asimismo, cabe destacar que los tweets DUDOSOS presentan una menor cantidad de retweets que el resto de valores de etiquetas, por tanto, estos mensajes no se propagan tanto como el resto.
 
 \begin{center}
 	\includegraphics[scale=0.25,keepaspectratio]{imagenes/numericas_pairplot.png} %[width=4cm,,keepaspectratio]
