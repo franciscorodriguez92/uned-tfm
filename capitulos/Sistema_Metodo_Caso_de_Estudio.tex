@@ -8,7 +8,7 @@
 
 \noindent En el presente capítulo se describe el sistema automático de detección del machismo en redes sociales desarrollado en el presente trabajo fin de máster. El sistema está basado en aprendizaje supervisado y emplea distintos atributos unificados para, posteriormente, hacer uso de un algoritmo de aprendizaje de máquina que clasificará los registros de entrada en tres categorías: MACHISTA, NO\_MACHISTA Y DUDOSO. De este modo, los mensajes de texto o tweets de entrada se clasificarán según el grado de machismo que presenten.
 
-El sistema ha sido desarrollado teniendo en cuenta la naturaleza del problema tratado. En este caso, como ya se introdujo, se trata de texto en español por lo que método de clasificación estará preparado para trabajar con este idioma. No obstante, la arquitectura del sistema y las técnicas aplicadas pueden ser adaptadas perfectamente para otros idiomas.
+El sistema ha sido desarrollado teniendo en cuenta la naturaleza del problema tratado. En este caso, como ya se introdujo, se trata de texto en español, por lo que el método de clasificación estará preparado para trabajar con este idioma. No obstante, la arquitectura del sistema y las técnicas aplicadas pueden ser adaptadas perfectamente para otros idiomas.
 
 El sistema propuesto se divide en tres fases principales, tal y como se puede observar en la figura 5.1.
 
@@ -18,12 +18,12 @@ El sistema propuesto se divide en tres fases principales, tal y como se puede ob
 	
 \end{center}
 
-En la primera etapa, se realiza un preprocesado diferenciado según el tipo de atributo. En este sistema, se consideran tres tipos de atributos distintos: variables categóricas, numéricas y texto. Para cada atributo, se aplican diferentes métodos como la tokenización, el escalado o la sustitución de emoticonos. Tras esto, se unifican los distintos tipos de atributos procesados en un conjunto de datos común que será la entrada de la última fase. En la última etapa, se emplean algoritmos de clasificación supervisada con la intención de obtener un modelo predictivo capaz de detectar textos machistas. Se emplean tres métodos distintos de aprendizaje automático en este último paso: Regresión logística, Random Forest y Máquinas de vectores de soporte (SVM, ``Support Vector Machine''). Para evaluar los resultados obtenidos con estos algoritmos, se realiza una búsqueda de parámetros de entrada (GridSearchCV) y, posteriormente, se utilizan estos parámetros para realizar una validación cruzada en el conjunto de testeo.
+En la primera etapa, se realiza un preprocesado diferenciado según el tipo de atributo. En este sistema, se consideran tres tipos de atributos distintos: variables categóricas (aquellas que solo pueden tomar un número discreto de valores), numéricas y texto. Para cada atributo, se aplican diferentes métodos como la tokenización, el escalado o la sustitución de emoticonos. Tras esto, se unifican los distintos tipos de atributos procesados en un conjunto de datos común que será la entrada de la última fase. En la última etapa, se emplean algoritmos de clasificación supervisada con la intención de obtener un modelo predictivo capaz de detectar textos machistas. Se emplean tres métodos distintos de aprendizaje automático en este último paso: Regresión logística, Random Forest y Máquinas de vectores de soporte (SVM, ``Support Vector Machine''). Para evaluar los resultados obtenidos con estos algoritmos, se realiza una búsqueda de parámetros de entrada (GridSearchCV) en el conjunto de entrenamiento y, posteriormente, se utilizan estos parámetros para realizar una validación cruzada en el conjunto de evaluación.
 
 
 \section{Preprocesado}
 \label{sec:Ejemplo_seccion}
-\noindent La primera fase del sistema de clasificación lleva a cabo diferentes acciones relacionadas con el preprocesado. Se realizan tareas tan importantes como la división del texto en tokens que permitirá que la información lingüística sea tratada por las sucesivas etapas del sistema de clasificación. Como se introdujo, el tipo de preprocesado depende del tipo de atributo considerado. 
+\noindent La primera fase del sistema de clasificación lleva a cabo diferentes acciones relacionadas con el preprocesado. Se realizan tareas tan importantes como la división del texto en tokens, que permitirá que la información lingüística sea tratada por las sucesivas etapas del sistema de clasificación. Como se introdujo, el tipo de preprocesado depende del tipo de atributo considerado. 
 
 \subsection{Texto}{}
 \label{sec:Ejemplo_seccion}
@@ -52,11 +52,12 @@ Para ilustrar el funcionamiento de la etapa de preprocesado, se supone el siguie
 \begin{center}
 	\includegraphics[scale=0.5,keepaspectratio]{imagenes/ejemplo_preprocesado_correccion.png} %[width=4cm,,keepaspectratio]
 	\captionof{figure}{Ejemplo de preprocesado}	
+	\label{fig:ejemplo_prep}
 \end{center}
 
 Utilizando el preprocesado se obtendría la siguiente oración transformada: ``\textit{esta es la reina de las feministas de verdad o no twinterrogation twuser thumbs\_up twurl}". Como se puede observar, se han convertido los caracteres a minúscula, se ha reemplazado el caracter de interrogación, se ha sustituido la mención del usuario, se reemplaza el emoji por una descripción y se reemplaza la URL.
 
-A partir del texto preprocesado, se realiza la tokenización de cada mensaje. Para llevar a cabo este proceso se utiliza la clase ``\textit{TweetTokenizer}'' disponible en la librería ``NLTK''. Se trata de un tokenizador desarrollado específicamente para el texto generado en Twitter. Tras la tokenización, se obtiene para cada mensaje una lista de unidades independientes que, mayoritariamente, representarán palabras, emoticonos y signos de puntuación.
+A partir del texto preprocesado, se realiza la tokenización de cada mensaje. Para llevar a cabo este proceso se utiliza la clase ``\textit{TweetTokenizer}'' disponible en la librería NLTK. Se trata de un tokenizador desarrollado específicamente para el texto generado en Twitter. Tras la tokenización, se obtiene para cada mensaje una lista de unidades independientes que, mayoritariamente, representarán palabras, emoticonos y signos de puntuación.
 
 Una vez realizada la tokenización del mensaje, se llevan a cabo tres procesos: filtrado de stopwords, reemplazo de abreviaturas y \textit{stemming}. Las palabras vacías o stopwords constituyen el grupo de palabras sin un significado concreto, por ejemplo, artículos, preposiciones o conjunciones. Este tipo de elementos no aportan información adicional al contexto del mensaje y, por tanto, se eliminan antes del proceso de clasificación.
 
@@ -64,10 +65,9 @@ La tarea llevada a cabo en este trabajo presenta una dificultad añadida por el e
 
 Por último, se aplica un método de stemming para reducir las palabras a su raíz. En este caso, se utiliza el algoritmo de Porter \cite{Porter1980} desarrollado en la década de los ochenta por Martin Porter y basado en un conjunto de reglas aplicadas en cascada para obtener la raíz de las palabras.
 
-Para ilustrar el proceso anterior, se supone el ejemplo de la figura 4.3. Aplicando el proceso de tokenización se obtendría la siguiente lista de tokens: ['reina', 'feminista', 'verdad', 'twinterrog', 'twuser', 'thumbs\_up', 'twurl']. Como se puede observar, se obtiene una lista de palabras, emoticonos y signos de interrogación entre los cuales no se encuentran las palabras vacías.
+Para ilustrar el proceso anterior, se supone el ejemplo de la figura \ref{fig:ejemplo_prep}. Aplicando el proceso de tokenización se obtendría la siguiente lista de tokens: ['reina', 'feminista', 'verdad', 'twinterrog', 'twuser', 'thumbs\_up', 'twurl']. Como se puede observar, se obtiene una lista de palabras, emoticonos y signos de interrogación entre los cuales no se encuentran las palabras vacías.
 
-A partir del texto tokenizado, es necesario representar la información contenida en el texto de un modo interpretable por las etapas posteriores del sistema de clasificación. Para el presente trabajo, se realiza esta representación utilizando vectores de términos \textit{tf-idf} mediante los unigramas de los tokens obtenidos del proceso anterior.
-
+A partir del texto tokenizado, es necesario representar la información contenida en el texto de un modo interpretable por las etapas posteriores del sistema de clasificación. Para el presente trabajo, se realiza esta representación utilizando vectores de términos \textit{tf-idf} mediante los unigramas de los tokens obtenidos del proceso anterior. Los unigramas considerados serán aquellos que se repitan en, al menos, un 1\% en los documentos del corpus. Se han realizado pruebas para distintos filtros de frecuencia, reduciendo el umbral hasta el 0.3\%, sin embargo, los mejores resultados se han obtenido para un 1\% de frecuencia.
 
 
 \subsection{Atributos numéricos}{}
@@ -83,7 +83,7 @@ A partir del texto tokenizado, es necesario representar la información contenida
 	\item friends\_count: número de personas seguidas por el usuario que publica el tweet.
 	\item listed\_count: número de listas en las que está inscrito el usuario que publica el tweet.
 	\item statuses\_count: número de tweets publicados por el usuario que publicó el tweet.
-	\item favourites\_count: número de tweets que el usuario que publicó el tweet marcó como favorito.
+	\item favourites\_count: número de tweets que el usuario que publicó el tweet marcó como favoritos.
 \end{itemize}
 
 El uso de este tipo de atributos permite tener en cuenta distintos aspectos del contexto en el que se genera el tweet. Por ejemplo, existe un grupo de atributos como favorite\_count o retweet\_count que mide la popularidad del tweet. Este tipo de atributos permite valorar la posible propagación de un mensaje machista en Twitter. Por otra parte, existen campos como followers\_count que miden la popularidad del usuario que publica el tweet. Además, otros campos como display\_text\_width demuestran tener una relevancia especial para los tweets etiquetados con categoría ``DUDOSO'' (figura 4.9).
@@ -116,7 +116,7 @@ En los atributos categóricos únicamente se aplica una transformación para conver
 \label{sec:Ejemplo_seccion}
 \noindent En la segunda fase del sistema, se combinan todos los atributos que han sido preprocesados en la etapa anterior. Para cada tipo de atributo, se ha descrito el procesamiento realizado con la idea de acondicionar el conjunto de datos que se utilizará para ajustar un modelo de aprendizaje supervisado.
 
-En esta etapa se combinan los tres tipos distintos de atributos que se consideran:
+En esta etapa se concatenan los tres tipos distintos de atributos que se consideran:
 
 \begin{itemize}
 	\itemsep0em 
@@ -137,11 +137,11 @@ En la actualidad, la mayoría de trabajos llevan a cabo esta tarea mediante algor
 
 \begin{itemize}
 	\itemsep0em 
-	\item Línea base 1: Se clasifican todos los registros del testeo con la categoria mayoritaria.
+	\item Línea base 1: Se clasifican todos los registros de evaluación con la categoria mayoritaria.
 	\item Línea base 2 (atributos de texto): Se aplica regresión logística con la siguiente búsqueda de parámetros C = [1, 10], ``class\_weight'' = [None, 'balanced']. El parámetro C permite ajustar la regularización (valores más pequeños indican una mayor regularización) mientras que ``class\_weight'' realiza un balanceo de los valores de la clase cuando se configura el valor ``balanced''.
 	\item Regresión logística (atributos numéricos, categóricos y texto): Se aplica una regresión logística a todos los atributos disponibles con la siguiente búsqueda de parametros: C = [1, 10], ``class\_weight'' = [None, 'balanced'].
 	\item Random Forest (atributos numéricos, categóricos y texto): Se utiliza el algoritmo Random Forest con todos los atributos disponibles y los siguientes parámetros: ``n\_estimators'' = [250, 450], ``bootstrap'' = (True, False), ``max\_depth''= [None, 30]. El parámetro ``n\_estimators'' permite establecer el número de arboles de decisión a utilizar, ``bootstrap'' permite indicar si todo el conjunto de datos debe de ser utilizado para entrenar cada árbol y ``max\_depth'' indica la profundidad máxima de cada árbol.
-	\item SVM (atributos numéricos, categóricos y texto): Se utiliza el algoritmo SVM con todos los atributos disponibles y los siguientes parámetros: C = [1, 10, 100, 10000], ``gamma'' = [0.001, 0.1, 0.6, 'auto'], ``kernel'' = 'rbf'. El parámetro C permite regular el margen de la frontera de decisión mientras que ``kernel'' y ``gamma'' hacen referencia al tipo de núcleo utilizado.
+	\item SVM (atributos numéricos, categóricos y texto): Se utiliza el algoritmo SVM con todos los atributos disponibles y los siguientes parámetros: C = [1, 10, 100, 10000], ``gamma'' = [0.001, 0.1, 0.6, 'auto'], ``kernel'' = 'rbf'. El parámetro C permite regular el margen de la frontera de decisión mientras que ``kernel'' hace referencia al tipo de núcleo utilizado. En este caso, se utiliza un núcleo gaussiano donde la influencia de cada vector de soporte individualmente se regula con el parámetro ``gamma''.
 \end{itemize}
 
 Se ha seleccionado un subconjunto muy reducido de valores distintos para la búsqueda de parámetros de cada configuración debido a las limitaciones computacionales.
