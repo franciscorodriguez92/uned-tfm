@@ -13,7 +13,7 @@ El sistema ha sido desarrollado teniendo en cuenta la naturaleza del problema tr
 El sistema propuesto se divide en tres fases principales, tal y como se puede observar en la figura 5.1.
 
 \begin{center}
-	\includegraphics[scale=0.4,keepaspectratio]{imagenes/Pipeline_diagrama.jpg} %[width=4cm,,keepaspectratio]
+	\includegraphics[scale=0.45,keepaspectratio]{imagenes/Pipeline_diagrama.jpg} %[width=4cm,,keepaspectratio]
     \captionof{figure}{Arquitectura clasificador}
 	
 \end{center}
@@ -141,8 +141,8 @@ En la actualidad, la mayoría de trabajos llevan a cabo esta tarea mediante algor
 	\item Línea base 2 (atributos de texto): Se aplica regresión logística con la siguiente búsqueda de parámetros C = [1, 10], ``class\_weight'' = [None, 'balanced']. El parámetro C permite ajustar la regularización (valores más pequeños indican una mayor regularización) mientras que ``class\_weight'' realiza un balanceo de los valores de la clase cuando se configura el valor ``balanced''.
 	\item Regresión logística (atributos numéricos, categóricos y texto): Se aplica una regresión logística a todos los atributos disponibles con la siguiente búsqueda de parametros: C = [1, 10], ``class\_weight'' = [None, 'balanced'].
 	\item Random Forest (atributos numéricos, categóricos y texto): Se utiliza el algoritmo Random Forest con todos los atributos disponibles y los siguientes parámetros: ``n\_estimators'' = [250, 450], ``bootstrap'' = (True, False), ``max\_depth''= [None, 30]. El parámetro ``n\_estimators'' permite establecer el número de arboles de decisión a utilizar, ``bootstrap'' permite indicar si todo el conjunto de datos debe de ser utilizado para entrenar cada árbol y ``max\_depth'' indica la profundidad máxima de cada árbol.
-	\item SVM (atributos numéricos, categóricos y texto): Se utiliza el algoritmo SVM con todos los atributos disponibles y los siguientes parámetros: C = [1, 10, 100, 10000], ``gamma'' = [0.001, 0.1, 0.6, 'auto'], ``kernel'' = 'rbf'. El parámetro C permite regular el margen de la frontera de decisión mientras que ``kernel'' hace referencia al tipo de núcleo utilizado. En este caso, se utiliza un núcleo gaussiano donde la influencia de cada vector de soporte individualmente se regula con el parámetro ``gamma''.
+	\item SVM (atributos numéricos, categóricos y texto): Se utiliza el algoritmo SVM con todos los atributos disponibles y los siguientes parámetros: C = [1, 10, 100, 10000], ``gamma'' = [0.001, 0.1, 0.6, ``auto''], ``kernel'' = 'rbf'. El parámetro C permite regular el margen de la frontera de decisión mientras que ``kernel'' hace referencia al tipo de núcleo utilizado. En este caso, se utiliza un núcleo gaussiano donde la influencia de cada vector de soporte individualmente se regula con el parámetro ``gamma''.
 \end{itemize}
 
-Se ha seleccionado un subconjunto muy reducido de valores distintos para la búsqueda de parámetros de cada configuración debido a las limitaciones computacionales.
+Se ha seleccionado un subconjunto muy reducido de valores distintos para la búsqueda de parámetros en cada configuración debido a las limitaciones computacionales.
 
