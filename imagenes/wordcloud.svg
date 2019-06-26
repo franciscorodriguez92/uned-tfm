@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="1024px" height="768px" viewBox="0 0 1024 768">
+<defs>
+<style type="text/css"> @import url(https://fonts.googleapis.com/css?family=Pacifico); </style>
+</defs>
+<clipPath id="cp1">
+<path d="M 0,0 L 1024,0 L1024,768 L 0,768 z M 0,0 L 1280,0 L 1280,960 L 0,960 z" fill-rule="evenodd">
+</path>
+</clipPath>
+<g clip-path="url(#cp1)">
+</g>
+<rect x="0" y="0" width="1280" height="960" opacity="1" fill="#fff" stroke="none">
+</rect>
+<text x="-235.20518493652344" y="7.455408239999997" style="font: normal 74.5540824px Pacifico" text-anchor="start" dy="29.46801675889328" opacity="1" fill="#651d32" stroke="none" transform="translate(468, 418) rotate(-88.02850418197367)">como una mujer</text>
+<text x="-116.44210052490234" y="6.958381023999998" style="font: normal 69.58381024px Pacifico" text-anchor="start" dy="27.5034823083004" opacity="1" fill="#509e2f" stroke="none" transform="translate(612, 386)">feminazi</text>
+<text x="-123.72312927246094" y="5.964326591999999" style="font: normal 59.643265920000005px Pacifico" text-anchor="start" dy="23.57441340711463" opacity="1" fill="#abad23" stroke="none" transform="translate(612, 482)">a la cocina</text>
+<text x="-61.88642120361328" y="5.467299376" style="font: normal 54.672993760000004px Pacifico" text-anchor="start" dy="21.609878956521744" opacity="1" fill="#005f61" stroke="none" transform="translate(582, 420)">zorra</text>
+<text x="-77.87986755371094" y="4.97027216" style="font: normal 49.702721600000004px Pacifico" text-anchor="start" dy="19.645344505928858" opacity="1" fill="#41b6e6" stroke="none" transform="translate(376, 396)">loca del</text>
+<text x="-126.54112243652344" y="4.473244944000001" style="font: normal 44.73244944px Pacifico" text-anchor="start" dy="17.68081005533597" opacity="1" fill="#005f61" stroke="none" transform="translate(622, 520) rotate(4.80668405603954)">como una nina</text>
+<text x="-125.35576629638672" y="4.473244944000001" style="font: normal 44.73244944px Pacifico" text-anchor="start" dy="17.68081005533597" opacity="1" fill="#509e2f" stroke="none" transform="translate(340, 480) rotate(54.76164054082252)">las feministas</text>
+<text x="-50.872894287109375" y="3.976217728" style="font: normal 39.76217728px Pacifico" text-anchor="start" dy="15.716275604743085" opacity="1" fill="#509e2f" stroke="none" transform="translate(408, 348)">ninata</text>
+<text x="-74.46796417236328" y="3.479190511999999" style="font: normal 34.79190512px Pacifico" text-anchor="start" dy="13.7517411541502" opacity="1" fill="#651d32" stroke="none" transform="translate(382, 310)">en tus dias</text>
+<text x="-58.290611267089844" y="3.479190511999999" style="font: normal 34.79190512px Pacifico" text-anchor="start" dy="13.7517411541502" opacity="1" fill="#41b6e6" stroke="none" transform="translate(394, 438)">a fregar</text>
+<text x="-51.79730987548828" y="2.9821632959999995" style="font: normal 29.821632960000002px Pacifico" text-anchor="start" dy="11.787206703557315" opacity="1" fill="#005f61" stroke="none" transform="translate(418, 494)">mojigata</text>
+<text x="-66.37930297851562" y="2.9821632959999995" style="font: normal 29.821632960000002px Pacifico" text-anchor="start" dy="11.787206703557315" opacity="1" fill="#41b6e6" stroke="none" transform="translate(626, 446)">marimacho</text>
+<text x="-75.2581558227539" y="2.48513608" style="font: normal 24.851360800000002px Pacifico" text-anchor="start" dy="9.822672252964429" opacity="1" fill="#41b6e6" stroke="none" transform="translate(578, 546)">para ser mujer</text>
+<text x="-33.89537048339844" y="2.48513608" style="font: normal 24.851360800000002px Pacifico" text-anchor="start" dy="9.822672252964429" opacity="1" fill="#005f61" stroke="none" transform="translate(536, 334)">nenaza</text>
+<text x="-71.49834442138672" y="1.988108864" style="font: normal 19.88108864px Pacifico" text-anchor="start" dy="7.858137802371543" opacity="1" fill="#41b6e6" stroke="none" transform="translate(394, 258) rotate(23.940885557956882)">odio a las mujeres</text>
+<text x="-39.938873291015625" y="1.988108864" style="font: normal 19.88108864px Pacifico" text-anchor="start" dy="7.858137802371543" opacity="1" fill="#509e2f" stroke="none" transform="translate(544, 218)">lagartona</text>
+<text x="-88.61502075195312" y="1.988108864" style="font: normal 19.88108864px Pacifico" text-anchor="start" dy="7.858137802371543" opacity="1" fill="#651d32" stroke="none" transform="translate(602, 570)">A las mujeres hay que</text>
+<text x="-70.43475341796875" y="1.4910816479999998" style="font: normal 14.910816480000001px Pacifico" text-anchor="start" dy="5.8936033517786575" opacity="1" fill="#41b6e6" stroke="none" transform="translate(338, 284)">las mujeres no deberian</text>
+<text x="-74.72882080078125" y="1.4910816479999998" style="font: normal 14.910816480000001px Pacifico" text-anchor="start" dy="5.8936033517786575" opacity="1" fill="#abad23" stroke="none" transform="translate(724, 312) rotate(-55.35675519836291)">las mujeres de hoy en dia</text>
+<text x="-49.963356018066406" y="1.4910816479999998" style="font: normal 14.910816480000001px Pacifico" text-anchor="start" dy="5.8936033517786575" opacity="1" fill="#005f61" stroke="none" transform="translate(410, 232)">mujer al volante</text>
+<text x="-66.65508270263672" y="1.4910816479999998" style="font: normal 14.910816480000001px Pacifico" text-anchor="start" dy="5.8936033517786575" opacity="1" fill="#509e2f" stroke="none" transform="translate(394, 208)">mucho feminismo pero</text>
+<text x="-40.86824035644531" y="0.994054432" style="font: normal 9.94054432px Pacifico" text-anchor="start" dy="3.9290689011857713" opacity="1" fill="#651d32" stroke="none" transform="translate(672, 346) rotate(-37.561633602873094)">mujer tenias que ser</text>
+<text x="-33.26911926269531" y="0.994054432" style="font: normal 9.94054432px Pacifico" text-anchor="start" dy="3.9290689011857713" opacity="1" fill="#651d32" stroke="none" transform="translate(564, 364)">pareces una puta</text>
+<text x="-28.03571319580078" y="0.994054432" style="font: normal 9.94054432px Pacifico" text-anchor="start" dy="3.9290689011857713" opacity="1" fill="#005f61" stroke="none" transform="translate(530, 324)">para ser chica</text>
+<text x="-27.22064971923828" y="0.994054432" style="font: normal 9.94054432px Pacifico" text-anchor="start" dy="3.9290689011857713" opacity="1" fill="#abad23" stroke="none" transform="translate(518, 462) rotate(75.85947864215034)">acabaras sola</text>
+<text x="-45.61457061767578" y="0.994054432" style="font: normal 9.94054432px Pacifico" text-anchor="start" dy="3.9290689011857713" opacity="1" fill="#abad23" stroke="none" transform="translate(608, 464)">hombre que te aguante</text>
+<text x="-57.68669891357422" y="0.994054432" style="font: normal 9.94054432px Pacifico" text-anchor="start" dy="3.9290689011857713" opacity="1" fill="#41b6e6" stroke="none" transform="translate(552, 196)">obsesionada con el machismo</text>
+<text x="-37.041343688964844" y="0.994054432" style="font: normal 9.94054432px Pacifico" text-anchor="start" dy="3.9290689011857713" opacity="1" fill="#651d32" stroke="none" transform="translate(416, 472)">pareces una fulana</text>
+<text x="-25.468673706054688" y="0.497027216" style="font: normal 4.97027216px Pacifico" text-anchor="start" dy="1.9645344505928857" opacity="1" fill="#005f61" stroke="none" transform="translate(562, 350) rotate(-15.669553895926677)">no ha probado un hombre</text>
+</svg>
