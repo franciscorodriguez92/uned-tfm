@@ -276,7 +276,7 @@
 }
 
 @InProceedings{Pedregosa2011,
-  author    = {Pedregosa Fabian and Varoquaux Gaelle and Gramfort Alexandre},
+  author    = {Fabian Pedregosa and Alexandre Gramfort},
   title     = {Scikit-learn: Machine learning in Python},
   booktitle = {JMLR},
   year      = {2011},
